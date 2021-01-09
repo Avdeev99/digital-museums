@@ -2,6 +2,18 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalMuseums.Api", "DigitalMuseums.Api\DigitalMuseums.Api.csproj", "{4434C614-DFEA-4BAA-9404-4FE7ECC83866}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalMuseums.Api.Contracts", "DigitalMuseums.Api.Contracts\DigitalMuseums.Api.Contracts.csproj", "{82E93F75-BA3B-426E-8A07-4C98C317F423}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalMuseums.Core", "DigitalMuseums.Core\DigitalMuseums.Core.csproj", "{A84BCBEF-755C-4988-994D-B61CF65D7860}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalMuseums.Core.Domain", "DigitalMuseums.Core.Domain\DigitalMuseums.Core.Domain.csproj", "{11BAE229-6160-4B84-B61C-7BCA9B22E8BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalMuseums.Data", "DigitalMuseums.Data\DigitalMuseums.Data.csproj", "{3B77B437-3023-4D9C-98A5-4D2BD4827F21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalMuseums.Infrastructure", "DigitalMuseums.Infrastructure\DigitalMuseums.Infrastructure.csproj", "{B28AD224-713F-49ED-9747-A39E6098446E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalMuseums.Auth", "DigitalMuseums.Auth\DigitalMuseums.Auth.csproj", "{62B01ECC-0C23-4A8A-8256-09B7D1C91DAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +24,29 @@ Global
 		{4434C614-DFEA-4BAA-9404-4FE7ECC83866}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4434C614-DFEA-4BAA-9404-4FE7ECC83866}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4434C614-DFEA-4BAA-9404-4FE7ECC83866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82E93F75-BA3B-426E-8A07-4C98C317F423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E93F75-BA3B-426E-8A07-4C98C317F423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E93F75-BA3B-426E-8A07-4C98C317F423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E93F75-BA3B-426E-8A07-4C98C317F423}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A84BCBEF-755C-4988-994D-B61CF65D7860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A84BCBEF-755C-4988-994D-B61CF65D7860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A84BCBEF-755C-4988-994D-B61CF65D7860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A84BCBEF-755C-4988-994D-B61CF65D7860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11BAE229-6160-4B84-B61C-7BCA9B22E8BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BAE229-6160-4B84-B61C-7BCA9B22E8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BAE229-6160-4B84-B61C-7BCA9B22E8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BAE229-6160-4B84-B61C-7BCA9B22E8BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B77B437-3023-4D9C-98A5-4D2BD4827F21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B77B437-3023-4D9C-98A5-4D2BD4827F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B77B437-3023-4D9C-98A5-4D2BD4827F21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B77B437-3023-4D9C-98A5-4D2BD4827F21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B28AD224-713F-49ED-9747-A39E6098446E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B28AD224-713F-49ED-9747-A39E6098446E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B28AD224-713F-49ED-9747-A39E6098446E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B28AD224-713F-49ED-9747-A39E6098446E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62B01ECC-0C23-4A8A-8256-09B7D1C91DAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B01ECC-0C23-4A8A-8256-09B7D1C91DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B01ECC-0C23-4A8A-8256-09B7D1C91DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B01ECC-0C23-4A8A-8256-09B7D1C91DAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
