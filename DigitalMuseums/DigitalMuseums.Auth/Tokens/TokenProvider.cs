@@ -20,10 +20,10 @@ namespace DigitalMuseums.Auth.Tokens
         {
             var claims = new List<Claim>
             {
-                new(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                new(ClaimTypes.Name, user.UserName),
-                new(ClaimTypes.Email, user.Email),
-                new(ClaimTypes.DateOfBirth, user.BirthDate.ToString(CultureInfo.InvariantCulture))
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.DateOfBirth, user.BirthDate.ToString(CultureInfo.InvariantCulture))
             };
 
             if (user.Role != null)
