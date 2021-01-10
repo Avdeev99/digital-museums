@@ -5,4 +5,12 @@
         <RootNamespace>DigitalMuseums.Api</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DigitalMuseums.Infrastructure\DigitalMuseums.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
