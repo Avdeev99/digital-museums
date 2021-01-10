@@ -8,17 +8,14 @@ namespace DigitalMuseums.Core.Domain.Models.Domain
         public string Name { get; set; }
         
         public string Description { get; set; }
+
+        public DateTime? StartDate { get; set; }
         
-        public DateTime Date { get; set; }
+        public DateTime? EndDate { get; set; }
         
-        public DateTime StartDate { get; set; }
-        
-        public DateTime EndDate { get; set; }
-        
-        public int AgeLimit { get; set; }
+        public int? AgeLimit { get; set; }
         
         public List<string> Tags { get; set; }
-
 
         public ICollection<Exhibit> Exhibits { get; set; }
     }

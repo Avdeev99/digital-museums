@@ -16,14 +16,23 @@ namespace DigitalMuseums.Data.Configurations
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
-            //builder.Property(e => e.UserName).IsRequired();
-            //builder.Property(e => e.Email).IsRequired();
-            //builder.Property(e => e.Password).IsRequired();
-            //builder.Property(e => e.CreationDate).IsRequired();
-            //builder.Property(e => e.LastLoginDate).IsRequired();
+            builder.Property(e => e.UserName).IsRequired();
+            builder.Property(e => e.Email).IsRequired();
+            builder.Property(e => e.Password).IsRequired();
+            builder.Property(e => e.BirthDate).IsRequired();
 
-            //builder.HasIndex(e => e.Email).IsUnique();
-            //builder.HasIndex(e => e.UserName).IsUnique();
+            builder.HasIndex(e => e.Email).IsUnique();
+
+            builder
+                .HasOne(src => src.Museum)
+                .WithOne(dest => dest.User)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(src => src.Orders)
+                .WithOne(dest => dest.User)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
