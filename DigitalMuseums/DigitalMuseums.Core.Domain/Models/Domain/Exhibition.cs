@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace DigitalMuseums.Core.Domain.Models.Domain
 {
-    public class Exhibition
+    public class Exhibition : BaseEntity
     {
-        public int ExhibitionId { get; set; }
-        
         public string Name { get; set; }
         
         public string Description { get; set; }

@@ -2,13 +2,10 @@ using System.Collections.Generic;
 
 namespace DigitalMuseums.Core.Domain.Models.Location
 {
-    public class City
+    public class City : BaseEntity
     {
-        public int CityId { get; set; }
-
         public string Name { get; set; }
-        
-        
+
         public int RegionId { get; set; }
 
         public Region Region { get; set; }

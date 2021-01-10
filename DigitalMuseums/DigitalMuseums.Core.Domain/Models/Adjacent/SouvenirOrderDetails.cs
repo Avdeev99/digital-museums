@@ -2,7 +2,7 @@ using DigitalMuseums.Core.Domain.Models.Domain;
 
 namespace DigitalMuseums.Core.Domain.Models.Adjacent
 {
-    public class SouvenirOrderDetails
+    public class SouvenirOrderDetails : BaseEntity
     {
         public int SouvenirId { get; set; }
         

@@ -2,13 +2,10 @@ using DigitalMuseums.Core.Domain.Models.Domain;
 
 namespace DigitalMuseums.Core.Domain.Models.Secondary
 {
-    public class Image
+    public class Image : BaseEntity
     {
-        public int ImageId { get; set; }
-
         public string Path { get; set; }
-        
-        
+
         public int MuseumId { get; set; }
         
         public Museum Museum { get; set; }
