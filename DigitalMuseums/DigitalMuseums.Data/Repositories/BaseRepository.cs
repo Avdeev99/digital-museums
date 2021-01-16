@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DigitalMuseums.Core.Data.Contracts;
 using DigitalMuseums.Core.Domain.Models;
+using DigitalMuseums.Data.DbContext;
 using DigitalMuseums.Data.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +21,7 @@ namespace DigitalMuseums.Data.Repositories
         /// Initializes a new instance of the <see cref="BaseRepository{TEntity}"/> class.
         /// </summary>
         /// <param name="context">The <see cref="DbContext"/> reference.</param>
-        public BaseRepository(Microsoft.EntityFrameworkCore.DbContext context)
+        public BaseRepository(DigitalMuseumsContext context)
         {
             databaseSet = context.Set<TEntity>();
         }

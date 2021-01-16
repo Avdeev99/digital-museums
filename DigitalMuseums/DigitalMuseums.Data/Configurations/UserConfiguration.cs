@@ -1,4 +1,7 @@
-﻿using DigitalMuseums.Core.Domain.Models.Auth;
+﻿using System;
+using System.Collections.Generic;
+using CryptoHelper;
+using DigitalMuseums.Core.Domain.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -33,6 +36,19 @@ namespace DigitalMuseums.Data.Configurations
                 .WithOne(dest => dest.User)
                 .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasData(new List<User>()
+            {
+                new User()
+                {
+                    Id = 1,
+                    UserName = "Admin",
+                    Email = "admin@gmail.com",
+                    BirthDate = new DateTime(1990, 1, 1),
+                    Password = Crypto.HashPassword("qwe123"),
+                    RoleId = 1
+                }
+            });
         }
     }
 }

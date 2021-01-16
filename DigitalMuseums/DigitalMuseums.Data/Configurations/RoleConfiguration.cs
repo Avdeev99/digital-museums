@@ -1,4 +1,5 @@
-﻿using DigitalMuseums.Core.Domain.Models.Auth;
+﻿using System.Collections.Generic;
+using DigitalMuseums.Core.Domain.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,6 +24,12 @@ namespace DigitalMuseums.Data.Configurations
                 .WithOne(dest => dest.Role)
                 .HasForeignKey(e => e.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasData(new List<Role>
+            {
+                new Role { Id = 1, Name = "Admin" },
+                new Role { Id = 2, Name = "MuseumOwner" },
+            });
         }
     }
 }

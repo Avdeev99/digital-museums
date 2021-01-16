@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using DigitalMuseums.Api.Extensions;
+using DigitalMuseums.Core.Extensions;
 using DigitalMuseums.Data.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,7 @@ namespace DigitalMuseums.Api
         {
             var dbConnectionString = configuration.GetConnectionString(DatabaseConnectionStringName);
             services.AddDbDataAccess(dbConnectionString);
+            services.AddCore();
 
             AuthConfiguratorExtensions.Configure(services, configuration);
 

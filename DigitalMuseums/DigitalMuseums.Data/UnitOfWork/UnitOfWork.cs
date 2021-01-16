@@ -1,4 +1,5 @@
 ﻿using DigitalMuseums.Core.Data.Contracts;
+using DigitalMuseums.Data.DbContext;
 
 namespace DigitalMuseums.Data.UnitOfWork
 {
@@ -8,7 +9,7 @@ namespace DigitalMuseums.Data.UnitOfWork
         /// <summary>
         /// The database context.
         /// </summary>
-        private readonly Microsoft.EntityFrameworkCore.DbContext dbContext;
+        private readonly DigitalMuseumsContext dbContext;
 
         /// <summary>
         /// The repository factory.
@@ -20,7 +21,7 @@ namespace DigitalMuseums.Data.UnitOfWork
         /// </summary>
         /// <param name="dbContext">The <see cref="DbContext"/> reference.</param>
         /// <param name="repositoryFactory">The <see cref="IRepositoryFactory"/> reference.</param>
-        public UnitOfWork(Microsoft.EntityFrameworkCore.DbContext dbContext, IRepositoryFactory repositoryFactory)
+        public UnitOfWork(DigitalMuseumsContext dbContext, IRepositoryFactory repositoryFactory)
         {
             this.dbContext = dbContext;
             this.repositoryFactory = repositoryFactory;
