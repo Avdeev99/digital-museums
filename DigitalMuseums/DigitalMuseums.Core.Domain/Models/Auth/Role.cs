@@ -2,10 +2,8 @@ using System.Collections.Generic;
 
 namespace DigitalMuseums.Core.Domain.Models.Auth
 {
-    public class Role
+    public class Role : BaseEntity
     {
-        public int RoleId { get; set; }
-
         public string Name { get; set; }
 
 

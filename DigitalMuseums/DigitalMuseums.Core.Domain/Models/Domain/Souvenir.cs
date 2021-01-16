@@ -3,10 +3,8 @@ using DigitalMuseums.Core.Domain.Models.Secondary;
 
 namespace DigitalMuseums.Core.Domain.Models.Domain
 {
-    public class Souvenir
+    public class Souvenir : BaseEntity
     {
-        public int SouvenirId { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -16,7 +14,6 @@ namespace DigitalMuseums.Core.Domain.Models.Domain
         public int AvailableUnits { get; set; }
 
         public List<string> Tags { get; set; }
-
 
         public ICollection<Image> Images { get; set; }
 

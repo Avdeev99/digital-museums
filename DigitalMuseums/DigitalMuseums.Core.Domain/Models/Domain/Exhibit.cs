@@ -4,10 +4,8 @@ using DigitalMuseums.Core.Domain.Models.Secondary;
 
 namespace DigitalMuseums.Core.Domain.Models.Domain
 {
-    public class Exhibit
+    public class Exhibit : BaseEntity
     {
-        public int ExhibitId { get; set; }
-        
         public string Name { get; set; }
         
         public string Description { get; set; }

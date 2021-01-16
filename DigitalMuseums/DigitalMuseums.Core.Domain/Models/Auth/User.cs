@@ -4,10 +4,8 @@ using DigitalMuseums.Core.Domain.Models.Domain;
 
 namespace DigitalMuseums.Core.Domain.Models.Auth
 {
-    public class User
+    public class User : BaseEntity
     {
-        public int UserId { get; set; }
-
         public string UserName { get; set; }
 
         public string Email { get; set; }
@@ -15,7 +13,6 @@ namespace DigitalMuseums.Core.Domain.Models.Auth
         public string Password { get; set; }
 
         public DateTime BirthDate { get; set; }
-
 
         public int RoleId { get; set; }
 
