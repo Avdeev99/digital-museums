@@ -1,6 +1,9 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using AutoMapper;
 using DigitalMuseums.Api.Extensions;
+using DigitalMuseums.Api.Mappings;
+using DigitalMuseums.Auth.Extensions;
 using DigitalMuseums.Core.Extensions;
 using DigitalMuseums.Data.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +40,11 @@ namespace DigitalMuseums.Api
             var dbConnectionString = configuration.GetConnectionString(DatabaseConnectionStringName);
             services.AddDbDataAccess(dbConnectionString);
             services.AddCore();
+            services.AddAuth(configuration);
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<ApiMappingProfile>();
+            });
 
             AuthConfiguratorExtensions.Configure(services, configuration);
 

@@ -1,0 +1,28 @@
+<mat-form-field class="custom-form-control custom-chip-list">
+  <mat-chip-list #chipList>
+    <mat-chip
+      *ngFor="let option of selectedOptions; trackBy: trackByFn"
+      removable
+      selectable
+      (removed)="onChipRemove(option)"
+    >
+      {{ option.title }}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      [placeholder]="label"
+      #chipInput
+      [formControl]="hiddenControl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="onChipAdd($event)"
+      (focus)="onInputFocus()"
+    />
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelect($event)">
+    <mat-option *ngFor="let option of filteredOptions$ | async; trackBy: trackByFn" [value]="option">
+      {{ option.title }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

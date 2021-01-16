@@ -1,0 +1,12 @@
+<div class="slider-holder" [ngClass]="{ reverse: inputPosition === 'before' }">
+  <mat-slider
+    [max]="maxValue"
+    [min]="minValue"
+    [step]="step"
+    [thumbLabel]="showThumbLabel"
+    [value]="control.value"
+    (change)="onSlideChange($event)"
+  >
+  </mat-slider>
+  <span class="value">{{ control?.value || 0 }}</span>
+</div>

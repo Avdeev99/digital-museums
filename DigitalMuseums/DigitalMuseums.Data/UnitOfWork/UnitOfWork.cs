@@ -1,4 +1,5 @@
-﻿using DigitalMuseums.Core.Data.Contracts;
+﻿using System.Threading.Tasks;
+using DigitalMuseums.Core.Data.Contracts;
 using DigitalMuseums.Data.DbContext;
 
 namespace DigitalMuseums.Data.UnitOfWork
@@ -40,7 +41,7 @@ namespace DigitalMuseums.Data.UnitOfWork
         }
 
         /// <inheritdoc />
-        public async void SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
             await dbContext.SaveChangesAsync();
         }

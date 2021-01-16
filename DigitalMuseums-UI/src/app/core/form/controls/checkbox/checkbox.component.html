@@ -1,0 +1,11 @@
+<mat-checkbox
+  class="custom-form-control custom-checkbox"
+  color="primary"
+  [labelPosition]="labelPosition"
+  [formControl]="control"
+>
+  {{ label }}
+</mat-checkbox>
+<mat-error>
+  <app-field-error [control]="control" [validatorErrors]="validatorErrors"></app-field-error>
+</mat-error>

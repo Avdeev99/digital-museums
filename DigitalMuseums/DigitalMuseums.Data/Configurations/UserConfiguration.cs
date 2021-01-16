@@ -21,8 +21,6 @@ namespace DigitalMuseums.Data.Configurations
 
             builder.Property(e => e.UserName).IsRequired();
             builder.Property(e => e.Email).IsRequired();
-            builder.Property(e => e.Password).IsRequired();
-            builder.Property(e => e.BirthDate).IsRequired();
 
             builder.HasIndex(e => e.Email).IsUnique();
 

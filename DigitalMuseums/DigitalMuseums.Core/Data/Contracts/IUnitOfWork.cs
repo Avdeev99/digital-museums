@@ -1,4 +1,6 @@
-﻿namespace DigitalMuseums.Core.Data.Contracts
+﻿using System.Threading.Tasks;
+
+namespace DigitalMuseums.Core.Data.Contracts
 {
     /// <summary>
     /// The UnitOfWork interface.
@@ -22,6 +24,6 @@
         /// <summary>
         /// The save changes.
         /// </summary>
-        void SaveChangesAsync();
+        Task SaveChangesAsync();
     }
 }

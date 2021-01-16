@@ -1,0 +1,21 @@
+@import './../../../../../assets/styles/variables.scss';
+.slider-holder {
+  display: flex;
+  mat-slider {
+    width: 100%;
+  }
+  .value {
+    max-width: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $yellow;
+    font-size: 19px;
+    line-height: 22px;
+    font-weight: bold;
+  }
+}
+.slider-holder.reverse {
+  flex-direction: row-reverse;
+}
