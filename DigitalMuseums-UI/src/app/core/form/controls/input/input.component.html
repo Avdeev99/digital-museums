@@ -1,0 +1,7 @@
+<mat-form-field class="custom-form-control custom-input">
+  <mat-label>{{ label }}</mat-label>
+  <input [formControl]="control" matInput [type]="inputType" />
+  <mat-error>
+    <app-field-error [control]="control" [validatorErrors]="validatorErrors"></app-field-error>
+  </mat-error>
+</mat-form-field>

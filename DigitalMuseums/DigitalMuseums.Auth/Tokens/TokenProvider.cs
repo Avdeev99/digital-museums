@@ -22,8 +22,7 @@ namespace DigitalMuseums.Auth.Tokens
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.DateOfBirth, user.BirthDate.ToString(CultureInfo.InvariantCulture))
+                new Claim(ClaimTypes.Email, user.Email)
             };
 
             if (user.Role != null)

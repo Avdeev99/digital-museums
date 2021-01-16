@@ -6,10 +6,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+      <PackageReference Include="Google.Apis.Auth" Version="1.49.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.2" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DigitalMuseums.Api.Contracts\DigitalMuseums.Api.Contracts.csproj" />
+      <ProjectReference Include="..\DigitalMuseums.Auth\DigitalMuseums.Auth.csproj" />
       <ProjectReference Include="..\DigitalMuseums.Data\DigitalMuseums.Data.csproj" />
     </ItemGroup>
 

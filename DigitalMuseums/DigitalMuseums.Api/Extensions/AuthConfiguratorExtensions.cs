@@ -12,6 +12,8 @@ namespace DigitalMuseums.Api.Extensions
     {
         public static void Configure(IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<ApiAuthOptions>(configuration.GetSection(nameof(ApiAuthOptions)));
+            
             var apiAuthOptions = configuration.GetSection(nameof(ApiAuthOptions)).Get<ApiAuthOptions>();
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

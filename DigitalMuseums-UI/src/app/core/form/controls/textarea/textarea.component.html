@@ -1,0 +1,7 @@
+<mat-form-field class="example-full-width">
+  <mat-label>{{ label }}</mat-label>
+  <textarea [formControl]="control" matInput></textarea>
+  <mat-error>
+    <app-field-error [control]="control" [validatorErrors]="validatorErrors"></app-field-error>
+  </mat-error>
+</mat-form-field>

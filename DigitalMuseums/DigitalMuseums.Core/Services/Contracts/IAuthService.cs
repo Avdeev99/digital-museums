@@ -1,4 +1,6 @@
-﻿using DigitalMuseums.Core.Domain.Models.Auth;
+﻿using System.Threading.Tasks;
+using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.Models.Auth;
 
 namespace DigitalMuseums.Core.Services.Contracts
 {
@@ -11,7 +13,7 @@ namespace DigitalMuseums.Core.Services.Contracts
         /// Authenticates the specified user with google.
         /// </summary>
         /// <param name="user">The user.</param>
-        /// <returns>Access token.</returns>
-        string AuthenticateWithGoogle(User user);
+        /// <returns>Access token and user.</returns>
+        Task<AuthDto> AuthenticateWithGoogle(User user);
     }
 }

@@ -1,0 +1,20 @@
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: unset!important; // disable default background color for mat-select
+}
+.mat-form-field { width: 100%; }
+.mat-chip-list-wrapper { width: 100%;}
+
+// ------ material tabs overwrite --------
+.mat-tab-group {
+    height: 100%;
+    .mat-tab-body-wrapper {
+        padding: 20px 0 0;
+        height: 100%;
+    }
+    .mat-tab-labels {
+        .mat-tab-label {
+            min-width: auto;
+            padding: 0 15px;
+        }
+    }
+}

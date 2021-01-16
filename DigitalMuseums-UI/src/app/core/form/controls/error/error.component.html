@@ -1,0 +1,3 @@
+<mat-error *ngFor="let validator of validatorErrors">
+  <mat-error *ngIf="control.hasError(validator.errorName)">{{ validator.errorText }}</mat-error>
+</mat-error>
