@@ -1,9 +1,12 @@
+import { Observable } from 'rxjs';
+import { AuthRequest } from './models/auth-request.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService as SocialAuthService, SocialUser } from 'angularx-social-login';
 import { api, storage } from './constants/api.constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAuthResponse } from './models/auth-response.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +42,22 @@ export class AuthService {
     });
   }
 
+  public authenticate(authRequest: AuthRequest): Observable<any> {
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
+    const requestUrl: string = `${api.authenticate}`;
+
+    return this.httpClient.post(requestUrl, authRequest).pipe(
+      tap((authResponse: IAuthResponse) =>{
+        localStorage.setItem(storage.token, JSON.stringify(authResponse.token));
+        localStorage.setItem(storage.currentUser, JSON.stringify(authResponse.user));
+
+        this.router.navigate([this.returnUrl]);
+      }),
+    );
+  }
+
   public logout(): void {
     localStorage.removeItem(storage.token);
+    localStorage.removeItem(storage.currentUser);
   }
 }

@@ -1,2 +1,15 @@
 <p>login works!</p>
-<button (click)="externalLogin(googleProviderId)">Login</button>
+<form [formGroup]="formGroup">
+    <label>
+      Email
+      <app-input [label]="'Email'" [control]="formGroup.controls.email"></app-input>
+    </label>
+    <label>
+        Password
+        <app-input [label]="'Password'" [control]="formGroup.controls.password"></app-input>
+    </label>
+    <button (click)="authenticate()">Login</button>
+</form>
+  
+
+<button (click)="externalLogin(googleProviderId)">Login by google</button>
