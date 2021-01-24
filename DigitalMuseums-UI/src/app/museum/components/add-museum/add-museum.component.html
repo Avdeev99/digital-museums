@@ -1,0 +1,57 @@
+<form [formGroup]="formGroup">
+    <div>
+        <label>
+            {{ 'museum.name' | translate }}
+            <app-input [label]="'museum.name' | translate" [control]="formGroup.controls.name"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'museum.description' | translate }}
+            <app-input [label]="'museum.description' | translate" [control]="formGroup.controls.description"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'location.country' | translate }}
+            <app-select
+                [label]="'location.country' | translate"
+                [control]="formGroup.controls.countryId"
+                [options]="countries"
+            ></app-select>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'location.region' | translate }}
+            <app-select [label]="'location.region' | translate" [control]="formGroup.controls.regionId"></app-select>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'location.city' | translate }}
+            <app-select [label]="'location.city' | translate" [control]="formGroup.controls.cityId"></app-select>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'location.address' | translate }}
+            <app-input [label]="'location.address' | translate" [control]="formGroup.controls.address"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'museum.genre' | translate }}
+            <app-select [label]="'museum.genre' | translate" [control]="formGroup.controls.genreId"></app-select>
+          </label>
+    </div>
+
+    <br>
+    <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+</form>

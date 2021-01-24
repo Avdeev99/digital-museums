@@ -11,6 +11,10 @@
         }
     },
     "museum": {
+        "name": "Name",
+        "description": "description",
+        "genre": "Genre",
+        "images": "Images",
         "errors": {
             "not-found": "The museum not found."
         }
@@ -18,6 +22,17 @@
     "user": {
         "errors": {
             "not-found": "The user not found."
+        }
+    },
+    "location": {
+        "country": "Country",
+        "region": "Region",
+        "city": "City",
+        "address": "Address"
+    },
+    "shared": {
+        "buttons": {
+            "submit": "Submit"
         }
     }
 }

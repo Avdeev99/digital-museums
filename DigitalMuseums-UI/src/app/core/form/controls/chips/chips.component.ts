@@ -42,8 +42,8 @@ export class CustomChipsComponent implements OnInit {
     const value: string = event.value;
 
     // Add option
-    if ((value || '').trim() && this.selectedOptions.findIndex((opt): boolean => opt.title === value) === -1) {
-      this.selectedOptions.push({ title: value.trim() });
+    if ((value || '').trim() && this.selectedOptions.findIndex((opt): boolean => opt.name === value) === -1) {
+      this.selectedOptions.push({ name: value.trim() });
       this.control.setValue(this.selectedOptions);
     }
 
@@ -57,7 +57,7 @@ export class CustomChipsComponent implements OnInit {
 
   public onChipRemove(option: IOption): void {
     const index: number = this.selectedOptions.findIndex((opt): boolean =>
-      !!option.id ? opt.id === option.id : opt.title === option.title
+      !!option.id ? opt.id === option.id : opt.name === option.name
     );
     if (index >= 0) {
       this.selectedOptions.splice(index, 1);
@@ -87,6 +87,6 @@ export class CustomChipsComponent implements OnInit {
   private filterOptions(value: string): IOption[] {
     const filterValue: string = value.toLowerCase();
 
-    return this.allOptions.filter((opt: IOption): boolean => opt.title.toLowerCase().indexOf(filterValue) === 0);
+    return this.allOptions.filter((opt: IOption): boolean => opt.name.toLowerCase().indexOf(filterValue) === 0);
   }
 }
