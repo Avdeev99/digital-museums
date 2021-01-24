@@ -1,15 +1,15 @@
 <p>login works!</p>
+
 <form [formGroup]="formGroup">
     <label>
-      Email
-      <app-input [label]="'Email'" [control]="formGroup.controls.email"></app-input>
+      {{ 'account.login.email' | translate }}
+      <app-input [label]="'account.login.email' | translate" [control]="formGroup.controls.email"></app-input>
     </label>
     <label>
-        Password
-        <app-input [label]="'Password'" [control]="formGroup.controls.password"></app-input>
+        {{ 'account.login.password' | translate }}
+        <app-input [label]="'account.login.password' | translate" [control]="formGroup.controls.password"></app-input>
     </label>
-    <button (click)="authenticate()">Login</button>
+    <button (click)="authenticate()">{{ 'account.login.login-btn' | translate }}</button>
 </form>
   
-
-<button (click)="externalAuth(googleProviderId)">Login by google</button>
+<button (click)="externalAuth(googleProviderId)">{{ 'account.login.google-login-btn' | translate }}</button>

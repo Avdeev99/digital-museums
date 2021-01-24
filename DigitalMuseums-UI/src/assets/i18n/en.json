@@ -1,0 +1,23 @@
+{
+    "account": {
+        "login": {
+            "email": "Email",
+            "password": "Password",
+            "login-btn": "Login",
+            "google-login-btn": "Login by Google",
+            "errors": {
+                "invalid-credentials": "Invalid credentials."
+            }
+        }
+    },
+    "museum": {
+        "errors": {
+            "not-found": "The museum not found."
+        }
+    },
+    "user": {
+        "errors": {
+            "not-found": "The user not found."
+        }
+    }
+}
