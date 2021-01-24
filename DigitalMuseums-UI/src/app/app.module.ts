@@ -21,4 +21,3 @@ import { LayoutModule } from './layout/layout.module';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-

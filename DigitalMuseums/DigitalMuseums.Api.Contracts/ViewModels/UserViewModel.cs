@@ -5,6 +5,8 @@ namespace DigitalMuseums.Api.Contracts.ViewModels
 {
     public class UserViewModel
     {
+        public int Id { get; set; }
+        
         public string UserName { get; set; }
 
         public string Email { get; set; }
@@ -13,6 +15,6 @@ namespace DigitalMuseums.Api.Contracts.ViewModels
 
         public DateTime BirthDate { get; set; }
 
-        public Role Role { get; set; }
+        public RoleViewModel Role { get; set; }
     }
 }

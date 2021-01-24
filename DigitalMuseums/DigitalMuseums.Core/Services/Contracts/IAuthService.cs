@@ -14,6 +14,14 @@ namespace DigitalMuseums.Core.Services.Contracts
         /// </summary>
         /// <param name="user">The user.</param>
         /// <returns>Access token and user.</returns>
-        Task<AuthDto> AuthenticateWithGoogle(User user);
+        Task<AuthDto> AuthenticateWithGoogleAsync(User user);
+
+        /// <summary>
+        /// Authenticates the specified user by credentials.
+        /// </summary>
+        /// <param name="email">The user email.</param>
+        /// <param name="password">The user password.</param>
+        /// <returns>Access token and user.</returns>
+        Task<AuthDto> AuthenticateAsync(string email, string password);
     }
 }

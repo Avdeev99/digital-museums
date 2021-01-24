@@ -17,6 +17,7 @@ namespace DigitalMuseums.Api.Mappings
         public ApiMappingProfile()
         {
             CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<Role, RoleViewModel>().ReverseMap();
             
             CreateMap<AuthDto, AuthResponse>().ReverseMap();
 

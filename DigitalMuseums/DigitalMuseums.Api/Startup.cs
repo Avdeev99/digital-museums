@@ -45,6 +45,7 @@ namespace DigitalMuseums.Api
             {
                 cfg.AddProfile<ApiMappingProfile>();
             });
+            services.AddApi();
 
             AuthConfiguratorExtensions.Configure(services, configuration);
 
@@ -76,7 +77,7 @@ namespace DigitalMuseums.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "DigitalMuseums.API v1");
             });
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,6 +95,7 @@ namespace DigitalMuseums.Api
                 app.UseHsts();
             }
 
+            app.UseExceptionHandlingMiddleware();
             app.UseHttpsRedirection();
             app.UseRouting();
 

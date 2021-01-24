@@ -38,7 +38,7 @@ namespace DigitalMuseums.Api.Controllers
         /// Authenticate finder with google.
         /// </summary>
         /// <param name="googleAuth">The google authentication request model.</param>
-        /// <returns>The jwt token.</returns>
+        /// <returns>The jwt token and user.</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -58,7 +58,24 @@ namespace DigitalMuseums.Api.Controllers
             }
 
             var user = _mapper.Map<User>(googlePayload);
-            var authResult = await _authService.AuthenticateWithGoogle(user);
+            var authResult = await _authService.AuthenticateWithGoogleAsync(user);
+            var response = _mapper.Map<AuthResponse>(authResult);
+
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Authenticate finder by credentials.
+        /// </summary>
+        /// <param name="authRequest">The authentication request model.</param>
+        /// <returns>The jwt token and user.</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] AuthRequest authRequest)
+        {
+            var authResult = await _authService.AuthenticateAsync(authRequest.Email, authRequest.Password);
             var response = _mapper.Map<AuthResponse>(authResult);
 
             return Ok(response);

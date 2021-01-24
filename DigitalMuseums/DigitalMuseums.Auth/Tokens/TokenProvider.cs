@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.Security.Claims;
 using DigitalMuseums.Auth.Factories.Interfaces;
 using DigitalMuseums.Auth.Tokens.Interfaces;
