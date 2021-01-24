@@ -2,9 +2,12 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using AutoMapper;
 using DigitalMuseums.Api.Extensions;
+using DigitalMuseums.Api.Filters;
+using DigitalMuseums.Api.Mappings;
 using DigitalMuseums.Api.Mappings;
 using DigitalMuseums.Auth.Extensions;
 using DigitalMuseums.Core.Extensions;
+using DigitalMuseums.Core.Mappings;
 using DigitalMuseums.Data.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,18 +47,24 @@ namespace DigitalMuseums.Api
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<ApiMappingProfile>();
+                cfg.AddProfile<ImageMappingProfile>();
+                cfg.AddProfile<MuseumMappingProfile>();
             });
             services.AddApi();
 
             AuthConfiguratorExtensions.Configure(services, configuration);
+            services.AddCloudinary(configuration);
 
             services.AddSwaggerGen(
                 setup =>
                 {
                     setup.SwaggerDoc("v1", new OpenApiInfo { Title = "DigitalMuseums.API", Version = "v1" });
                 });
-
-            services.AddControllers()
+            
+            services.AddControllers(options =>
+                {
+                    options.Filters.Add(typeof(ModelValidityFilter));
+                })
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
