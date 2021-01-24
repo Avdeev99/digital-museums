@@ -15,6 +15,7 @@ namespace DigitalMuseums.Api.Mappings
         public ApiMappingProfile()
         {
             CreateMap<AddGenreRequest, Genre>();
+            CreateMap<LinkUserToMuseumRequest, LinkUserToMuseumDto>();
             
             CreateMap<AddMuseumRequest, MuseumDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));

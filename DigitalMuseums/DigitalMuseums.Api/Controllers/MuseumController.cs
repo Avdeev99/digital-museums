@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Museum;
 using DigitalMuseums.Core.Domain.DTO;
@@ -27,13 +28,22 @@ namespace DigitalMuseums.Api.Controllers
 
             return Ok();
         }
+
+        [HttpPost("user")]
+        public async Task<IActionResult> LinkUserToMuseum(LinkUserToMuseumRequest request)
+        {
+            var dto = _mapper.Map<LinkUserToMuseumDto>(request);
+            await _museumService.LinkUserAsync(dto);
+            
+            return Ok();
+        }
         
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             return BadRequest();
         }
-        
+
         [HttpGet]
         public IActionResult GetAll() // filter
         {
