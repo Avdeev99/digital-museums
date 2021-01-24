@@ -27,7 +27,7 @@ export class AuthService {
     return !!token;
   }
 
-  public externalLogin(providerId: string): Promise<any> {
+  public externalAuth(providerId: string): Promise<any> {
     this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
 
     return this.socialAuthService.signIn(providerId).then((socialUser: SocialUser) => {

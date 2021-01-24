@@ -1,8 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 import { AuthRequest } from '../../../core/auth/models/auth-request.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { GoogleLoginProvider } from 'angularx-social-login';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
@@ -32,14 +34,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  public externalLogin(providerId: string): void {
-    this.authService.externalLogin(providerId);
+  public externalAuth(providerId: string): void {
+    this.authService.externalAuth(providerId);
   }
 
   public authenticate(): void {
     const authRequest: AuthRequest = this.formGroup.getRawValue();
 
-    this.authService.authenticate(authRequest).subscribe();
+    this.authService.authenticate(authRequest)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(error);
+        }),
+      ).subscribe();
   }
 
   private initForm(): void {
