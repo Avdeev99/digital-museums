@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using AutoMapper;
-using DigitalMuseums.Api.Contracts.Requests.Museum;
 using DigitalMuseums.Core.Domain.DTO;
 using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Domain.Models.Location;
@@ -34,6 +33,10 @@ namespace DigitalMuseums.Core.Mappings
                     CityId = s.CityId,
                     Address = s.Address
                 }));
+
+            CreateMap<Museum, FilteredMuseumItem>()
+                .ForMember(dest => dest.GenreName, opt => opt.MapFrom(s => s.Genre.Name))
+                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(s => s.Images.First().Path));
         }
     }
 }

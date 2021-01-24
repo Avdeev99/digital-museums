@@ -1,5 +1,4 @@
 ﻿using System;
-using DigitalMuseums.Core.Domain.Models.Auth;
 
 namespace DigitalMuseums.Api.Contracts.ViewModels
 {

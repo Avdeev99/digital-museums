@@ -17,6 +17,8 @@ namespace DigitalMuseums.Api.Mappings
             CreateMap<AddGenreRequest, Genre>();
             CreateMap<LinkUserToMuseumRequest, LinkUserToMuseumDto>();
             
+            CreateMap<FilterMuseumsViewModel, FilterMuseumsDto>();
+            
             CreateMap<AddMuseumRequest, MuseumDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
             

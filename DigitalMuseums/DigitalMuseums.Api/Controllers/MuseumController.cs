@@ -43,13 +43,16 @@ namespace DigitalMuseums.Api.Controllers
         {
             return BadRequest();
         }
-
-        [HttpGet]
-        public IActionResult GetAll() // filter
-        {
-            return Ok();
-        }
         
+        [HttpGet]
+        public async Task<IActionResult> GetFiltered([FromQuery] FilterMuseumsViewModel filter)
+        {
+            var filterDto = _mapper.Map<FilterMuseumsDto>(filter);
+            var result = await _museumService.GetFilteredAsync(filterDto);
+
+            return Ok(result);
+        }
+
         [HttpPut]
         public IActionResult Update()
         {

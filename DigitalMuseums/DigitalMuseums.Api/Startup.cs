@@ -4,7 +4,6 @@ using AutoMapper;
 using DigitalMuseums.Api.Extensions;
 using DigitalMuseums.Api.Filters;
 using DigitalMuseums.Api.Mappings;
-using DigitalMuseums.Api.Mappings;
 using DigitalMuseums.Auth.Extensions;
 using DigitalMuseums.Core.Extensions;
 using DigitalMuseums.Core.Mappings;
