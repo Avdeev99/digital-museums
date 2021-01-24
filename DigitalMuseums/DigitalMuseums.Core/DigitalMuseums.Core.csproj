@@ -5,11 +5,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DigitalMuseums.Api.Contracts\DigitalMuseums.Api.Contracts.csproj" />
       <ProjectReference Include="..\DigitalMuseums.Auth\DigitalMuseums.Auth.csproj" />
       <ProjectReference Include="..\DigitalMuseums.Core.Domain\DigitalMuseums.Core.Domain.csproj" />
+      <ProjectReference Include="..\DigitalMuseums.Infrastructure\DigitalMuseums.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.Http.Features, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\5.0.0\ref\net5.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+      </Reference>
       <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
         <HintPath>..\..\..\..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\5.0.0\ref\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
       </Reference>
@@ -18,6 +23,12 @@
     <ItemGroup>
       <PackageReference Include="CryptoHelper" Version="3.0.2" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="CloudinaryDotNet" Version="1.14.0" />
+      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
     </ItemGroup>
 
 </Project>

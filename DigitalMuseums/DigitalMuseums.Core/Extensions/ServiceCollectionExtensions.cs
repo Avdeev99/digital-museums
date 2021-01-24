@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using DigitalMuseums.Core.Services;
 using DigitalMuseums.Core.Services.Contracts;
+using DigitalMuseums.Infrastructure.Options;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DigitalMuseums.Core.Extensions
@@ -19,6 +21,16 @@ namespace DigitalMuseums.Core.Extensions
         public static IServiceCollection AddCore(this IServiceCollection services)
         {
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IMuseumService, MuseumService>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddCloudinary(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<CloudinaryOptions>(configuration.GetSection("CloudinarySettings"));
 
             return services;
         }
