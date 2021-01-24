@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DigitalMuseums.Api.Controllers
 {
     [ApiController]
-    [Route("/souvenir")]
+    [Route("/api/souvenir")]
     public class SouvenirController : Controller
     {
         [HttpPost]

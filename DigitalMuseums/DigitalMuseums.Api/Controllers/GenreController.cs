@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DigitalMuseums.Api.Controllers
 {
     [ApiController]
-    [Route("/genre")]
+    [Route("/api/genre")]
     public class GenreController : Controller
     {
         private readonly IGenreService _genreService;

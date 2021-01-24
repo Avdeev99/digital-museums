@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DigitalMuseums.Api.Controllers
 {
     [ApiController]
-    [Route("/exhibit")]
+    [Route("/api/exhibit")]
     public class ExhibitController : Controller
     {
         [HttpPost]

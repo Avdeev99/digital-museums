@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DigitalMuseums.Api.Controllers
 {
     [ApiController]
-    [Route("/museum")]
+    [Route("/api/museum")]
     public class MuseumController : Controller
     {
         private readonly IMapper _mapper;
