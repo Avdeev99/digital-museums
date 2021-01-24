@@ -1,0 +1,24 @@
+{
+    "test": "Localization works",
+    "account": {
+        "login": {
+            "email": "Email",
+            "password": "Пароль",
+            "login-btn": "Вхід",
+            "google-login-btn": "Вхід за допомогою Google",
+            "errors": {
+                "invalid-credentials": "Невірний логін або пароль."
+            }
+        }
+    },
+    "museum": {
+        "errors": {
+            "not-found": "Музей не знайдено."
+        }
+    },
+    "user": {
+        "errors": {
+            "not-found": "Користувача не знайдено."
+        }
+    }
+}

@@ -6,6 +6,13 @@ import { environment } from '../../../environments/environment.prod';
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const re = /assets/gi;
+    
+    // Exclude interceptor for assets:
+    if (req.url.search(re) !== -1) {
+      return next.handle(req);
+    }
+    
     if (ApiInterceptor.isAbsoluteUrl(req.url)) {
       return next.handle(req);
     }
