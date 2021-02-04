@@ -5,9 +5,11 @@ using DigitalMuseums.Core.Domain.Models.Secondary;
 
 namespace DigitalMuseums.Core.Domain.Models.Domain
 {
-    public class Museum : BaseEntity, IsSoftDelete
+    public class Museum : BaseEntity, ISoftDelete
     {
         public string Name { get; set; }   
+        
+        public string Description { get; set; }   
         
         public int VisitedCount { get; set; }
 

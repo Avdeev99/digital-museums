@@ -37,6 +37,11 @@ namespace DigitalMuseums.Core.Mappings
             CreateMap<Museum, FilteredMuseumItem>()
                 .ForMember(dest => dest.GenreName, opt => opt.MapFrom(s => s.Genre.Name))
                 .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(s => s.Images.First().Path));
+            
+            CreateMap<Museum, MuseumItem>()
+                .ForMember(dest => dest.GenreName, opt => opt.MapFrom(s => s.Genre.Name))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(s => s.Location.Address))
+                .ForMember(dest => dest.ImagePaths, opt => opt.MapFrom(s => s.Images.Select(i => i.Path)));
         }
     }
 }

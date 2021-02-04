@@ -21,6 +21,8 @@ namespace DigitalMuseums.Api.Mappings
             
             CreateMap<AddMuseumRequest, MuseumDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
+            CreateMap<UpdateMuseumRequest, UpdateMuseumDto>();
+            
             
             CreateMap<User, UserViewModel>().ReverseMap();
             CreateMap<Role, RoleViewModel>().ReverseMap();

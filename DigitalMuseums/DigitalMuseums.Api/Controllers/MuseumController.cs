@@ -39,9 +39,11 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return BadRequest();
+            var museum = await _museumService.GetAsync(id);
+            
+            return Ok(museum);
         }
         
         [HttpGet]
@@ -54,14 +56,19 @@ namespace DigitalMuseums.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update()
+        public async Task<IActionResult> Update(UpdateMuseumRequest request)
         {
+            var museumDto = _mapper.Map<UpdateMuseumDto>(request);
+            await _museumService.UpdateAsync(museumDto);
+            
             return Ok();
         }
         
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
+            await _museumService.DeleteAsync(id);
+            
             return Ok();
         }
     }

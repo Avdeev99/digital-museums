@@ -1,6 +1,6 @@
 namespace DigitalMuseums.Core.Domain.Interfaces
 {
-    public interface IsSoftDelete
+    public interface ISoftDelete
     {
         bool IsDeleted { get; set; }
     }
