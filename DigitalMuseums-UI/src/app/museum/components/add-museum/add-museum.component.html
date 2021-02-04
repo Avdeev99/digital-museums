@@ -19,7 +19,7 @@
             <app-select
                 [label]="'location.country' | translate"
                 [control]="formGroup.controls.countryId"
-                [options]="countries"
+                [options]="countries$ | async"
             ></app-select>
           </label>
     </div>
@@ -27,14 +27,22 @@
     <div>
         <label>
             {{ 'location.region' | translate }}
-            <app-select [label]="'location.region' | translate" [control]="formGroup.controls.regionId"></app-select>
+            <app-select
+                [label]="'location.region' | translate"
+                [control]="formGroup.controls.regionId"
+                [options]="regions$ | async"
+            ></app-select>
           </label>
     </div>
 
     <div>
         <label>
             {{ 'location.city' | translate }}
-            <app-select [label]="'location.city' | translate" [control]="formGroup.controls.cityId"></app-select>
+            <app-select
+                [label]="'location.city' | translate"
+                [control]="formGroup.controls.cityId"
+                [options]="cities$ | async"
+            ></app-select>
           </label>
     </div>
 
@@ -48,9 +56,22 @@
     <div>
         <label>
             {{ 'museum.genre' | translate }}
-            <app-select [label]="'museum.genre' | translate" [control]="formGroup.controls.genreId"></app-select>
+            <app-select
+                [label]="'museum.genre' | translate"
+                [control]="formGroup.controls.genreId"
+                [options]="genres$ | async"
+            ></app-select>
           </label>
     </div>
+
+    <br>
+
+    <input
+        multiple
+        type='file'
+        value=""
+        [formControl]="formGroup.controls.images"
+        (change)="onSelectFile($event.target.files)">
 
     <br>
     <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
