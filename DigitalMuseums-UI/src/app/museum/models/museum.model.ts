@@ -1,5 +1,5 @@
 export interface Museum {
-    id: number;
+    id?: number;
     name: string;
     description: string;
     countryId: number;

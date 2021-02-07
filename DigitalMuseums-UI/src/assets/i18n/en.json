@@ -12,9 +12,10 @@
     },
     "museum": {
         "name": "Name",
-        "description": "description",
+        "description": "Description",
         "genre": "Genre",
         "images": "Images",
+        "sortingMethod": "Sorting Method",
         "errors": {
             "not-found": "The museum not found."
         }

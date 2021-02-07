@@ -7,9 +7,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MuseumRoutingModule } from './museum-routing.module';
+import { MuseumDetailsComponent } from './components/museum-details/museum-details.component';
+import { MuseumsComponent } from './components/museums/museums.component';
 
 @NgModule({
-  declarations: [AddMuseumComponent],
+  declarations: [AddMuseumComponent, MuseumDetailsComponent, MuseumsComponent],
   imports: [
       CommonModule,
       FormsModule,

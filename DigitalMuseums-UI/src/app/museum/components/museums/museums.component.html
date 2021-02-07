@@ -1,0 +1,73 @@
+<div class="filter-block">
+    <form [formGroup]="formGroup">
+        <div>
+            <label>
+                {{ 'museum.name' | translate }}
+                <app-input [label]="'museum.name' | translate" [control]="formGroup.controls.name"></app-input>
+              </label>
+        </div>
+
+        <div>
+            <label>
+                {{ 'location.country' | translate }}
+                <app-select
+                    [label]="'location.country' | translate"
+                    [control]="formGroup.controls.countryId"
+                    [options]="countries$ | async"
+                ></app-select>
+              </label>
+        </div>
+    
+        <div>
+            <label>
+                {{ 'location.region' | translate }}
+                <app-select
+                    [label]="'location.region' | translate"
+                    [control]="formGroup.controls.regionId"
+                    [options]="regions$ | async"
+                ></app-select>
+              </label>
+        </div>
+    
+        <div>
+            <label>
+                {{ 'location.city' | translate }}
+                <app-select
+                    [label]="'location.city' | translate"
+                    [control]="formGroup.controls.cityId"
+                    [options]="cities$ | async"
+                ></app-select>
+              </label>
+        </div>
+
+        <div>
+            <label>
+                {{ 'museum.genre' | translate }}
+                <app-select
+                    [label]="'museum.genre' | translate"
+                    [control]="formGroup.controls.genres"
+                    [options]="genres$ | async"
+                ></app-select>
+              </label>
+        </div>
+
+        <div>
+            <label>
+                {{ 'museum.sortingMethod' | translate }}
+                <app-select
+                    [label]="'museum.sortingMethod' | translate"
+                    [control]="formGroup.controls.sortingMethod"
+                    [options]="genres$ | async"
+                ></app-select>
+              </label>
+        </div>
+
+        <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+    </form>
+</div>
+
+<div class="museums-block">
+    <div *ngFor="let museum of museums$ | async">
+        <label>Name: {{ museum.name }}</label>
+    </div>
+</div>

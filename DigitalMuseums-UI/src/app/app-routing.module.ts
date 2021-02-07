@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: (): Promise<AccountModule> => import('./account/account.module').then((m): AccountModule => m.AccountModule),
   },
   {
-    path: 'museum/create',
+    path: 'museum',
     loadChildren: (): Promise<MuseumModule> => import('./museum/museum.module').then((m): MuseumModule => m.MuseumModule),
   },
 ];

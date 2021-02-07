@@ -16,6 +16,7 @@
         "description": "Опис",
         "genre": "Жанр",
         "images": "Зображення",
+        "sortingMethod": "Сортування",
         "errors": {
             "not-found": "Музей не знайдено."
         }
