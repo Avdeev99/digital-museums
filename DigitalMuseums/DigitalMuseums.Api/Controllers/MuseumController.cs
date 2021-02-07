@@ -47,7 +47,7 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetFiltered([FromQuery] FilterMuseumsViewModel filter)
+        public async Task<IActionResult> GetFiltered([FromQuery] FilterMuseumsRequest filter)
         {
             var filterDto = _mapper.Map<FilterMuseumsDto>(filter);
             var result = await _museumService.GetFilteredAsync(filterDto);

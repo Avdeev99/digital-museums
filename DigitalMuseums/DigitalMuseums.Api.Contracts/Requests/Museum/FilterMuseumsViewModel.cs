@@ -3,7 +3,7 @@ using DigitalMuseums.Core.Domain.Enumerations;
 
 namespace DigitalMuseums.Api.Contracts.Requests.Museum
 {
-    public class FilterMuseumsViewModel
+    public class FilterMuseumsRequest
     {
         public string Name { get; set; }
         
