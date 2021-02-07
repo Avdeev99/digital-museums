@@ -14,6 +14,11 @@ namespace DigitalMuseums.Core.Mappings
         {
             CreateMap<List<IFormFile>, MuseumImagesUnit>().ConvertUsing((source, dest) =>
             {
+                if (source == null)
+                {
+                    return null;
+                }
+                
                 var result = new MuseumImagesUnit{ImagesData = new List<ImageData>()};
                 foreach (var file in source)
                 {

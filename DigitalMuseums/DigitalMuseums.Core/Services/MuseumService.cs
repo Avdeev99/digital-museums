@@ -59,8 +59,9 @@ namespace DigitalMuseums.Core.Services
                 museum => museum.Id == museumDto.Id,
                 new List<Expression<Func<Museum, object>>>
                 {
-                    m => m.Location
-                }, 
+                    m => m.Location,
+                    m => m.Images
+                },
                 TrackingState.Enabled);
             if (museum == null || museum.IsDeleted)
             {
@@ -150,6 +151,12 @@ namespace DigitalMuseums.Core.Services
             museum.GenreId = museumDto.GenreId;
             museum.Name = museumDto.Name;
             museum.Description = museumDto.Description;
+            if (museumDto.ImagesData != null)
+            {
+                museum.Images = null;
+                _imageService.AddAndUpload(museumDto.ImagesData);
+            }
+            
             if (museumDto.Address != museum.Location.Address || museumDto.CityId != museum.Location.CityId)
             {
                 var location = await _locationRepository.GetAsync(location => location.Id == museum.LocationId, TrackingState.Enabled);

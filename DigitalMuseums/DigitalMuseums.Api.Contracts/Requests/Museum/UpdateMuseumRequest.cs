@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace DigitalMuseums.Api.Contracts.Requests.Museum
 {
@@ -15,5 +17,7 @@ namespace DigitalMuseums.Api.Contracts.Requests.Museum
 
         [Required(AllowEmptyStrings = false)]
         public int GenreId { get; set; }
+        
+        public List<IFormFile> Images { get; set; }
     }
 }
