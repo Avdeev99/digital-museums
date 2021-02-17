@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using DigitalMuseums.Core.Domain.Models;
+using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services;
 using DigitalMuseums.Core.Services.Contracts;
 using DigitalMuseums.Infrastructure.Options;
@@ -26,6 +27,8 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IMuseumService, MuseumService>();
             services.AddScoped(typeof(IBasePredefinedEntityService<>), typeof(BasePredefinedEntityService<>));
+
+            services.AddScoped<IMuseumFilterPipeline, MuseumFilterPipeline>();
 
             return services;
         }
