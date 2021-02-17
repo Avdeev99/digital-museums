@@ -4,6 +4,7 @@ using DigitalMuseums.Api.Contracts.Requests.Museum;
 using DigitalMuseums.Core.Domain.DTO;
 using DigitalMuseums.Core.Domain.Models.Secondary;
 using DigitalMuseums.Api.Contracts.Responses;
+using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Api.Contracts.ViewModels;
 using DigitalMuseums.Core.Domain.Models.Auth;
 using Google.Apis.Auth;
@@ -15,11 +16,15 @@ namespace DigitalMuseums.Api.Mappings
         public ApiMappingProfile()
         {
             CreateMap<AddGenreRequest, Genre>();
+           
             CreateMap<LinkUserToMuseumRequest, LinkUserToMuseumDto>();
-            
+            CreateMap<FilterMuseumsRequest, FilterMuseumsDto>();
             CreateMap<AddMuseumRequest, MuseumDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
-            
+            CreateMap<UpdateMuseumRequest, UpdateMuseumDto>()
+                .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
+
+
             CreateMap<User, UserViewModel>().ReverseMap();
             CreateMap<Role, RoleViewModel>().ReverseMap();
             
@@ -27,6 +32,9 @@ namespace DigitalMuseums.Api.Mappings
 
             CreateMap<GoogleJsonWebSignature.Payload, User>()
                 .ForMember(dest => dest.UserName, cfg => cfg.MapFrom(src => src.Name));
+            
+            CreateMap<FilteredMuseumItem, GetFilteredMuseumsResponseItem>();
+            CreateMap<MuseumItem, GetMuseumResponse>();
         }
     }
 }

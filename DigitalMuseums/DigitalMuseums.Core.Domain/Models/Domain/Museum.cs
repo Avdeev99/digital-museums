@@ -1,12 +1,15 @@
 using System.Collections.Generic;
+using DigitalMuseums.Core.Domain.Interfaces;
 using DigitalMuseums.Core.Domain.Models.Auth;
 using DigitalMuseums.Core.Domain.Models.Secondary;
 
 namespace DigitalMuseums.Core.Domain.Models.Domain
 {
-    public class Museum : BaseEntity
+    public class Museum : BaseEntity, ISoftDelete
     {
         public string Name { get; set; }   
+        
+        public string Description { get; set; }   
         
         public int VisitedCount { get; set; }
 
@@ -24,5 +27,7 @@ namespace DigitalMuseums.Core.Domain.Models.Domain
         public int? UserId { get; set; }
         
         public User User { get; set; }
+        
+        public bool IsDeleted { get; set; }
     }
 }

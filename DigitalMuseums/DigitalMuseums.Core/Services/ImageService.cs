@@ -35,10 +35,9 @@ namespace DigitalMuseums.Core.Services
         
         public void AddAndUpload(BaseImagesUnit imageData)
         {
-            var imageItem = _mapper.Map<Image>(imageData);
-
             foreach (var image in imageData.ImagesData)
             {
+                var imageItem = _mapper.Map<Image>(imageData);
                 var uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(image.FileName, image.Stream)

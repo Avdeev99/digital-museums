@@ -1,10 +1,12 @@
 namespace DigitalMuseums.Core.Domain.DTO
 {
-    public class MuseumDto
+    public class UpdateMuseumDto
     {
-        public string Name { get; set; }
-        
+        public int Id { get; set; }
+
         public string Description { get; set; }
+        
+        public string Name { get; set; }
         
         public int CityId { get; set; }
 
