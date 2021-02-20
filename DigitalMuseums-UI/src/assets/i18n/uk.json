@@ -12,6 +12,11 @@
         }
     },
     "museum": {
+        "name": "Назва",
+        "description": "Опис",
+        "genre": "Жанр",
+        "images": "Зображення",
+        "sortingMethod": "Сортування",
         "errors": {
             "not-found": "Музей не знайдено."
         }
@@ -19,6 +24,17 @@
     "user": {
         "errors": {
             "not-found": "Користувача не знайдено."
+        }
+    },
+    "location": {
+        "country": "Країна",
+        "region": "Регіон",
+        "city": "Місто",
+        "address": "Адреса"
+    },
+    "shared": {
+        "buttons": {
+            "submit": "Підтвердити"
         }
     }
 }

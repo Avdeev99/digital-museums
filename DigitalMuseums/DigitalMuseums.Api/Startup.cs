@@ -64,6 +64,7 @@ namespace DigitalMuseums.Api
                 {
                     options.Filters.Add(typeof(ModelValidityFilter));
                 })
+                .ConfigureApplicationPartManager(p => p.FeatureProviders.Add(new GenericPredefinedEntityControllerProvider()))
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());

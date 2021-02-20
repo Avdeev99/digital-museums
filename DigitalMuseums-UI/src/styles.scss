@@ -1,1 +1,91 @@
+@import './assets/styles/material-theme.scss';
+@import './assets/styles/material-overwrite.scss';
+@import './assets//styles/variables.scss';
+// @import "~bootstrap/dist/css/bootstrap.css";
+
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $black;}
+main {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+form,
+fieldset {
+  border-style: none;
+}
+img {
+  border-style: none;
+  vertical-align: top;
+}
+ul {
+  list-style: none;
+}
+h1, h2 {
+  margin: 0 0 20px;
+  text-align: center;
+}
+p {
+  margin: 0 0 10px;
+}
+a, a:focus, a:visited {
+  color: $black;
+  text-decoration: none;
+  transition: $defaultTransition;
+}
+a:hover {
+  color: $white;
+}
+input,
+select,
+textarea {
+  vertical-align: middle;
+  border: none;
+  resize: none !important;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+a:focus,
+a:hover,
+button:focus,
+button:hover,
+input:focus,
+input:hover,
+select:focus,
+select:hover,
+textarea:focus,
+textarea:hover,
+tr:focus {
+  outline: none !important;
+  outline: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.layout {
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
