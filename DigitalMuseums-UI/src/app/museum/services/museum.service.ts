@@ -45,7 +45,6 @@ export class MuseumService {
             }
         });
 
-        debugger;
         return this.httpClient.get<Array<MuseumDetails>>(api.museum, { params: httpParams });
     }
 

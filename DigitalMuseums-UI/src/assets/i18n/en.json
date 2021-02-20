@@ -31,7 +31,17 @@
         "city": "City",
         "address": "Address"
     },
+    "exhibit": {
+        "author": "Author",
+        "date": "Date"
+    },
     "shared": {
+        "controls": {
+            "name": "Name",
+            "description": "Description",
+            "images": "Images",
+            "tags": "Tags"
+        },
         "buttons": {
             "submit": "Submit"
         }

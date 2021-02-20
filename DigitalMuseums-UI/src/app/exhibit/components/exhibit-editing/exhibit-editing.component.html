@@ -1,0 +1,49 @@
+<form [formGroup]="formGroup">
+    <div>
+        <label>
+            {{ 'shared.controls.name' | translate }}
+            <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'shared.controls.description' | translate }}
+            <app-input [label]="'shared.controls.description' | translate" [control]="formGroup.controls.description"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'exhibit.author' | translate }}
+            <app-input [label]="'exhibit.author' | translate" [control]="formGroup.controls.author"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'exhibit.date' | translate }}
+            <app-input [label]="'exhibit.date' | translate" [control]="formGroup.controls.date"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'shared.controls.tags' | translate }}
+            <app-input [label]="'shared.controls.tags' | translate" [control]="formGroup.controls.tags"></app-input>
+          </label>
+    </div>
+
+    <br>
+
+    <input
+        multiple
+        type='file'
+        value=""
+        [formControl]="formGroup.controls.images"
+        (change)="onSelectFile($event.target.files)">
+
+    <br>
+    <br>
+    <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+</form>

@@ -32,7 +32,17 @@
         "city": "Місто",
         "address": "Адреса"
     },
+    "exhibit": {
+        "author": "Автор",
+        "date": "Дата"
+    },
     "shared": {
+        "controls": {
+            "name": "Назва",
+            "description": "Опис",
+            "images": "Зображення",
+            "tags": "Теги"
+        },
         "buttons": {
             "submit": "Підтвердити"
         }
