@@ -61,7 +61,7 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
       ? this.museumService.update(museum)
       : this.museumService.create(museum);
 
-      museumRequest.subscribe();
+      museumRequest.subscribe(() => this.router.navigate(['museum']));
   }
 
   public onSelectFile(files: FileList) {
@@ -86,7 +86,13 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
         )
         .subscribe(data => {
           this.museum = data;
-          this.formGroup.patchValue(data);
+          this.formGroup.patchValue({
+            ...data,
+            countryId: data.country.id,
+            regionId: data.region.id,
+            cityId: data.city.id,
+            genreId: data.genre.id,
+          });
         });
     }
   }

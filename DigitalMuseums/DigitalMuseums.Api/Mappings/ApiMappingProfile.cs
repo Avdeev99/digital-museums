@@ -37,7 +37,22 @@ namespace DigitalMuseums.Api.Mappings
                 .ForMember(dest => dest.UserName, cfg => cfg.MapFrom(src => src.Name));
             
             CreateMap<FilteredMuseumItem, GetFilteredMuseumsResponseItem>();
-            CreateMap<MuseumItem, GetMuseumResponse>();
+
+            CreateMap<MuseumItem, GetMuseumResponse>()
+                .ForMember(
+                    dest => dest.Country,
+                    cfg => 
+                        cfg.MapFrom((src, dest) => src.Location?.City?.Region?.Country))
+                .ForMember(
+                    dest => dest.Region,
+                    cfg => cfg.MapFrom((src, dest) => src.Location?.City?.Region))
+                .ForMember(
+                    dest => dest.City,
+                    cfg => cfg.MapFrom((src, dest) => src.Location?.City))
+                .ForMember(
+                    dest => dest.Address,
+                    cfg => cfg.MapFrom((src, dest) => src.Location?.Address));
+
         }
     }
 }

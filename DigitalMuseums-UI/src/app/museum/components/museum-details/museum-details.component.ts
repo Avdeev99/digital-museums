@@ -27,6 +27,10 @@ export class MuseumDetailsComponent implements OnInit {
     this.fetchMuseum();
   }
 
+  public get museumImage(): string {
+    return this.museum && this.museum.imagePaths.length ? this.museum.imagePaths[0] : null;
+  }
+
   private setMuseumId(): void {
     this.museumId = this.route.snapshot.params.id;
   }

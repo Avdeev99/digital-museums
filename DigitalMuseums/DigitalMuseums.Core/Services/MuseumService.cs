@@ -112,7 +112,7 @@ namespace DigitalMuseums.Core.Services
                 new List<Expression<Func<Museum, object>>>
                 {
                     museum => museum.Genre,
-                    museum => museum.Location,
+                    museum => museum.Location.City.Region.Country,
                     museum => museum.Images
                 },
                 TrackingState.Enabled);

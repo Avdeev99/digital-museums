@@ -1,11 +1,13 @@
+import { IOption } from "src/app/core/form/form.interface";
+
 export interface MuseumDetails {
     id: number;
     name: string;
     description: string;
-    country: string;
-    region: string;
-    city: string;
+    country: IOption;
+    region: IOption;
+    city: IOption;
     address: string;
-    genre: string;
-    images: FileList;
+    genre: IOption;
+    imagePaths: string[];
 }

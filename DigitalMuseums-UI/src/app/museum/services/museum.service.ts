@@ -24,7 +24,7 @@ export class MuseumService {
     public update(museum: Museum): Observable<any> {
         const formData: FormData = this.getFormData(museum);
 
-        return this.httpClient.put(api.museum, formData);
+        return this.httpClient.put(`${api.museum}/${museum.id}`, formData);
     }
 
     public get(id: number): Observable<MuseumDetails> {
@@ -40,9 +40,12 @@ export class MuseumService {
     public getFiltered(filter: MuseumFilter): Observable<Array<MuseumDetails>> {
         let httpParams = new HttpParams();
         Object.keys(filter).forEach((key) => {
-            httpParams = httpParams.append(key, filter[key]);
+            if (!!filter[key]) {
+                httpParams = httpParams.append(key, filter[key]);
+            }
         });
 
+        debugger;
         return this.httpClient.get<Array<MuseumDetails>>(api.museum, { params: httpParams });
     }
 
