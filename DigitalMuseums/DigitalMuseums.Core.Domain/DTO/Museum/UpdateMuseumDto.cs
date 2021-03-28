@@ -1,4 +1,4 @@
-namespace DigitalMuseums.Core.Domain.DTO
+namespace DigitalMuseums.Core.Domain.DTO.Museum
 {
     public class UpdateMuseumDto
     {

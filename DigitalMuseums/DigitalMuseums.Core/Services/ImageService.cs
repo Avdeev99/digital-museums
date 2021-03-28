@@ -2,7 +2,7 @@ using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using DigitalMuseums.Core.Data.Contracts;
-using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.DTO.Image;
 using DigitalMuseums.Core.Domain.Models.Secondary;
 using DigitalMuseums.Core.Services.Contracts;
 using DigitalMuseums.Infrastructure.Options;

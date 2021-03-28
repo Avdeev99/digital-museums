@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.Models.Domain;
-using DigitalMuseums.Core.Infrastructure.Filter_Pipeline.Pipes;
+using DigitalMuseums.Core.Infrastructure.Filter_Pipeline.Pipes.Museum;
 
 namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline
 {
-    public class MuseumFilterPipeline : IMuseumFilterPipeline
+    public class MuseumFilterPipeline : IOrderedFilterPipeline<Museum, FilterMuseumsDto>
     {
         public Expression<Func<Museum, bool>> BuildQuery(FilterMuseumsDto filter)
         {

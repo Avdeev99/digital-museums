@@ -1,6 +1,6 @@
-namespace DigitalMuseums.Core.Domain.DTO
+namespace DigitalMuseums.Core.Domain.DTO.Museum
 {
-    public class MuseumDto
+    public class CreateMuseumDto
     {
         public string Name { get; set; }
         

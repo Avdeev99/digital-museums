@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace DigitalMuseums.Core.Domain.DTO
+namespace DigitalMuseums.Core.Domain.DTO.Image
 {
     public class ImageData
     {

@@ -21,6 +21,12 @@ namespace DigitalMuseums.Data.Configurations
             builder.Property(e => e.Author).IsRequired();
             builder.Property(e => e.Date).IsRequired();
             builder.Property(e => e.Tags).IsRequired();
+            
+            builder
+                .HasOne(src => src.Museum)
+                .WithMany(dest => dest.Exhibits)
+                .HasForeignKey(e => e.MuseumId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
