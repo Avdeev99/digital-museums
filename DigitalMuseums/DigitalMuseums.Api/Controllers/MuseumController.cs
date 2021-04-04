@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Museum;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
-using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +23,9 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromForm] AddMuseumRequest request)
+        public IActionResult Create([FromForm] CreateMuseumRequest request)
         {
-            var museumDto = _mapper.Map<MuseumDto>(request);
+            var museumDto = _mapper.Map<CreateMuseumDto>(request);
             _museumService.Create(museumDto);
 
             return Ok();

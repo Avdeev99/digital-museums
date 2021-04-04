@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using DigitalMuseums.Core.Domain.Models;
+using DigitalMuseums.Core.Domain.DTO.Exhibit;
+using DigitalMuseums.Core.Domain.DTO.Museum;
+using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services;
 using DigitalMuseums.Core.Services.Contracts;
@@ -26,9 +28,11 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IMuseumService, MuseumService>();
+            services.AddScoped<IExhibitService, ExhibitService>();
             services.AddScoped(typeof(IBasePredefinedEntityService<>), typeof(BasePredefinedEntityService<>));
 
-            services.AddScoped<IMuseumFilterPipeline, MuseumFilterPipeline>();
+            services.AddScoped<IOrderedFilterPipeline<Museum, FilterMuseumsDto>, MuseumFilterPipeline>();
+            services.AddScoped<IFilterPipeline<Exhibit, FilterExhibitsDto>, ExhibitFilterPipeline>();
 
             return services;
         }

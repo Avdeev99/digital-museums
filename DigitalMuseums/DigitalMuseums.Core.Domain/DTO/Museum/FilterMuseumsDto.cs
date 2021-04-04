@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using DigitalMuseums.Core.Domain.Enumerations;
 
-namespace DigitalMuseums.Core.Domain.DTO
+namespace DigitalMuseums.Core.Domain.DTO.Museum
 {
     public class FilterMuseumsDto
     {

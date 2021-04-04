@@ -1,3 +1,9 @@
+using System.Threading.Tasks;
+using AutoMapper;
+using DigitalMuseums.Api.Contracts.Requests.Exhibit;
+using DigitalMuseums.Api.Contracts.Responses.Exhibit;
+using DigitalMuseums.Core.Domain.DTO.Exhibit;
+using DigitalMuseums.Core.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalMuseums.Api.Controllers
@@ -6,33 +12,65 @@ namespace DigitalMuseums.Api.Controllers
     [Route("/api/exhibit")]
     public class ExhibitController : Controller
     {
-        [HttpPost]
-        public IActionResult Create()
+        private readonly IMapper _mapper;
+        private readonly IExhibitService _exhibitService;
+
+        public ExhibitController(IMapper mapper, IExhibitService exhibitService)
         {
+            _mapper = mapper;
+            _exhibitService = exhibitService;
+        }
+        
+        [HttpPost]
+        public IActionResult Create([FromForm] CreateExhibitRequest request)
+        {
+            var exhibitDto = _mapper.Map<CreateExhibitDto>(request);
+            _exhibitService.Create(exhibitDto);
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromForm] UpdateExhibitRequest request)
+        {
+            var exhibitDto = _mapper.Map<UpdateExhibitDto>(request);
+            exhibitDto.Id = id;
+            if (exhibitDto.ImagesData != null)
+            {
+                exhibitDto.ImagesData.ExhibitId = id;
+            }
+
+            await _exhibitService.UpdateAsync(exhibitDto);
+            
             return Ok();
         }
         
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok();
+            var exhibit = await _exhibitService.GetAsync(id);
+            var result = _mapper.Map<GetExhibitResponse>(exhibit);
+            
+            return Ok(result);
         }
         
         [HttpGet]
-        public IActionResult GetAll() // filter
+        public async Task<IActionResult> GetFiltered([FromQuery] FilterExhibitsRequest filter)
         {
+            var filterDto = _mapper.Map<FilterExhibitsDto>(filter);
+            
+            var filteredItems = await _exhibitService.GetFilteredAsync(filterDto);
+            //var result = _mapper.Map<List<GetFilteredMuseumsResponseItem>>(filteredItems);
+
             return Ok();
+            //return Ok(result);
         }
         
-        [HttpPut]
-        public IActionResult Update()
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            return Ok();
-        }
-        
-        [HttpDelete]
-        public IActionResult Delete()
-        {
+            await _exhibitService.DeleteAsync(id);
+            
             return Ok();
         }
     }

@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DigitalMuseums.Core.Domain.Enumerations;
-using DigitalMuseums.Core.Domain.Models.Domain;
 
-namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline.Pipes
+namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline.Pipes.Museum
 {
-    public class MuseumOrderByPipe : IOrderByPipe<Museum>
+    public class MuseumOrderByPipe : IOrderByPipe<Domain.Models.Domain.Museum>
     {
         private readonly SortingMethod _sortingMethod;
 
@@ -15,7 +14,7 @@ namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline.Pipes
             _sortingMethod = sortingMethod;
         }
         
-        public Func<IEnumerable<Museum>, IOrderedEnumerable<Museum>> Apply()
+        public Func<IEnumerable<Domain.Models.Domain.Museum>, IOrderedEnumerable<Domain.Models.Domain.Museum>> Apply()
         {
             switch (_sortingMethod)
             {

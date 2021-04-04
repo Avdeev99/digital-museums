@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.DTO.Museum;
 
 namespace DigitalMuseums.Core.Services.Contracts
 {
     public interface IMuseumService
     {
-        void Create(MuseumDto museumDto);
+        void Create(CreateMuseumDto createMuseumDto);
         
         Task UpdateAsync(UpdateMuseumDto museumDto);
 

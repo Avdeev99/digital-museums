@@ -6,6 +6,7 @@ using DigitalMuseums.Core.Domain.Models.Secondary;
 using DigitalMuseums.Api.Contracts.Responses;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Api.Contracts.ViewModels;
+using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.Models;
 using DigitalMuseums.Core.Domain.Models.Auth;
 using Google.Apis.Auth;
@@ -22,7 +23,7 @@ namespace DigitalMuseums.Api.Mappings
            
             CreateMap<LinkUserToMuseumRequest, LinkUserToMuseumDto>();
             CreateMap<FilterMuseumsRequest, FilterMuseumsDto>();
-            CreateMap<AddMuseumRequest, MuseumDto>()
+            CreateMap<CreateMuseumRequest, CreateMuseumDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
             CreateMap<UpdateMuseumRequest, UpdateMuseumDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
