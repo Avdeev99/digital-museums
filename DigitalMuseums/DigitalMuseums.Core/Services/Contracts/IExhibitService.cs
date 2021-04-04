@@ -6,7 +6,7 @@ namespace DigitalMuseums.Core.Services.Contracts
 {
     public interface IExhibitService
     {
-        void Create(CreateExhibitDto createMuseumDto);
+        Task CreateAsync(CreateExhibitDto createMuseumDto);
         
         Task UpdateAsync(UpdateExhibitDto updateExhibitDto);
         

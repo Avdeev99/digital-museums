@@ -16,8 +16,13 @@
         "genre": "Genre",
         "images": "Images",
         "sortingMethod": "Sorting Method",
+        "entity": "Museum",
+        "user": "User",
         "errors": {
             "not-found": "The museum not found."
+        },
+        "buttons": {
+            "details": "Details"
         }
     },
     "user": {
@@ -34,6 +39,12 @@
     "exhibit": {
         "author": "Author",
         "date": "Date"
+    },
+    "menu": {
+        "home": "Home",
+        "museums": "Museums",
+        "exhibits": "Exhibits",
+        "login": "Login"
     },
     "shared": {
         "controls": {

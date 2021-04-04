@@ -42,15 +42,15 @@ namespace DigitalMuseums.Core.Services
             _locationRepository = unitOfWork.GetRepository<Location>();
         }
 
-        public void Create(CreateMuseumDto createMuseumDto)
+        public async Task Create(CreateMuseumDto createMuseumDto)
         {
             var museum = _mapper.Map<Museum>(createMuseumDto);
             var museumResult = _museumRepository.Create(museum);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
             createMuseumDto.ImagesData.MuseumId = museumResult.Id;
             _imageService.AddAndUpload(createMuseumDto.ImagesData);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(UpdateMuseumDto museumDto)
@@ -142,6 +142,22 @@ namespace DigitalMuseums.Core.Services
             var orderByQuery = _museumFilterPipeline.BuildOrderByQuery(filter);
 
             var result = _mapper.Map<List<FilteredMuseumItem>>(orderByQuery(museums).ToList());
+
+            return result;
+        }
+
+        public async Task<List<BasePredefinedEntity>> GetBaseListAsync()
+        {
+            var museums = await _museumRepository.GetAllAsync(m => !m.IsDeleted);
+            var result = _mapper.Map<List<BasePredefinedEntity>>(museums);
+
+            return result;
+        }
+
+        public async Task<List<BasePredefinedEntity>> GetBaseListAsync(int userId)
+        {
+            var museums = await _museumRepository.GetAllAsync(m => m.UserId == userId);
+            var result = _mapper.Map<List<BasePredefinedEntity>>(museums);
 
             return result;
         }

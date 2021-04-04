@@ -5,6 +5,8 @@ namespace DigitalMuseums.Api.Contracts.Requests.Exhibit
 {
     public class FilterExhibitsRequest
     {
+        public int? MuseumId { get; set; }
+
         public string Name { get; set; }
         
         public string Author { get; set; }

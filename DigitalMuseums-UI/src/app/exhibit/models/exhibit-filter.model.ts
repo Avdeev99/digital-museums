@@ -4,4 +4,5 @@ export interface ExhibitFilter {
     author: string;
     date: string;
     tags: string[];
+    museumId: number;
 }

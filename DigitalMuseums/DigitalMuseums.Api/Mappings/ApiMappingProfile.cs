@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DigitalMuseums.Api.Contracts.Requests.Exhibit;
 using DigitalMuseums.Api.Contracts.Requests.Genre;
 using DigitalMuseums.Api.Contracts.Requests.Museum;
 using DigitalMuseums.Core.Domain.DTO;
@@ -6,6 +7,7 @@ using DigitalMuseums.Core.Domain.Models.Secondary;
 using DigitalMuseums.Api.Contracts.Responses;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Api.Contracts.ViewModels;
+using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.Models;
 using DigitalMuseums.Core.Domain.Models.Auth;
@@ -54,6 +56,12 @@ namespace DigitalMuseums.Api.Mappings
                     dest => dest.Address,
                     cfg => cfg.MapFrom((src, dest) => src.Location?.Address));
 
+            CreateMap<FilterExhibitsRequest, FilterExhibitsDto>().ReverseMap();
+            CreateMap<FilteredExhibitItem, GetFilteredMuseumsResponseItem>().ReverseMap();
+            CreateMap<CreateExhibitRequest, CreateExhibitDto>()
+                .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
+            CreateMap<UpdateExhibitRequest, UpdateExhibitDto>()
+                .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
         }
     }
 }

@@ -24,12 +24,12 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
   private selectedImages: FileList;
 
   public constructor(
-    private fb: FormBuilder,
-    protected locationService: LocationService,
-    protected genreService: GenreService,
-    private museumService: MuseumService,
-    private route: ActivatedRoute,
-    private router: Router,
+      private fb: FormBuilder,
+      protected locationService: LocationService,
+      protected genreService: GenreService,
+      private museumService: MuseumService,
+      private route: ActivatedRoute,
+      private router: Router,
     ) {
     super(locationService, genreService);
     this.setMuseumId();

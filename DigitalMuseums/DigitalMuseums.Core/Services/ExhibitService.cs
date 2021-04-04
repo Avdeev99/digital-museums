@@ -37,15 +37,15 @@ namespace DigitalMuseums.Core.Services
             _exhibitRepository = unitOfWork.GetRepository<Exhibit>();
         }
 
-        public void Create(CreateExhibitDto createExhibitDto)
+        public async Task CreateAsync(CreateExhibitDto createExhibitDto)
         {
             var exhibit = _mapper.Map<Exhibit>(createExhibitDto);
             var exhibitResult = _exhibitRepository.Create(exhibit);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
             createExhibitDto.ImagesData.ExhibitId = exhibitResult.Id;
             _imageService.AddAndUpload(createExhibitDto.ImagesData);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(UpdateExhibitDto updateExhibitDto)

@@ -5,6 +5,8 @@ namespace DigitalMuseums.Core.Domain.DTO.Exhibit
 {
     public class FilterExhibitsDto
     {
+        public int? MuseumId { get; set; }
+
         public string Name { get; set; }
         
         public string Author { get; set; }

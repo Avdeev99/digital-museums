@@ -29,6 +29,7 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IMuseumService, MuseumService>();
             services.AddScoped<IExhibitService, ExhibitService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped(typeof(IBasePredefinedEntityService<>), typeof(BasePredefinedEntityService<>));
 
             services.AddScoped<IOrderedFilterPipeline<Museum, FilterMuseumsDto>, MuseumFilterPipeline>();

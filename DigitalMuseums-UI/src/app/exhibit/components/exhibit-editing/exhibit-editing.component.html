@@ -1,6 +1,17 @@
 <form [formGroup]="formGroup">
     <div>
         <label>
+            {{ 'museum.entity' | translate }}
+            <app-select
+                [label]="'museum.entity' | translate"
+                [control]="formGroup.controls.museumId"
+                [options]="museums$ | async"
+            ></app-select>
+          </label>
+    </div>
+
+    <div>
+        <label>
             {{ 'shared.controls.name' | translate }}
             <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
           </label>
@@ -23,7 +34,11 @@
     <div>
         <label>
             {{ 'exhibit.date' | translate }}
-            <app-input [label]="'exhibit.date' | translate" [control]="formGroup.controls.date"></app-input>
+            <app-input 
+                [label]="'exhibit.date' | translate"
+                [control]="formGroup.controls.date"
+                [inputType]="'date'"
+            ></app-input>
           </label>
     </div>
 

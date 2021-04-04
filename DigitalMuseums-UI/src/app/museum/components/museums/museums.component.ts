@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GenreService } from 'src/app/core/shared/services/genre.service';
 import { LocationService } from 'src/app/core/shared/services/location.service';
@@ -22,6 +23,7 @@ export class MuseumsComponent extends MuseumBase implements OnInit {
     private museumService: MuseumService,
     protected locationService: LocationService,
     protected genreService: GenreService,
+    private router: Router,
   ) {
     super(locationService, genreService);
   }
@@ -32,9 +34,17 @@ export class MuseumsComponent extends MuseumBase implements OnInit {
     this.museums$ = this.museumService.getAll();
   }
 
+  public getMuseumImage(museum: MuseumDetails): string {
+    return museum && museum.imagePaths && museum.imagePaths.length ? museum.imagePaths[0] : null;
+  }
+
   public onSubmit(): void {
     const filter: MuseumFilter = this.formGroup.getRawValue();
     this.museums$ = this.museumService.getFiltered(filter);
+  }
+
+  public onDetails(museumId: number): void {
+    this.router.navigate([`museum/${museumId}`]);
   }
 
   private initForm(): void {

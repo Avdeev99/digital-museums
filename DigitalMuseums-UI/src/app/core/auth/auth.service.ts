@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { AuthRequest } from './models/auth-request.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -6,7 +6,7 @@ import { AuthService as SocialAuthService, SocialUser } from 'angularx-social-lo
 import { api, storage } from './constants/api.constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAuthResponse } from './models/auth-response.model';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -27,19 +27,38 @@ export class AuthService {
     return !!token;
   }
 
-  public externalAuth(providerId: string): Promise<any> {
+  // public externalAuth(providerId: string): Promise<any> {
+  //   this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
+
+  //   return this.socialAuthService.signIn(providerId).then((socialUser: SocialUser) => {
+  //     const requestUrl: string = `${api.authenticate}/${providerId.toLocaleLowerCase()}`;
+
+  //     this.httpClient.post(requestUrl, { idToken: socialUser.idToken }).subscribe((authResponse: IAuthResponse) => {
+  //       localStorage.setItem(storage.token, JSON.stringify(authResponse.token));
+  //       localStorage.setItem(storage.currentUser, JSON.stringify(authResponse.user));
+
+  //       this.router.navigate([this.returnUrl]);
+  //     });
+  //   });
+  // }
+
+  public externalAuth(providerId: string): Observable<any> {
     this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
 
-    return this.socialAuthService.signIn(providerId).then((socialUser: SocialUser) => {
-      const requestUrl: string = `${api.authenticate}/${providerId.toLocaleLowerCase()}`;
+    return from(this.socialAuthService.signIn(providerId)).pipe(
+      switchMap((socialUser: SocialUser) => {
+        const requestUrl: string = `${api.authenticate}/${providerId.toLocaleLowerCase()}`;
 
-      this.httpClient.post(requestUrl, { idToken: socialUser.idToken }).subscribe((authResponse: IAuthResponse) => {
+        return this.httpClient.post(requestUrl, { idToken: socialUser.idToken });
+      }),
+      tap((authResponse: IAuthResponse) => {
+        debugger;
         localStorage.setItem(storage.token, JSON.stringify(authResponse.token));
         localStorage.setItem(storage.currentUser, JSON.stringify(authResponse.user));
 
         this.router.navigate([this.returnUrl]);
-      });
-    });
+      })
+    );
   }
 
   public authenticate(authRequest: AuthRequest): Observable<any> {

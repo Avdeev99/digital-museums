@@ -1,40 +1,42 @@
-<div class="filter-block">
-    <form [formGroup]="formGroup">
-        <div>
-            <label>
-                {{ 'shared.controls.name' | translate }}
-                <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
-              </label>
+<div class="search-block">
+    <div class="filter-block">
+        <form [formGroup]="formGroup">
+            <div>
+                <label>
+                    {{ 'shared.controls.name' | translate }}
+                    <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
+                  </label>
+            </div>
+    
+            <div>
+                <label>
+                    {{ 'exhibit.author' | translate }}
+                    <app-input [label]="'exhibit.author' | translate" [control]="formGroup.controls.author"></app-input>
+                  </label>
+            </div>
+    
+            <div>
+                <label>
+                    {{ 'exhibit.date' | translate }}
+                    <app-input [label]="'exhibit.date' | translate" [control]="formGroup.controls.date"></app-input>
+                  </label>
+            </div>
+    
+            <div>
+                <label>
+                    {{ 'shared.controls.tags' | translate }}
+                    <app-input [label]="'shared.controls.tags' | translate" [control]="formGroup.controls.tags"></app-input>
+                  </label>
+            </div>
+    
+            <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+        </form>
+    </div>
+    
+    <div class="exhibits-block">
+        <div *ngFor="let exhibit of exhibits$ | async">
+            <label>{{ 'shared.controls.name' | translate }}: {{ exhibit.name }}</label>
         </div>
-
-        <div>
-            <label>
-                {{ 'exhibit.author' | translate }}
-                <app-input [label]="'exhibit.author' | translate" [control]="formGroup.controls.author"></app-input>
-              </label>
-        </div>
-
-        <div>
-            <label>
-                {{ 'exhibit.date' | translate }}
-                <app-input [label]="'exhibit.date' | translate" [control]="formGroup.controls.date"></app-input>
-              </label>
-        </div>
-
-        <div>
-            <label>
-                {{ 'shared.controls.tags' | translate }}
-                <app-input [label]="'shared.controls.tags' | translate" [control]="formGroup.controls.tags"></app-input>
-              </label>
-        </div>
-
-        <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
-    </form>
-</div>
-
-<div>
-    <div *ngFor="let exhibit of exhibits$ | async">
-        <label>{{ 'shared.controls.name' | translate }}: {{ exhibit.name }}</label>
     </div>
 </div>
 

@@ -22,10 +22,10 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromForm] CreateExhibitRequest request)
+        public async Task<IActionResult> Create([FromForm] CreateExhibitRequest request)
         {
             var exhibitDto = _mapper.Map<CreateExhibitDto>(request);
-            _exhibitService.Create(exhibitDto);
+            await _exhibitService.CreateAsync(exhibitDto);
 
             return Ok();
         }

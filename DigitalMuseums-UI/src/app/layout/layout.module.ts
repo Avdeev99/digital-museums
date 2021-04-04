@@ -4,10 +4,22 @@ import { RouterModule } from '@angular/router';
 
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { SharedModule } from '../core/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
-  imports: [CommonModule, RouterModule],
-  exports: [HeaderComponent, FooterComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent, 
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    TranslateModule
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent
+  ],
 })
 export class LayoutModule {}

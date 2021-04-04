@@ -3,6 +3,10 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
+import { IOption } from 'src/app/core/form/form.interface';
+import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
+import { MuseumService } from 'src/app/museum/services/museum.service';
 import { ExhibitDetails } from '../../models/exhibit-details.model';
 import { Exhibit } from '../../models/exhibit.model';
 import { ExhibitService } from '../../services/exhibit.service';
@@ -15,22 +19,28 @@ import { ExhibitService } from '../../services/exhibit.service';
 export class ExhibitEditingComponent implements OnInit, OnDestroy {
   public formGroup: FormGroup;
   public exhibit: ExhibitDetails;
+  public museums$: Observable<Array<IOption>>;
 
   private exhibitId: number;
   private selectedImages: FileList;
+  private currentUserId?: number;
   private unsubscribe$: Subject<void> = new Subject();
 
   public constructor(
-    private fb: FormBuilder,
-    private exhibitService: ExhibitService,
-    private route: ActivatedRoute,
-    private router: Router,
+      private fb: FormBuilder,
+      private exhibitService: ExhibitService,
+      private route: ActivatedRoute,
+      private router: Router,
+      private museumService: MuseumService,
+      private currentUserService: CurrentUserService,
     ) {
     this.setExhibitId();
+    this.setUserId();
   }
 
   public ngOnInit(): void {
     this.initForm();
+    this.initDropdowns();
     this.fetchExhibit();
   }
 
@@ -67,6 +77,11 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
     this.exhibitId = this.route.snapshot.params.id;
   }
 
+  private setUserId(): void {
+    const currentUser: AuthUser = this.currentUserService.getUser();
+    this.currentUserId = currentUser?.id;
+  }
+
   private fetchExhibit(): void {
     if (this.exhibitId) {
       this.exhibitService.get(this.exhibitId)
@@ -85,6 +100,7 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     this.formGroup = this.fb.group({
+      museumId: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       author: new FormControl(null, [Validators.required]),
@@ -92,5 +108,9 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
       tags: new FormControl(null, [Validators.required]),
       images: new FormControl(null, [Validators.required]),
     });
+  }
+
+  private initDropdowns(): void {
+    this.museums$ = this.museumService.getBaseListByUserId(this.currentUserId);
   }
 }

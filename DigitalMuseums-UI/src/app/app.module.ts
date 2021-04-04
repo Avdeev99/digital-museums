@@ -20,7 +20,6 @@ import { MissingTranslationService } from './core/translation/missing-translatio
     StoreModule.forRoot({}, {}),
     BrowserAnimationsModule,
     InterceptorsModule,
-    LayoutModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -28,7 +27,8 @@ import { MissingTranslationService } from './core/translation/missing-translatio
         deps: [HttpClient],
       },
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationService },
-    })
+    }),
+    LayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

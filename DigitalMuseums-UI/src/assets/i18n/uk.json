@@ -17,11 +17,16 @@
         "genre": "Жанр",
         "images": "Зображення",
         "sortingMethod": "Сортування",
+        "entity": "Музей",
         "errors": {
             "not-found": "Музей не знайдено."
+        },
+        "buttons": {
+            "details": "Деталі"
         }
     },
     "user": {
+        "entity": "Користувач",
         "errors": {
             "not-found": "Користувача не знайдено."
         }
@@ -35,6 +40,12 @@
     "exhibit": {
         "author": "Автор",
         "date": "Дата"
+    },
+    "menu": {
+        "home": "Додому",
+        "museums": "Музеї",
+        "exhibits": "Експонати",
+        "login": "Вхід"
     },
     "shared": {
         "controls": {

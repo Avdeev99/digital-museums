@@ -3,4 +3,5 @@ export const api: Record<string, string> = {
     getRegions: '/api/region',
     getCities: '/api/city',
     getGenres: '/api/genre',
+    user: '/api/user',
   };

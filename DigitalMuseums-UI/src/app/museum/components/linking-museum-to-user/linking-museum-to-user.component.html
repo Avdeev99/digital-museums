@@ -1,0 +1,26 @@
+<form [formGroup]="formGroup">
+    <div>
+        <label>
+            {{ 'museum.entity' | translate }}
+            <app-select
+                [label]="'museum.entity' | translate"
+                [control]="formGroup.controls.museumId"
+                [options]="museums$ | async"
+            ></app-select>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'museum.user' | translate }}
+            <app-select
+                [label]="'user.entity' | translate"
+                [control]="formGroup.controls.userId"
+                [options]="users$ | async"
+            ></app-select>
+          </label>
+    </div>
+
+    <br>
+    <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+</form>

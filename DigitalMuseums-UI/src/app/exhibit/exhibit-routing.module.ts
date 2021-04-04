@@ -14,7 +14,7 @@ const routes: Routes = [
       component: ExhibitEditingComponent
     },
     {
-      path: 'search',
+      path: ':museumId/search',
       component: ExhibitSearchComponent
     },
     {

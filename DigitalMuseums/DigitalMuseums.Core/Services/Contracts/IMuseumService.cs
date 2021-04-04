@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DigitalMuseums.Core.Domain.DTO.Museum;
+using DigitalMuseums.Core.Domain.Models;
 
 namespace DigitalMuseums.Core.Services.Contracts
 {
     public interface IMuseumService
     {
-        void Create(CreateMuseumDto createMuseumDto);
+        Task Create(CreateMuseumDto createMuseumDto);
         
         Task UpdateAsync(UpdateMuseumDto museumDto);
 
@@ -17,5 +18,9 @@ namespace DigitalMuseums.Core.Services.Contracts
         Task<MuseumItem> GetAsync(int id);
         
         Task<List<FilteredMuseumItem>> GetFilteredAsync(FilterMuseumsDto filter);
+
+        Task<List<BasePredefinedEntity>> GetBaseListAsync();
+
+        Task<List<BasePredefinedEntity>> GetBaseListAsync(int userId);
     }
 }

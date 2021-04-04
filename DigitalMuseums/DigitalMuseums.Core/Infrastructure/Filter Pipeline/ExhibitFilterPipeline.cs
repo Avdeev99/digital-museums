@@ -12,7 +12,13 @@ namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline
         public Expression<Func<Exhibit, bool>> BuildQuery(FilterExhibitsDto filter)
         {
             Expression<Func<Exhibit, bool>> resultQuery = exhibit => !exhibit.IsDeleted;
-            
+
+            if (filter.MuseumId.HasValue)
+            {
+                var exhibitFilterMuseumIdPipe = new ExhibitFilterMuseumIdPipe(filter.MuseumId.Value);
+                resultQuery = exhibitFilterMuseumIdPipe.Apply(resultQuery);
+            }
+
             if (!string.IsNullOrEmpty(filter.Name))
             {
                 var exhibitFilterNamePipe = new ExhibitFilterNamePipe(filter.Name);
