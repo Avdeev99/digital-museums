@@ -24,6 +24,8 @@ namespace DigitalMuseums.Core.Domain.Models.Domain
         
         public ICollection<Exhibit> Exhibits { get; set; }
         
+        public ICollection<Souvenir> Souvenirs { get; set; }
+        
         public ICollection<Image> Images { get; set; }
 
         public int? UserId { get; set; }
