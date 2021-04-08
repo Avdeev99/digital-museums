@@ -44,7 +44,8 @@
         "home": "Home",
         "museums": "Museums",
         "exhibits": "Exhibits",
-        "login": "Login"
+        "login": "Login",
+        "museum": "Museum"
     },
     "shared": {
         "controls": {

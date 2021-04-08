@@ -13,7 +13,9 @@ namespace DigitalMuseums.Core.Domain.DTO.Exhibit
         public string Author { get; set; }
         
         public DateTime Date { get; set; }
-        
+
+        public int MuseumId { get; set; }
+
         public List<string> Tags { get; set; }
 
         public ICollection<BasePredefinedEntity> Exhibitions { get; set; }

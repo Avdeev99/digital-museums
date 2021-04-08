@@ -15,7 +15,7 @@ namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline.Pipes.Exhibit
         public Expression<Func<Domain.Models.Domain.Exhibit, bool>> Apply(Expression<Func<Domain.Models.Domain.Exhibit, bool>> leftLeaf)
         {
             Expression<Func<Domain.Models.Domain.Exhibit, bool>> param = exhibit =>
-                exhibit.Id == _museumId;
+                exhibit.MuseumId == _museumId;
 
             return CombineExpressions(leftLeaf, param);
         }

@@ -63,7 +63,8 @@ export class MuseumDetailsComponent implements OnInit {
   }
 
   private initMenuList(): void {
-    const state: { backUrl?: string } = this.backUrl ? { backUrl: this.backUrl } : {};
+    let state: any = this.backUrl ? { backUrl: this.backUrl } : {};
+
     this.menuList = [
       {
         name: 'menu.exhibits',

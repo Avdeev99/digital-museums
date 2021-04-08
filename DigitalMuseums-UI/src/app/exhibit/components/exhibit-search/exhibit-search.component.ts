@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { ExhibitDetails } from '../../models/exhibit-details.model';
 import { ExhibitFilter } from '../../models/exhibit-filter.model';
 import { ExhibitService } from '../../services/exhibit.service';
@@ -28,7 +29,9 @@ export class ExhibitSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.exhibits$ = this.exhibitService.getAll();
+    this.exhibits$ = this.exhibitService.getFiltered({
+      museumId: this.museumId,
+    });
   }
 
   public onSubmit(): void {
@@ -38,6 +41,10 @@ export class ExhibitSearchComponent implements OnInit {
     };
     
     this.exhibits$ = this.exhibitService.getFiltered(filter);
+  }
+
+  public onDetails(exhibitId: number): void {
+    this.router.navigate([`exhibit/${exhibitId}`]);
   }
 
   private initForm(): void {

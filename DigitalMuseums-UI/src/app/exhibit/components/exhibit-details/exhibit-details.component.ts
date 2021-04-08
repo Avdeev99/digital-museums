@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { ExhibitDetails } from '../../models/exhibit-details.model';
 import { ExhibitService } from '../../services/exhibit.service';
 
@@ -13,7 +14,11 @@ import { ExhibitService } from '../../services/exhibit.service';
 export class ExhibitDetailsComponent implements OnInit {
   public exhibit: ExhibitDetails;
 
+  public menuList: Array<MenuItem>;
+
+  private backUrl: string;
   private exhibitId: number;
+  private museumId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +50,30 @@ export class ExhibitDetailsComponent implements OnInit {
       )
       .subscribe(data => {
         this.exhibit = data;
+        this.museumId = data.museumId;
+
+        this.checkNavigationState();
       });
+  }
+
+  private checkNavigationState(): void {
+    const currentNavigationState: any = this.router.getCurrentNavigation();
+
+    if (currentNavigationState && currentNavigationState.extras && currentNavigationState.extras.state) {
+      this.backUrl = currentNavigationState.extras.state.backUrl;
+    }
+
+    this.initMenuList();
+  }
+
+  private initMenuList(): void {
+    const state: { backUrl?: string } = this.backUrl ? { backUrl: this.backUrl } : {};
+    this.menuList = [
+      {
+        name: 'menu.museum',
+        href: `museum/${this.museumId}`,
+        state,
+      },
+    ];
   }
 }

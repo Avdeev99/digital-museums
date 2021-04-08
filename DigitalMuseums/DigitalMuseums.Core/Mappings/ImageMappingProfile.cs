@@ -1,4 +1,5 @@
 using AutoMapper;
+using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.Models.Secondary;
 
@@ -9,6 +10,8 @@ namespace DigitalMuseums.Core.Mappings
         public ImageMappingProfile()
         {
             CreateMap<MuseumImagesUnit, Image>();
+
+            CreateMap<ExhibitImagesUnit, Image>();
         }
     }
 }

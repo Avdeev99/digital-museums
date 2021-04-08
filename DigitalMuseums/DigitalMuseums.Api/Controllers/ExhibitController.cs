@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Exhibit;
 using DigitalMuseums.Api.Contracts.Responses.Exhibit;
+using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
@@ -60,10 +62,9 @@ namespace DigitalMuseums.Api.Controllers
             var filterDto = _mapper.Map<FilterExhibitsDto>(filter);
             
             var filteredItems = await _exhibitService.GetFilteredAsync(filterDto);
-            //var result = _mapper.Map<List<GetFilteredMuseumsResponseItem>>(filteredItems);
+            var result = _mapper.Map<List<GetFilteredMuseumsResponseItem>>(filteredItems);
 
-            return Ok();
-            //return Ok(result);
+            return Ok(result);
         }
         
         [HttpDelete("{id}")]

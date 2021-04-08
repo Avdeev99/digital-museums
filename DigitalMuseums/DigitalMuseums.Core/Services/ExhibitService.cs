@@ -81,8 +81,6 @@ namespace DigitalMuseums.Core.Services
                 throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
             }
 
-            await _unitOfWork.SaveChangesAsync();
-
             var result = _mapper.Map<ExhibitItem>(exhibit);
 
             return result;

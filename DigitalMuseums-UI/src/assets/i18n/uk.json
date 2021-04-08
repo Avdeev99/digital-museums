@@ -45,7 +45,8 @@
         "home": "Додому",
         "museums": "Музеї",
         "exhibits": "Експонати",
-        "login": "Вхід"
+        "login": "Вхід",
+        "museum": "Музей"
     },
     "shared": {
         "controls": {

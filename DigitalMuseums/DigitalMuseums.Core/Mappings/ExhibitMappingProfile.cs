@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
+using DigitalMuseums.Api.Contracts.Responses.Exhibit;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Domain.DTO.Image;
 using DigitalMuseums.Core.Domain.Models.Domain;
@@ -34,6 +36,14 @@ namespace DigitalMuseums.Core.Mappings
             CreateMap<CreateExhibitDto, Exhibit>().ReverseMap();
 
             CreateMap<Exhibit, FilteredExhibitItem>().ReverseMap();
+
+            CreateMap<Exhibit, ExhibitItem>()
+                .ForMember(
+                    dest => dest.ImagePaths, 
+                    opt => opt.MapFrom(s => s.Images.Select(i => i.Path)))
+                .ReverseMap();
+
+            CreateMap<ExhibitItem, GetExhibitResponse>().ReverseMap();
         }
     }
 }
