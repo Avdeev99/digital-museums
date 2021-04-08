@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public externalAuth(providerId: string): void {
-    this.authService.externalAuth(providerId);
+    this.authService.externalAuth(providerId).subscribe();
   }
 
   public authenticate(): void {

@@ -1,0 +1,12 @@
+<button mat-button [matMenuTriggerFor]="afterMenu">Menu</button>
+<mat-menu #afterMenu="matMenu" xPosition="after" ngbDropdownMenu>
+  <a *ngFor="let menuItem of menuList" 
+    mat-menu-item
+    ngbDropdownItem
+    [routerLink]="menuItem.href"
+    (click)="onMenuItemSelected(menuItem.actionData, menuItem.href)"
+    [state]="menuItem.state"
+  >
+    {{ menuItem.name | translate }}
+  </a>
+</mat-menu>

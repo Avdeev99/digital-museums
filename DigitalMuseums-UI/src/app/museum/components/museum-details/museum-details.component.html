@@ -1,12 +1,21 @@
-<div>
-    <label>Name: {{ museum.name }}</label>
-</div>
+<app-submenu
+    [menuList]="menuList"
+>
+</app-submenu>
 
-<div>
-    <label>{{ museum.description }}</label>
-</div>
+<br>
 
-<div>
-    <img [src] ="museumImage" style="width: 600px;height: 400px;"> 
+<div *ngIf="museum">
+    <div>
+        <label>{{ 'museum.name' | translate }}: {{ museum.name }}</label>
+    </div>
+    
+    <div>
+        <label>{{ 'museum.description' | translate }}: {{ museum.description }}</label>
+    </div>
+    
+    <div>
+        <img [src] ="museumImage" style="width: 600px;height: 400px;"> 
+    </div>
 </div>
 

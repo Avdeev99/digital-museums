@@ -1,0 +1,10 @@
+.submenu {
+    $this: &;
+     
+    &__icon {
+        background-image: url('../../../../../assets/icons/menu.svg');
+        background-repeat: no-repeat;
+        width: rem(20px);
+        height: rem(20px);
+    }
+}

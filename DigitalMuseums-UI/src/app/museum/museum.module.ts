@@ -9,9 +9,10 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MuseumRoutingModule } from './museum-routing.module';
 import { MuseumDetailsComponent } from './components/museum-details/museum-details.component';
 import { MuseumsComponent } from './components/museums/museums.component';
+import { LinkingMuseumToUserComponent } from './components/linking-museum-to-user/linking-museum-to-user.component';
 
 @NgModule({
-  declarations: [AddMuseumComponent, MuseumDetailsComponent, MuseumsComponent],
+  declarations: [AddMuseumComponent, MuseumDetailsComponent, MuseumsComponent, LinkingMuseumToUserComponent],
   imports: [
       CommonModule,
       FormsModule,

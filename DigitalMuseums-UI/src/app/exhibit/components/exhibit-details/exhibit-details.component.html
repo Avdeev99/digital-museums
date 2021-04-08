@@ -1,0 +1,20 @@
+<app-submenu
+    [menuList]="menuList"
+>
+</app-submenu>
+
+<br>
+<div *ngIf="exhibit">
+    <div>
+        <label>{{ 'shared.controls.name' | translate }}: {{ exhibit.name }}</label>
+    </div>
+    
+    <div>
+        <label>{{ 'shared.controls.description' | translate }}: {{ exhibit.description }}</label>
+    </div>
+    
+    <div>
+        <img [src] ="exhibitImage" style="width: 600px;height: 400px;"> 
+    </div>
+</div>
+

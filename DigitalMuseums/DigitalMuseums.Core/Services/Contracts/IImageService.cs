@@ -1,4 +1,4 @@
-using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.DTO.Image;
 
 namespace DigitalMuseums.Core.Services.Contracts
 {

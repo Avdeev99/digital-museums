@@ -22,6 +22,8 @@ namespace DigitalMuseums.Core.Domain.Models.Domain
         
         public Genre Genre { get; set; }
         
+        public ICollection<Exhibit> Exhibits { get; set; }
+        
         public ICollection<Image> Images { get; set; }
 
         public int? UserId { get; set; }

@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Museum;
+using DigitalMuseums.Api.Contracts.Responses;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
-using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,16 +24,16 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromForm] AddMuseumRequest request)
+        public async Task<IActionResult> Create([FromForm] CreateMuseumRequest request)
         {
-            var museumDto = _mapper.Map<MuseumDto>(request);
-            _museumService.Create(museumDto);
+            var museumDto = _mapper.Map<CreateMuseumDto>(request);
+            await _museumService.Create(museumDto);
 
             return Ok();
         }
 
         [HttpPost("user")]
-        public async Task<IActionResult> LinkUserToMuseum(LinkUserToMuseumRequest request)
+        public async Task<IActionResult> LinkUserToMuseumAsync(LinkUserToMuseumRequest request)
         {
             var dto = _mapper.Map<LinkUserToMuseumDto>(request);
             await _museumService.LinkUserAsync(dto);
@@ -41,7 +42,7 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             var museum = await _museumService.GetAsync(id);
             var result = _mapper.Map<GetMuseumResponse>(museum);
@@ -50,7 +51,7 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetFiltered([FromQuery] FilterMuseumsRequest filter)
+        public async Task<IActionResult> GetFilteredAsync([FromQuery] FilterMuseumsRequest filter)
         {
             var filterDto = _mapper.Map<FilterMuseumsDto>(filter);
             
@@ -61,7 +62,7 @@ namespace DigitalMuseums.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromForm] UpdateMuseumRequest request)
+        public async Task<IActionResult> UpdateAsync(int id, [FromForm] UpdateMuseumRequest request)
         {
             var museumDto = _mapper.Map<UpdateMuseumDto>(request);
             museumDto.Id = id;
@@ -76,11 +77,29 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             await _museumService.DeleteAsync(id);
             
             return Ok();
+        }
+
+        [HttpGet("base/list")]
+        public async Task<IActionResult> GetBaseListAsync()
+        {
+            var museums = await _museumService.GetBaseListAsync();
+            var result = _mapper.Map<List<BasePredefinedEntityResponse>>(museums);
+
+            return Ok(result);
+        }
+
+        [HttpGet("user/{userId}/base/list")]
+        public async Task<IActionResult> GetBaseListAsync(int userId)
+        {
+            var museums = await _museumService.GetBaseListAsync(userId);
+            var result = _mapper.Map<List<BasePredefinedEntityResponse>>(museums);
+
+            return Ok(result);
         }
     }
 }

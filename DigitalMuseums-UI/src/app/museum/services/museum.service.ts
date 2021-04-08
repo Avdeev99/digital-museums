@@ -2,7 +2,9 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { serialize } from "object-to-formdata";
 import { Observable, of } from "rxjs";
+import { IOption } from "src/app/core/form/form.interface";
 import { api } from "../constants/api.constants";
+import { LinkingMuseumToUser } from "../models/linking-museum-to-user.model";
 import { MuseumDetails } from "../models/museum-details.model";
 import { MuseumFilter } from "../models/museum-filter.model";
 import { Museum } from "../models/museum.model";
@@ -45,8 +47,25 @@ export class MuseumService {
             }
         });
 
-        debugger;
         return this.httpClient.get<Array<MuseumDetails>>(api.museum, { params: httpParams });
+    }
+
+    public linkMuseumToUser(linkingMuseumToUser: LinkingMuseumToUser): Observable<void> {
+        const requestUrl: string = `${api.museum}/user`
+
+        return this.httpClient.post<void>(requestUrl, linkingMuseumToUser);
+    }
+
+    public getBaseList(): Observable<Array<IOption>> {
+        const requestUrl: string = `${api.museum}/base/list`
+
+        return this.httpClient.get<Array<IOption>>(requestUrl);
+    }
+
+    public getBaseListByUserId(userId: number): Observable<Array<IOption>> {
+        const requestUrl: string = `${api.museum}/user/${userId}/base/list`
+
+        return this.httpClient.get<Array<IOption>>(requestUrl);
     }
 
     private getFormData(museum: Museum): FormData {

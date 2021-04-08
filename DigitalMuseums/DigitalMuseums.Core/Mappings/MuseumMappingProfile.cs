@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.DTO.Image;
+using DigitalMuseums.Core.Domain.DTO.Museum;
+using DigitalMuseums.Core.Domain.Models;
 using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Domain.Models.Location;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +34,7 @@ namespace DigitalMuseums.Core.Mappings
                 return result;
             });
 
-            CreateMap<MuseumDto, Museum>()
+            CreateMap<CreateMuseumDto, Museum>()
                 .ForMember(dest => dest.Location, opt => opt.MapFrom(s => new Location
                 {
                     CityId = s.CityId,
@@ -45,6 +47,8 @@ namespace DigitalMuseums.Core.Mappings
             
             CreateMap<Museum, MuseumItem>()
                 .ForMember(dest => dest.ImagePaths, opt => opt.MapFrom(s => s.Images.Select(i => i.Path)));
+
+            CreateMap<Museum, BasePredefinedEntity>().ReverseMap();
         }
     }
 }

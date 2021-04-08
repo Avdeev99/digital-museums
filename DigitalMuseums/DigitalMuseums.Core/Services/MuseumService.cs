@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Core.Data.Contracts;
-using DigitalMuseums.Core.Domain.DTO;
+using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.Models;
 using DigitalMuseums.Core.Domain.Models.Auth;
 using DigitalMuseums.Core.Domain.Models.Domain;
@@ -21,7 +21,7 @@ namespace DigitalMuseums.Core.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IImageService _imageService;
-        private readonly IMuseumFilterPipeline _museumFilterPipeline;
+        private readonly IOrderedFilterPipeline<Museum, FilterMuseumsDto> _museumFilterPipeline;
         private readonly IMapper _mapper;
         private readonly IBaseRepository<Museum> _museumRepository;
         private readonly IBaseRepository<User> _userRepository;
@@ -30,7 +30,7 @@ namespace DigitalMuseums.Core.Services
         public MuseumService(
             IUnitOfWork unitOfWork,
             IImageService imageService,
-            IMuseumFilterPipeline museumFilterPipeline,
+            IOrderedFilterPipeline<Museum, FilterMuseumsDto> museumFilterPipeline,
             IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -42,15 +42,15 @@ namespace DigitalMuseums.Core.Services
             _locationRepository = unitOfWork.GetRepository<Location>();
         }
 
-        public void Create(MuseumDto museumDto)
+        public async Task Create(CreateMuseumDto createMuseumDto)
         {
-            var museum = _mapper.Map<Museum>(museumDto);
+            var museum = _mapper.Map<Museum>(createMuseumDto);
             var museumResult = _museumRepository.Create(museum);
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
-            museumDto.ImagesData.MuseumId = museumResult.Id;
-            _imageService.AddAndUpload(museumDto.ImagesData);
-            _unitOfWork.SaveChanges();
+            createMuseumDto.ImagesData.MuseumId = museumResult.Id;
+            _imageService.AddAndUpload(createMuseumDto.ImagesData);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(UpdateMuseumDto museumDto)
@@ -142,6 +142,22 @@ namespace DigitalMuseums.Core.Services
             var orderByQuery = _museumFilterPipeline.BuildOrderByQuery(filter);
 
             var result = _mapper.Map<List<FilteredMuseumItem>>(orderByQuery(museums).ToList());
+
+            return result;
+        }
+
+        public async Task<List<BasePredefinedEntity>> GetBaseListAsync()
+        {
+            var museums = await _museumRepository.GetAllAsync(m => !m.IsDeleted);
+            var result = _mapper.Map<List<BasePredefinedEntity>>(museums);
+
+            return result;
+        }
+
+        public async Task<List<BasePredefinedEntity>> GetBaseListAsync(int userId)
+        {
+            var museums = await _museumRepository.GetAllAsync(m => m.UserId == userId);
+            var result = _mapper.Map<List<BasePredefinedEntity>>(museums);
 
             return result;
         }
