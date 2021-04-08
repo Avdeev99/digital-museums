@@ -3,45 +3,45 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
-import { ExhibitDetails } from '../../models/exhibit-details.model';
-import { ExhibitService } from '../../services/exhibit.service';
+import { SouvenirDetails } from '../../models/souvenir-details.model';
+import { SouvenirService } from '../../services/souvenir.service';
 
 @Component({
-  selector: 'app-exhibit-details',
-  templateUrl: './exhibit-details.component.html',
-  styleUrls: ['./exhibit-details.component.scss']
+  selector: 'app-souvenir-details',
+  templateUrl: './souvenir-details.component.html',
+  styleUrls: ['./souvenir-details.component.scss']
 })
-export class ExhibitDetailsComponent implements OnInit {
-  public exhibit: ExhibitDetails;
+export class SouvenirDetailsComponent implements OnInit {
+  public souvenir: SouvenirDetails;
 
   public menuList: Array<MenuItem>;
 
   private backUrl: string;
-  private exhibitId: number;
+  private souvenirId: number;
   private museumId: number;
 
   constructor(
     private route: ActivatedRoute,
-    private exhibitService: ExhibitService,
+    private souvenirService: SouvenirService,
     private router: Router,
   ) { 
-    this.setExhibitId();
+    this.setSouvenirId();
   }
 
   ngOnInit(): void {
-    this.fetchExhibit();
+    this.fetchSouvenir();
   }
 
-  public get exhibitImage(): string {
-    return this.exhibit && this.exhibit.imagePaths.length ? this.exhibit.imagePaths[0] : null;
+  public get souvenirImage(): string {
+    return this.souvenir && this.souvenir.imagePaths.length ? this.souvenir.imagePaths[0] : null;
   }
 
-  private setExhibitId(): void {
-    this.exhibitId = this.route.snapshot.params.id;
+  private setSouvenirId(): void {
+    this.souvenirId = this.route.snapshot.params.id;
   }
 
-  private fetchExhibit(): void {
-    this.exhibitService.get(this.exhibitId)
+  private fetchSouvenir(): void {
+    this.souvenirService.get(this.souvenirId)
       .pipe(
         catchError(err => {
           this.router.navigate(['/']);
@@ -49,7 +49,7 @@ export class ExhibitDetailsComponent implements OnInit {
         }),
       )
       .subscribe(data => {
-        this.exhibit = data;
+        this.souvenir = data;
         this.museumId = data.museumId;
 
         this.checkNavigationState();
@@ -72,6 +72,11 @@ export class ExhibitDetailsComponent implements OnInit {
       {
         name: 'menu.museum',
         href: `/museum/${this.museumId}`,
+        state,
+      },
+      {
+        name: 'menu.exhibits',
+        href: `/exhibit/${this.museumId}/search`,
         state,
       },
     ];

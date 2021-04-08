@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountModule } from './account/account.module';
 import { ExhibitModule } from './exhibit/exhibit.module';
+import { SouvenirModule } from './souvenir/souvenir.module';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'exhibit',
     loadChildren: (): Promise<ExhibitModule> => import('./exhibit/exhibit.module').then((m): ExhibitModule => m.ExhibitModule),
+  },
+  {
+    path: 'souvenir',
+    loadChildren: (): Promise<SouvenirModule> => import('./souvenir/souvenir.module').then((m): SouvenirModule => m.SouvenirModule),
   },
 ];
 
