@@ -1,3 +1,8 @@
+<app-submenu
+    [menuList]="menuList"
+>
+</app-submenu>
+
 <div class="search-block">
     <div class="filter-block">
         <form [formGroup]="formGroup">
@@ -24,9 +29,12 @@
     
             <div>
                 <label>
-                    {{ 'shared.controls.tags' | translate }}
-                    <app-input [label]="'shared.controls.tags' | translate" [control]="formGroup.controls.tags"></app-input>
-                  </label>
+                {{ 'shared.controls.tags' | translate }}
+                <app-chips 
+                    [label]="'shared.controls.tags' | translate"
+                    [control]="formGroup.controls.tags"
+                ></app-chips>
+                </label>
             </div>
     
             <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>

@@ -41,6 +41,10 @@
         "author": "Автор",
         "date": "Дата"
     },
+    "souvenir": {
+        "price": "Ціна",
+        "availableUnits": "У наявності"
+    },
     "menu": {
         "home": "Додому",
         "museums": "Музеї",

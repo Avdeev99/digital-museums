@@ -15,7 +15,9 @@ import { ExhibitService } from '../../services/exhibit.service';
 export class ExhibitSearchComponent implements OnInit {
   public formGroup: FormGroup;
   public exhibits$: Observable<Array<ExhibitDetails>>
+  public menuList: Array<MenuItem>;
 
+  private backUrl: string;
   private museumId: number;
 
   constructor(
@@ -25,6 +27,7 @@ export class ExhibitSearchComponent implements OnInit {
     private router: Router,
   ) {
     this.setMuseumId();
+    this.checkNavigationState()
   }
 
   ngOnInit(): void {
@@ -52,11 +55,37 @@ export class ExhibitSearchComponent implements OnInit {
       name: new FormControl(null),
       author: new FormControl(null),
       date: new FormControl(null),
-      tags: new FormControl(null),
+      tags: new FormControl([]),
     });
   }
 
   private setMuseumId(): void {
     this.museumId = this.route.snapshot.params.museumId;
+  }
+
+  private checkNavigationState(): void {
+    const currentNavigationState: any = this.router.getCurrentNavigation();
+
+    if (currentNavigationState && currentNavigationState.extras && currentNavigationState.extras.state) {
+      this.backUrl = currentNavigationState.extras.state.backUrl;
+    }
+
+    this.initMenuList();
+  }
+
+  private initMenuList(): void {
+    const state: { backUrl?: string } = this.backUrl ? { backUrl: this.backUrl } : {};
+    this.menuList = [
+      {
+        name: 'menu.museum',
+        href: `/museum/${this.museumId}`,
+        state,
+      },
+      {
+        name: 'menu.souvenirs',
+        href: `/souvenir/${this.museumId}/search`,
+        state,
+      },
+    ];
   }
 }

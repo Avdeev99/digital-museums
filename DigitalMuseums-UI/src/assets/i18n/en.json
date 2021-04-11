@@ -40,6 +40,10 @@
         "author": "Author",
         "date": "Date"
     },
+    "souvenir": {
+        "price": "Price",
+        "availableUnits": "Available units"
+    },
     "menu": {
         "home": "Home",
         "museums": "Museums",

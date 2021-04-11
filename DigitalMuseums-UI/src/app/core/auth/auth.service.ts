@@ -27,21 +27,6 @@ export class AuthService {
     return !!token;
   }
 
-  // public externalAuth(providerId: string): Promise<any> {
-  //   this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
-
-  //   return this.socialAuthService.signIn(providerId).then((socialUser: SocialUser) => {
-  //     const requestUrl: string = `${api.authenticate}/${providerId.toLocaleLowerCase()}`;
-
-  //     this.httpClient.post(requestUrl, { idToken: socialUser.idToken }).subscribe((authResponse: IAuthResponse) => {
-  //       localStorage.setItem(storage.token, JSON.stringify(authResponse.token));
-  //       localStorage.setItem(storage.currentUser, JSON.stringify(authResponse.user));
-
-  //       this.router.navigate([this.returnUrl]);
-  //     });
-  //   });
-  // }
-
   public externalAuth(providerId: string): Observable<any> {
     this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
 
@@ -52,7 +37,6 @@ export class AuthService {
         return this.httpClient.post(requestUrl, { idToken: socialUser.idToken });
       }),
       tap((authResponse: IAuthResponse) => {
-        debugger;
         localStorage.setItem(storage.token, JSON.stringify(authResponse.token));
         localStorage.setItem(storage.currentUser, JSON.stringify(authResponse.user));
 

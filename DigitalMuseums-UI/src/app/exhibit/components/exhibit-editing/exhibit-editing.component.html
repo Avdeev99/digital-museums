@@ -45,7 +45,11 @@
     <div>
         <label>
             {{ 'shared.controls.tags' | translate }}
-            <app-input [label]="'shared.controls.tags' | translate" [control]="formGroup.controls.tags"></app-input>
+            <app-chips 
+                [label]="'shared.controls.tags' | translate"
+                [control]="formGroup.controls.tags"
+                [selectedOptions]="exhibit?.tags"
+            ></app-chips>
           </label>
     </div>
 

@@ -59,6 +59,8 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
       id: this.exhibitId,
     };
 
+    debugger;
+
     const exhibitRequest: Observable<any> = this.exhibit
       ? this.exhibitService.update(exhibit)
       : this.exhibitService.create(exhibit);
@@ -105,7 +107,7 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
       description: new FormControl(null, [Validators.required]),
       author: new FormControl(null, [Validators.required]),
       date: new FormControl(null, [Validators.required]),
-      tags: new FormControl(null, [Validators.required]),
+      tags: new FormControl([], [Validators.required]),
       images: new FormControl(null, [Validators.required]),
     });
   }

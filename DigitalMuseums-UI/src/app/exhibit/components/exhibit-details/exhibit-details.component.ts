@@ -74,6 +74,11 @@ export class ExhibitDetailsComponent implements OnInit {
         href: `/museum/${this.museumId}`,
         state,
       },
+      {
+        name: 'menu.souvenirs',
+        href: `/souvenir/${this.museumId}/search`,
+        state,
+      },
     ];
   }
 }
