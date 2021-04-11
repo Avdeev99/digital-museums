@@ -6,6 +6,7 @@ using DigitalMuseums.Api.Contracts.Requests.Souvenir;
 using DigitalMuseums.Core.Domain.DTO;
 using DigitalMuseums.Core.Domain.Models.Secondary;
 using DigitalMuseums.Api.Contracts.Responses;
+using DigitalMuseums.Api.Contracts.Responses.Exhibit;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Api.Contracts.Responses.Souvenir;
 using DigitalMuseums.Api.Contracts.ViewModels;
@@ -60,7 +61,7 @@ namespace DigitalMuseums.Api.Mappings
                     cfg => cfg.MapFrom((src, dest) => src.Location?.Address));
 
             CreateMap<FilterExhibitsRequest, FilterExhibitsDto>().ReverseMap();
-            CreateMap<FilteredExhibitItem, GetFilteredMuseumsResponseItem>().ReverseMap();
+            CreateMap<FilteredExhibitItem, GetFilteredExhibitsResponseItem>();
             CreateMap<CreateExhibitRequest, CreateExhibitDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
             CreateMap<UpdateExhibitRequest, UpdateExhibitDto>()
@@ -71,6 +72,8 @@ namespace DigitalMuseums.Api.Mappings
             CreateMap<SouvenirItem, GetSouvenirResponse>();
             CreateMap<UpdateSouvenirRequest, UpdateSouvenirDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
+            CreateMap<FilterSouvenirsRequest, FilterSouvenirsDto>();
+            CreateMap<FilteredSouvenirItem, GetFilteredSouvenirsResponseItem>();
         }
     }
 }

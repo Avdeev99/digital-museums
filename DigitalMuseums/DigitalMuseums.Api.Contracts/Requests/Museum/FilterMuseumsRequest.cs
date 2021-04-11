@@ -15,6 +15,6 @@ namespace DigitalMuseums.Api.Contracts.Requests.Museum
 
         public List<int> Genres { get; set; }
 
-        public SortingMethod SortingMethod { get; set; }
+        public MuseumSortingMethod SortingMethod { get; set; }
     }
 }

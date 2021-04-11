@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DigitalMuseums.Core.Domain.DTO.Souvenir;
 
 namespace DigitalMuseums.Core.Services.Contracts
@@ -11,7 +12,7 @@ namespace DigitalMuseums.Core.Services.Contracts
         
         Task<SouvenirItem> GetAsync(int id);
         
-        //Task<List<FilteredExhibitItem>> GetFilteredAsync(FilterExhibitsDto filter);
+        Task<List<FilteredSouvenirItem>> GetFilteredAsync(FilterSouvenirsDto filter);
         
         Task DeleteAsync(int id);
     }

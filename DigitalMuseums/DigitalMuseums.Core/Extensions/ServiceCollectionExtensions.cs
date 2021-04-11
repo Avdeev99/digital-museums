@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Domain.DTO.Museum;
+using DigitalMuseums.Core.Domain.DTO.Souvenir;
 using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services;
@@ -33,6 +34,7 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped(typeof(IBasePredefinedEntityService<>), typeof(BasePredefinedEntityService<>));
 
             services.AddScoped<IOrderedFilterPipeline<Museum, FilterMuseumsDto>, MuseumFilterPipeline>();
+            services.AddScoped<IOrderedFilterPipeline<Souvenir, FilterSouvenirsDto>, SouvenirFilterPipeline>();
             services.AddScoped<IFilterPipeline<Exhibit, FilterExhibitsDto>, ExhibitFilterPipeline>();
 
             return services;

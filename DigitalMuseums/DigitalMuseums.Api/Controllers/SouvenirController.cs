@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Souvenir;
@@ -40,9 +41,14 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetAll() // filter
+        public async Task<IActionResult> GetFiltered([FromQuery] FilterSouvenirsRequest filter)
         {
-            return Ok();
+            var filterDto = _mapper.Map<FilterSouvenirsDto>(filter); 
+            
+            var filteredItems = await _souvenirService.GetFilteredAsync(filterDto);
+            var result = _mapper.Map<List<GetFilteredSouvenirsResponseItem>>(filteredItems);
+
+            return Ok(result);
         }
         
         [HttpPut("{id}")]

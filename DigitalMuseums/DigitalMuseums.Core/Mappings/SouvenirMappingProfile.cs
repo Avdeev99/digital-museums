@@ -34,6 +34,9 @@ namespace DigitalMuseums.Core.Mappings
             
             CreateMap<Souvenir, SouvenirItem>()
                 .ForMember(dest => dest.ImagePaths, opt => opt.MapFrom(s => s.Images.Select(i => i.Path)));
+            
+            CreateMap<Souvenir, FilteredSouvenirItem>()
+                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(s => s.Images.First().Path));
         }
     }
 }
