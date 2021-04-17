@@ -1,0 +1,20 @@
+<app-submenu
+    [menuList]="menuList"
+>
+</app-submenu>
+
+<br>
+<div *ngIf="souvenir">
+    <div>
+        <label>{{ 'shared.controls.name' | translate }}: {{ souvenir.name }}</label>
+    </div>
+    
+    <div>
+        <label>{{ 'shared.controls.description' | translate }}: {{ souvenir.description }}</label>
+    </div>
+    
+    <div>
+        <img [src] ="souvenirImage" style="width: 600px;height: 400px;"> 
+    </div>
+</div>
+

@@ -1,0 +1,38 @@
+<app-submenu
+    [menuList]="menuList"
+>
+</app-submenu>
+
+<div class="search-block">
+    <div class="filter-block">
+        <form [formGroup]="formGroup">
+            <div>
+                <label>
+                    {{ 'shared.controls.name' | translate }}
+                    <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
+                  </label>
+            </div>
+    
+            <div>
+                <label>
+                {{ 'shared.controls.tags' | translate }}
+                <app-chips 
+                    [label]="'shared.controls.tags' | translate"
+                    [control]="formGroup.controls.tags"
+                ></app-chips>
+                </label>
+            </div>
+    
+            <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+        </form>
+    </div>
+    
+    <div class="souvenirs-block">
+        <div *ngFor="let souvenir of souvenirs$ | async">
+            <label>{{ 'shared.controls.name' | translate }}: {{ souvenir.name }}</label>
+            <br>
+            <app-button (click)="onDetails(souvenir.id)" [label]="'museum.buttons.details' | translate"></app-button>
+        </div>
+    </div>
+</div>
+

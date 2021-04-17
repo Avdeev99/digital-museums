@@ -40,12 +40,17 @@
         "author": "Author",
         "date": "Date"
     },
+    "souvenir": {
+        "price": "Price",
+        "availableUnits": "Available units"
+    },
     "menu": {
         "home": "Home",
         "museums": "Museums",
         "exhibits": "Exhibits",
         "login": "Login",
-        "museum": "Museum"
+        "museum": "Museum",
+        "souvenirs": "Souvenirs"
     },
     "shared": {
         "controls": {

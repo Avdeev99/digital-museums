@@ -16,11 +16,11 @@ import { IOption } from '../../form.interface';
 export class CustomChipsComponent implements OnInit {
   public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   public hiddenControl: FormControl;
-  public filteredOptions$: Observable<IOption[]>;
+  public filteredOptions$: Observable<string[]>;
   @Input() @Optional() public control: FormControl;
   @Input() public label: string;
-  @Input() public allOptions: IOption[] = [];
-  @Input() @Optional() public selectedOptions: IOption[] = [];
+  @Input() public allOptions: string[] = [];
+  @Input() @Optional() public selectedOptions: string[] = [];
   @Output() public inputFocus: EventEmitter<FormControl> = new EventEmitter();
   @ViewChild('chipInput') private chipInput: ElementRef<HTMLInputElement>;
 
@@ -29,25 +29,27 @@ export class CustomChipsComponent implements OnInit {
   public ngOnInit(): void {
     this.hiddenControl = new FormControl();
     this.control = !!this.control ? this.control : new FormControl();
+
     this.filteredOptions$ = this.hiddenControl.valueChanges.pipe(
       startWith(''),
-      map((value: string | null): IOption[] =>
-        !!value && typeof value === 'string' ? this.filterOptions(value) : this.allOptions.slice()
-      )
-    );
+      map((option: string | null) => option ? this.filterOptions(option) : this.allOptions.slice()));
   }
 
-  public onChipAdd(event: MatChipInputEvent): void {
-    const input: HTMLInputElement = event.input;
-    const value: string = event.value;
+  public onInputFocus(): void {
+    this.inputFocus.emit(this.control);
+  }
 
-    // Add option
-    if ((value || '').trim() && this.selectedOptions.findIndex((opt): boolean => opt.name === value) === -1) {
-      this.selectedOptions.push({ name: value.trim() });
+  onChipAdd(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+    const isNew: boolean = this.selectedOptions.findIndex(
+      (opt): boolean => opt.toLowerCase() === value.toLowerCase()) === -1
+
+    if ((value || '').trim() && isNew) {
+      this.selectedOptions.push(value.trim());
       this.control.setValue(this.selectedOptions);
     }
 
-    // Reset the input value
     if (input) {
       input.value = '';
     }
@@ -55,38 +57,31 @@ export class CustomChipsComponent implements OnInit {
     this.hiddenControl.reset();
   }
 
-  public onChipRemove(option: IOption): void {
-    const index: number = this.selectedOptions.findIndex((opt): boolean =>
-      !!option.id ? opt.id === option.id : opt.name === option.name
-    );
+  onChipRemove(option: string): void {
+    const index = this.selectedOptions.indexOf(option);
+
     if (index >= 0) {
       this.selectedOptions.splice(index, 1);
       this.control.setValue(this.selectedOptions);
     }
   }
 
-  public onOptionSelect(event: MatAutocompleteSelectedEvent): void {
-    const optionValue: IOption = event.option.value;
-    const isNewOption: boolean = this.selectedOptions.findIndex((opt): boolean => opt.id === optionValue.id) === -1;
+  onOptionSelect(event: MatAutocompleteSelectedEvent): void {
+    const optionValue: string = event.option.value;
+    const isNewOption: boolean = this.selectedOptions.indexOf(optionValue) === -1;
+
     if (isNewOption) {
       this.selectedOptions.push(optionValue);
       this.control.setValue(this.selectedOptions);
     }
+
     this.chipInput.nativeElement.value = '';
     this.hiddenControl.reset();
   }
 
-  public onInputFocus(): void {
-    this.inputFocus.emit(this.control);
-  }
+  private filterOptions(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
-  public trackByFn(index: number, item: any): string | number {
-    return !!item.id ? item.id : index;
-  }
-
-  private filterOptions(value: string): IOption[] {
-    const filterValue: string = value.toLowerCase();
-
-    return this.allOptions.filter((opt: IOption): boolean => opt.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.allOptions.filter(opt => opt.toLowerCase().indexOf(filterValue) === 0);
   }
 }

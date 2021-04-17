@@ -15,6 +15,6 @@ namespace DigitalMuseums.Core.Domain.DTO.Museum
 
         public List<int> Genres { get; set; }
 
-        public SortingMethod SortingMethod { get; set; }
+        public MuseumSortingMethod SortingMethod { get; set; }
     }
 }

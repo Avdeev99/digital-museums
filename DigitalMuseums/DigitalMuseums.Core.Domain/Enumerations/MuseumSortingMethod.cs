@@ -1,6 +1,6 @@
 namespace DigitalMuseums.Core.Domain.Enumerations
 {
-    public enum SortingMethod
+    public enum MuseumSortingMethod
     {
         Default,
         

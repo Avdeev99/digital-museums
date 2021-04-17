@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace DigitalMuseums.Api.Contracts.Responses.Exhibit
@@ -11,7 +10,7 @@ namespace DigitalMuseums.Api.Contracts.Responses.Exhibit
 
         public string Author { get; set; }
         
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         public int MuseumId { get; set; }
 

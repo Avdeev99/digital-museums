@@ -30,6 +30,12 @@ namespace DigitalMuseums.Data.Configurations
                         e => e.HasOne(src => src.Order).WithMany().HasForeignKey(o => o.OrderId),
                         e => e.HasOne(src => src.Souvenir).WithMany().HasForeignKey(o => o.SouvenirId),
                         e => e.HasKey(od => od.Id));
+            
+            builder
+                .HasOne(src => src.Museum)
+                .WithMany(dest => dest.Souvenirs)
+                .HasForeignKey(e => e.MuseumId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

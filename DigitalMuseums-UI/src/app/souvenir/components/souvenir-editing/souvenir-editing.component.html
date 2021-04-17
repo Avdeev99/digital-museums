@@ -1,0 +1,73 @@
+<form [formGroup]="formGroup">
+    <div>
+        <label>
+            {{ 'museum.entity' | translate }}
+            <app-select
+                [label]="'museum.entity' | translate"
+                [control]="formGroup.controls.museumId"
+                [options]="museums$ | async"
+            ></app-select>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'shared.controls.name' | translate }}
+            <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'shared.controls.description' | translate }}
+            <app-input [label]="'shared.controls.description' | translate" [control]="formGroup.controls.description"></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'souvenir.price' | translate }}
+            <app-input
+                [label]="'souvenir.price' | translate" 
+                [control]="formGroup.controls.price"
+                [inputType]="'number'"
+            ></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+            {{ 'souvenir.availableUnits' | translate }}
+            <app-input
+                [label]="'souvenir.availableUnits' | translate" 
+                [control]="formGroup.controls.availableUnits"
+                [inputType]="'number'"
+            ></app-input>
+          </label>
+    </div>
+
+    <div>
+        <label>
+        {{ 'shared.controls.tags' | translate }}
+        <app-chips 
+            [label]="'shared.controls.tags' | translate"
+            [control]="formGroup.controls.tags"
+            [selectedOptions]="!!this.souvenir ? this.souvenir.tags : []"
+        ></app-chips>
+        </label>
+    </div>
+
+    <br>
+
+    <input
+        multiple
+        type='file'
+        value=""
+        [formControl]="formGroup.controls.images"
+        (change)="onSelectFile($event.target.files)">
+
+    <br>
+    <br>
+    <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+</form>
+

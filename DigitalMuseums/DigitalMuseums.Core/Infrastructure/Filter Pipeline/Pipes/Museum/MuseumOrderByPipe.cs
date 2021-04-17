@@ -7,9 +7,9 @@ namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline.Pipes.Museum
 {
     public class MuseumOrderByPipe : IOrderByPipe<Domain.Models.Domain.Museum>
     {
-        private readonly SortingMethod _sortingMethod;
+        private readonly MuseumSortingMethod _sortingMethod;
 
-        public MuseumOrderByPipe(SortingMethod sortingMethod)
+        public MuseumOrderByPipe(MuseumSortingMethod sortingMethod)
         {
             _sortingMethod = sortingMethod;
         }
@@ -18,7 +18,7 @@ namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline.Pipes.Museum
         {
             switch (_sortingMethod)
             {
-                case SortingMethod.MostPopular: return museums => museums.OrderByDescending(museum => museum.VisitedCount);
+                case MuseumSortingMethod.MostPopular: return museums => museums.OrderByDescending(museum => museum.VisitedCount);
                 default: return museums => museums.OrderByDescending(museum => museum.Id);
             }
         }

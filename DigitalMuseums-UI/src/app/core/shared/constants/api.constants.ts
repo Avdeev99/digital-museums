@@ -4,4 +4,5 @@ export const api: Record<string, string> = {
     getCities: '/api/city',
     getGenres: '/api/genre',
     user: '/api/user',
+    souvenir: '/api/souvenir',
   };

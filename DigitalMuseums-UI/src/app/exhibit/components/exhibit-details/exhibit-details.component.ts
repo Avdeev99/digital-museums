@@ -44,7 +44,7 @@ export class ExhibitDetailsComponent implements OnInit {
     this.exhibitService.get(this.exhibitId)
       .pipe(
         catchError(err => {
-          this.router.navigate(['exhibit']);
+          this.router.navigate(['/']);
           return throwError(err);
         }),
       )
@@ -71,7 +71,12 @@ export class ExhibitDetailsComponent implements OnInit {
     this.menuList = [
       {
         name: 'menu.museum',
-        href: `museum/${this.museumId}`,
+        href: `/museum/${this.museumId}`,
+        state,
+      },
+      {
+        name: 'menu.souvenirs',
+        href: `/souvenir/${this.museumId}/search`,
         state,
       },
     ];

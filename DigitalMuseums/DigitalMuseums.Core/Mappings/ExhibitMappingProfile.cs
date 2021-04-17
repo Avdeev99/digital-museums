@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Responses.Exhibit;
@@ -43,7 +44,11 @@ namespace DigitalMuseums.Core.Mappings
                     opt => opt.MapFrom(s => s.Images.Select(i => i.Path)))
                 .ReverseMap();
 
-            CreateMap<ExhibitItem, GetExhibitResponse>().ReverseMap();
+            CreateMap<ExhibitItem, GetExhibitResponse>()
+                .ForMember(
+                    dest => dest.Date,
+                    cfg => cfg.MapFrom(src => src.Date.ToString("yyyy-MM-dd")))
+                .ReverseMap();
         }
     }
 }
