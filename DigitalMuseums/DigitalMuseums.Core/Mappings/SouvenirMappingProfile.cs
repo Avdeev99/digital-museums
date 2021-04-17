@@ -37,6 +37,8 @@ namespace DigitalMuseums.Core.Mappings
             
             CreateMap<Souvenir, FilteredSouvenirItem>()
                 .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(s => s.Images.First().Path));
+
+            CreateMap<CreateSouvenirDto, Souvenir>().ReverseMap();
         }
     }
 }

@@ -12,6 +12,8 @@ namespace DigitalMuseums.Core.Domain.DTO.Souvenir
 
         public int AvailableUnits { get; set; }
 
+        public int MuseumId { get; set; }
+
         public List<string> Tags { get; set; }
 
         public ICollection<string> ImagePaths { get; set; }

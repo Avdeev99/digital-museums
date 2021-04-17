@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { serialize } from "object-to-formdata";
 import { Observable } from "rxjs";
-import { api } from "src/app/museum/constants/api.constants";
+import { api } from "src/app/core/shared/constants/api.constants";
 import { SouvenirDetails } from "../models/souvenir-details.model";
 import { SouvenirFilter } from "../models/souvenir-filter.model";
 import { Souvenir } from "../models/souvenir.model";

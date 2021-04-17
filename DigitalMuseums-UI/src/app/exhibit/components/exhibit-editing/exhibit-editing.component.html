@@ -48,7 +48,7 @@
             <app-chips 
                 [label]="'shared.controls.tags' | translate"
                 [control]="formGroup.controls.tags"
-                [selectedOptions]="exhibit?.tags"
+                [selectedOptions]="!!this.exhibit ? this.exhibit.tags : []"
             ></app-chips>
           </label>
     </div>

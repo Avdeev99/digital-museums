@@ -29,7 +29,7 @@
             {{ 'souvenir.price' | translate }}
             <app-input
                 [label]="'souvenir.price' | translate" 
-                [control]="formGroup.controls.author"
+                [control]="formGroup.controls.price"
                 [inputType]="'number'"
             ></app-input>
           </label>
@@ -40,7 +40,7 @@
             {{ 'souvenir.availableUnits' | translate }}
             <app-input
                 [label]="'souvenir.availableUnits' | translate" 
-                [control]="formGroup.controls.author"
+                [control]="formGroup.controls.availableUnits"
                 [inputType]="'number'"
             ></app-input>
           </label>
@@ -52,7 +52,7 @@
         <app-chips 
             [label]="'shared.controls.tags' | translate"
             [control]="formGroup.controls.tags"
-            [selectedOptions]="souvenir?.tags"
+            [selectedOptions]="!!this.souvenir ? this.souvenir.tags : []"
         ></app-chips>
         </label>
     </div>
