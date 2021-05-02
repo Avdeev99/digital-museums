@@ -1,0 +1,14 @@
+<div
+    class="survey-progress-tracker"
+>
+    <div class="survey-progress-tracker__bar">
+        <span class="survey-progress-tracker__bar-holder"></span>
+        <span
+            class="survey-progress-tracker__bar-active"
+            [ngStyle]="{'width': width$ | async}"
+        ></span>
+    </div>
+    <div class="survey-progress-tracker__steps">
+        {{currentStep$ | async}} <span class="survey-progress-tracker__steps-separation">of</span> {{stepsTotal}}
+    </div>
+</div>

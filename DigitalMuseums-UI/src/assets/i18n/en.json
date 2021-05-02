@@ -60,7 +60,11 @@
             "tags": "Tags"
         },
         "buttons": {
-            "submit": "Submit"
+            "submit": "Submit",
+            "previous": "Previous",
+            "next": "Next",
+            "start": "Start",
+            "goToMuseum": "Go To Museum"
         }
     }
 }
