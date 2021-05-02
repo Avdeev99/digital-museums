@@ -1,0 +1,16 @@
+<mat-label>{{ label }}</mat-label>
+<mat-selection-list [formControl]="control">
+    <mat-list-option
+        *ngFor="let option of options; trackBy: trackByFn"
+        class="custom-form-control custom-checkbox"
+        color="primary"
+        [selected]="option.selected"
+        [value]="option.id"
+        [checkboxPosition]="checkboxPosition"
+    >
+      {{ option.name }}
+    </mat-list-option>
+</mat-selection-list>
+<mat-error>
+  <app-field-error [control]="control" [validatorErrors]="validatorErrors"></app-field-error>
+</mat-error>

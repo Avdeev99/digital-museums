@@ -32,6 +32,7 @@ export interface Exhibition {
     description: string;
     exhibits: ExhibitDetails[];
     museumId: number;
+    tags: string[];
 }
 
 export interface StepsComponentModel<T extends ExhibitionStepBase> {
@@ -48,4 +49,20 @@ export type ExhibitionStepComponentsType = (
 
 export interface ExhibitionStepUrlParamsModel {
     step: string;
+}
+
+export interface ExhibitionFilter {
+    name?: string;
+    tags?: string[];
+    museumId: number;
+}
+
+export interface ExhibitionEditing {
+    id: number;
+    name: string;
+    description: string;
+    exhibits: number[];
+    museumId: number;
+    tags: string[];
+    images: FileList;
 }

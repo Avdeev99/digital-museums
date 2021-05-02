@@ -11,6 +11,8 @@ import { SharedModule } from "../core/shared/shared.module";
 import { ExhibitionRoutingModule } from "./exhibition-routing.module";
 import { ExhibitionStepContainerDirective } from './directives/exhibition-step-container.directive';
 import { ProgressTrackerComponent } from './components/progress-tracker/progress-tracker.component';
+import { ExhibitionSearchComponent } from './components/exhibition-search/exhibition-search.component';
+import { ExhibitionEditingComponent } from './components/exhibition-editing/exhibition-editing.component';
 
 @NgModule({
     declarations: [
@@ -22,6 +24,10 @@ import { ProgressTrackerComponent } from './components/progress-tracker/progress
 
         // directives
         ExhibitionStepContainerDirective,
+
+        ExhibitionSearchComponent,
+
+        ExhibitionEditingComponent,
     ],
     imports: [
         CommonModule,

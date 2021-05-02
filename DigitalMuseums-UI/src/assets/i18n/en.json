@@ -57,14 +57,16 @@
             "name": "Name",
             "description": "Description",
             "images": "Images",
-            "tags": "Tags"
+            "tags": "Tags",
+            "exhibits": "Exhibits"
         },
         "buttons": {
             "submit": "Submit",
             "previous": "Previous",
             "next": "Next",
             "start": "Start",
-            "goToMuseum": "Go To Museum"
+            "goToMuseum": "Go To Museum",
+            "details": "Details"
         }
     }
 }

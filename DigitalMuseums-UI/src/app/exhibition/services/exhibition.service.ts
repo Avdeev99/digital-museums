@@ -1,9 +1,11 @@
-import { ExhibitionStepComponentsType, StepType } from './../models/exhibition.model';
+import { ExhibitionEditing, ExhibitionFilter, ExhibitionStepComponentsType, StepType } from './../models/exhibition.model';
 import { ExhibitDetails } from './../../exhibit/models/exhibit-details.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { serialize } from "object-to-formdata";
 import { Exhibition, StepsComponentModel } from '../models/exhibition.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { api } from 'src/app/core/shared/constants/api.constants';
 
 
 @Injectable({
@@ -26,11 +28,52 @@ export class ExhibitionService {
     // not including info screens
     currentExhibitNumber$$: BehaviorSubject<number>;
 
-    constructor() {
+    constructor(
+        private httpClient: HttpClient,
+
+    ) {
         this.exhibition$$ = new BehaviorSubject(null);
         this.currentExhibitNumber$$ = new BehaviorSubject(0);
         this.currentStepIndex$$ = new BehaviorSubject(0);
         this.steps$$ = new BehaviorSubject([]);
+    }
+
+    public getFiltered(filter: ExhibitionFilter): Observable<Array<Exhibition>> {
+        let httpParams = new HttpParams();
+        Object.keys(filter).forEach((key) => {
+            if (!!filter[key]) {
+                httpParams = httpParams.append(key, filter[key]);
+            }
+        });
+
+        return this.httpClient.get<Array<Exhibition>>(api.exhibition, { params: httpParams });
+    }
+
+    public get(id: number): Observable<ExhibitionEditing> {
+        const requestUrl: string = `${api.exhibition}/${id}`
+
+        return this.httpClient.get<ExhibitionEditing>(requestUrl);
+    }
+
+    public create(exhibition: ExhibitionEditing): Observable<any> {
+        const formData: FormData = this.getFormData(exhibition);
+
+        return this.httpClient.post(api.exhibition, formData);
+    }
+
+    public update(exhibition: ExhibitionEditing): Observable<any> {
+        const formData: FormData = this.getFormData(exhibition);
+
+        return this.httpClient.put(`${api.exhibition}/${exhibition.id}`, formData);
+    }
+
+    private getFormData(exhibit: ExhibitionEditing): FormData {
+        const formData: FormData = serialize(exhibit);
+        Array.from(exhibit.images).forEach(image => {
+            formData.append('images', image, image.name);
+        });
+
+        return formData;
     }
 
     // START EXHIBITION
@@ -115,7 +158,6 @@ export class ExhibitionService {
         const steps = this.steps$$.getValue();
         const currentStepIndex = this.currentStepIndex$$.getValue();
         const currentExhibitNumber = this.currentExhibitNumber$$.getValue();
-        debugger;
 
         if (currentStepIndex + 1 < steps.length) {
             this.setCurrentStepIndex(currentStepIndex + 1);

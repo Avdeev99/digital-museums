@@ -58,7 +58,6 @@ export class ExhibitionComponent implements OnInit {
     getSteps(): void {
         this.stepsSubscription = this.exhibitionService.getExhibitionSteps()
             .subscribe((steps: StepsComponentModel<ExhibitionStepComponentsType>[]) => {
-                debugger;
                 this.steps = steps;
             });
     }
@@ -85,7 +84,6 @@ export class ExhibitionComponent implements OnInit {
     }
 
     private processActiveStep(activeStep: number): void {
-        debugger;
         const { component, id, data } = this.steps[activeStep];
         let componentRef;
 
@@ -120,7 +118,6 @@ export class ExhibitionComponent implements OnInit {
     }
 
     private goToStep(stepId: number): void {
-        debugger;
         const stepIndex = this.steps
             .findIndex((s: StepsComponentModel<ExhibitionStepComponentsType>) => s.id === stepId);
         const questionIndex = this.exhibitionService.getCurrentStepsTrackerNumberByExhibitId(stepId);

@@ -11,6 +11,7 @@ import { ExhibitDetails } from '../../models/exhibit-details.model';
 import { Exhibit } from '../../models/exhibit.model';
 import { ExhibitService } from '../../services/exhibit.service';
 
+
 @Component({
   selector: 'app-exhibit-editing',
   templateUrl: './exhibit-editing.component.html',
@@ -58,8 +59,6 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
       images: this.selectedImages,
       id: this.exhibitId,
     };
-
-    debugger;
 
     const exhibitRequest: Observable<any> = this.exhibit
       ? this.exhibitService.update(exhibit)

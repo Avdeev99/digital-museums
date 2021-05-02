@@ -18,6 +18,7 @@ export class PrepareExhibitionService {
             name: 'Test Exhibition',
             description: 'Test Exhibition Description',
             museumId: 1,
+            tags: [],
             exhibits: [
                 {
                     id: 1,
