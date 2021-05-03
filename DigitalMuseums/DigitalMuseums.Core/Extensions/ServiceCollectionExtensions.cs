@@ -6,9 +6,12 @@ using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services;
 using DigitalMuseums.Core.Services.Contracts;
+using DigitalMuseums.Core.Services.Contracts.Providers;
+using DigitalMuseums.Core.Services.Providers;
 using DigitalMuseums.Infrastructure.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Stripe;
 
 namespace DigitalMuseums.Core.Extensions
 {
@@ -32,6 +35,11 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped<IExhibitService, ExhibitService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISouvenirService, SouvenirService>();
+            services.AddScoped<IClock, Clock>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ChargeService>();
+            
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped(typeof(IBasePredefinedEntityService<>), typeof(BasePredefinedEntityService<>));
 
             services.AddScoped<IOrderedFilterPipeline<Museum, FilterMuseumsDto>, MuseumFilterPipeline>();

@@ -6,16 +6,20 @@ using DigitalMuseums.Api.Contracts.Requests.Souvenir;
 using DigitalMuseums.Core.Domain.DTO;
 using DigitalMuseums.Core.Domain.Models.Secondary;
 using DigitalMuseums.Api.Contracts.Responses;
+using DigitalMuseums.Api.Contracts.Responses.Cart;
 using DigitalMuseums.Api.Contracts.Responses.Exhibit;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Api.Contracts.Responses.Souvenir;
 using DigitalMuseums.Api.Contracts.ViewModels;
+using DigitalMuseums.Core.Domain.DTO.Cart;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.DTO.Souvenir;
 using DigitalMuseums.Core.Domain.Models;
 using DigitalMuseums.Core.Domain.Models.Auth;
 using Google.Apis.Auth;
+using CurrentCartDetail = DigitalMuseums.Core.Domain.DTO.Cart.CurrentCartDetail;
+using SouvenirItem = DigitalMuseums.Core.Domain.DTO.Souvenir.SouvenirItem;
 
 namespace DigitalMuseums.Api.Mappings
 {
@@ -74,6 +78,11 @@ namespace DigitalMuseums.Api.Mappings
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
             CreateMap<FilterSouvenirsRequest, FilterSouvenirsDto>();
             CreateMap<FilteredSouvenirItem, GetFilteredSouvenirsResponseItem>();
+
+            // Cart
+            CreateMap<CurrentCartDetail, Api.Contracts.Responses.Cart.CurrentCartDetail>();
+            CreateMap<SouvenirItem, Api.Contracts.Responses.Cart.SouvenirItem>();
+            CreateMap<CurrentCart, GetCurrentCartResponse>();
         }
     }
 }
