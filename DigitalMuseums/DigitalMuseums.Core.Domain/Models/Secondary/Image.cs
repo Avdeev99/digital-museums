@@ -14,6 +14,10 @@ namespace DigitalMuseums.Core.Domain.Models.Secondary
         
         public Exhibit Exhibit { get; set; }
         
+        public int? ExhibitionId { get; set; }
+        
+        public Exhibition Exhibition { get; set; }
+        
         public int? SouvenirId { get; set; }
         
         public Souvenir Souvenir { get; set; }

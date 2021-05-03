@@ -1,0 +1,36 @@
+@import '../../../../assets/styles/variables.scss';
+
+.survey-progress-tracker {
+    padding-top: 10px;
+
+    &__steps {
+        margin-top: 5px;
+        font-size: 14px;
+        line-height: 18px;
+        text-align: center;
+    }
+
+    &__bar {
+        position: relative;
+        width: 100%;
+        height: 6px;
+
+        & > * {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        &-holder {
+            background: $grayPT;
+        }
+
+        &-active {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: $yellowPT;
+        }
+    }
+}

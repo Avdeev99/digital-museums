@@ -29,6 +29,12 @@ namespace DigitalMuseums.Data.Configurations
                 .WithMany(dest => dest.Images)
                 .HasForeignKey(e => e.ExhibitId)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+            builder
+                .HasOne(src => src.Exhibition)
+                .WithMany(dest => dest.Images)
+                .HasForeignKey(e => e.ExhibitionId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(src => src.Souvenir)

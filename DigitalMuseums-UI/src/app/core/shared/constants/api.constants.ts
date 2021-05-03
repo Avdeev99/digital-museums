@@ -5,4 +5,5 @@ export const api: Record<string, string> = {
     getGenres: '/api/genre',
     user: '/api/user',
     souvenir: '/api/souvenir',
+    exhibition: '/api/exhibition',
   };

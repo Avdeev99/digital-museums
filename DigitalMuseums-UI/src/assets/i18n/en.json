@@ -26,6 +26,7 @@
         }
     },
     "user": {
+        "entity": "User",
         "errors": {
             "not-found": "The user not found."
         }
@@ -48,6 +49,7 @@
         "home": "Home",
         "museums": "Museums",
         "exhibits": "Exhibits",
+        "exhibitions": "Exhibitions",
         "login": "Login",
         "museum": "Museum",
         "souvenirs": "Souvenirs"
@@ -57,10 +59,16 @@
             "name": "Name",
             "description": "Description",
             "images": "Images",
-            "tags": "Tags"
+            "tags": "Tags",
+            "exhibits": "Exhibits"
         },
         "buttons": {
-            "submit": "Submit"
+            "submit": "Submit",
+            "previous": "Previous",
+            "next": "Next",
+            "start": "Start",
+            "goToMuseum": "Go To Museum",
+            "details": "Details"
         }
     }
 }

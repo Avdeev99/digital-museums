@@ -1,0 +1,21 @@
+<div class="exhibition-instructional-screen">
+    <div class="white-block">
+        <div class="exhibition-instructional-screen__content">
+            <h1 class="exhibition-instructional-screen__title">{{data.title}}</h1>
+            <div class="exhibition-instructional-screen__text">
+                <p>{{ data.description }}</p>
+            </div>
+            <app-button
+                class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
+                *ngIf="isFinalSceen"
+                (click)="handleBack()"
+                [label]="'shared.buttons.previous' | translate"
+            ></app-button>
+            <app-button
+                class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
+                (click)="handlePrimaryButtonClick()"
+                [label]="data.primaryButtonText | translate"
+            ></app-button>
+        </div>
+    </div>
+</div>

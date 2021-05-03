@@ -6,6 +6,8 @@ namespace DigitalMuseums.Core.Domain.DTO.Exhibit
 {
     public class ExhibitItem
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
         
         public string Description { get; set; }

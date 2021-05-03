@@ -52,6 +52,7 @@ namespace DigitalMuseums.Api
                 cfg.AddProfile<SouvenirMappingProfile>();
                 cfg.AddProfile<UserMappingProfile>();
                 cfg.AddProfile<ExhibitMappingProfile>();
+                cfg.AddProfile<ExhibitionMappingProfile>();
                 cfg.AddProfile<CartMappingProfile>();
             });
             services.AddApi();
