@@ -12,6 +12,7 @@ using DigitalMuseums.Core.Errors;
 using DigitalMuseums.Core.Exceptions;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace DigitalMuseums.Core.Services
 {
@@ -60,7 +61,7 @@ namespace DigitalMuseums.Core.Services
                 TrackingState.Enabled);
             if (souvenir == null || souvenir.IsDeleted)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
+                throw new BusinessLogicException(BusinessErrorCodes.SouvenirNotFoundCode);
             }
             
             UpdateInternal(souvenir, updateSouvenirDto);
@@ -78,7 +79,7 @@ namespace DigitalMuseums.Core.Services
                 });
             if (souvenir == null || souvenir.IsDeleted)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
+                throw new BusinessLogicException(BusinessErrorCodes.SouvenirNotFoundCode, StatusCodes.Status404NotFound);
             }
 
             await _unitOfWork.SaveChangesAsync();
@@ -109,7 +110,7 @@ namespace DigitalMuseums.Core.Services
             var souvenir = await _souvenirRepository.GetAsync(x => x.Id == id, TrackingState.Enabled);
             if (souvenir == null)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
+                throw new BusinessLogicException(BusinessErrorCodes.SouvenirNotFoundCode, StatusCodes.Status404NotFound);
             }
 
             souvenir.IsDeleted = true;

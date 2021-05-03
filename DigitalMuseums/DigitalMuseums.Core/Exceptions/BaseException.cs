@@ -14,6 +14,12 @@ namespace DigitalMuseums.Core.Exceptions
         /// <param name="message">Exception message.</param>
         protected BaseException(string message) : base(message)
         {
+            StatusCode = StatusCodes.Status500InternalServerError;
+        }
+        
+        protected BaseException(string message, int statusCode) : base(message)
+        {
+            StatusCode = statusCode;
         }
 
         /// <summary>
