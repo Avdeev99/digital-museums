@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -22,6 +23,7 @@ namespace DigitalMuseums.Core.Services
         private readonly IMapper _mapper;
         
         private readonly IBaseRepository<Exhibition> _exhibitionRepository;
+        private readonly IBaseRepository<Exhibit> _exhibitRepository;
 
         public ExhibitionService(
             IUnitOfWork unitOfWork,
@@ -35,11 +37,15 @@ namespace DigitalMuseums.Core.Services
             _mapper = mapper;
             
             _exhibitionRepository = unitOfWork.GetRepository<Exhibition>();
+            _exhibitRepository = unitOfWork.GetRepository<Exhibit>();
         }
 
         public async Task CreateAsync(CreateExhibitionDto createExhibitionDto)
         {
             var exhibition = _mapper.Map<Exhibition>(createExhibitionDto);
+            var exhibits = await _exhibitRepository.GetAllAsync(e => createExhibitionDto.ExhibitIds.Contains(e.Id));
+            exhibition.Exhibits = exhibits;
+
             var createdExhibition = _exhibitionRepository.Create(exhibition);
             await _unitOfWork.SaveChangesAsync();
 
@@ -63,7 +69,7 @@ namespace DigitalMuseums.Core.Services
                 throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
             }
             
-            UpdateExhibitionItem(exhibition, updateExhibitionDto);
+            await UpdateExhibitionItemAsync(exhibition, updateExhibitionDto);
             
             await _unitOfWork.SaveChangesAsync();
         }
@@ -115,17 +121,24 @@ namespace DigitalMuseums.Core.Services
             await _unitOfWork.SaveChangesAsync();
         }
         
-        private void UpdateExhibitionItem(Exhibition exhibit, UpdateExhibitionDto updateExhibitDto)
+        private async Task UpdateExhibitionItemAsync(Exhibition exhibition, UpdateExhibitionDto updateExhibitDto)
         {
-            exhibit.Name = updateExhibitDto.Name;
-            exhibit.Description = updateExhibitDto.Description;
-            exhibit.Tags = updateExhibitDto.Tags;
-            
-            // TODO: update exhibits
-            
+            exhibition.Name = updateExhibitDto.Name;
+            exhibition.Description = updateExhibitDto.Description;
+            exhibition.Tags = updateExhibitDto.Tags;
+
+            var exhibits = await _exhibitRepository.GetAllAsync(e => updateExhibitDto.ExhibitIds.Contains(e.Id));
+
+            var existedIds = exhibition.Exhibits.Select(x => x.Id);
+            var exhibitsToAdd = exhibits.Where(e => !existedIds.Contains(e.Id)).ToList();
+            var newExhibitIds = exhibits.Select(x => x.Id);
+
+            exhibition.Exhibits.RemoveAll(e => !newExhibitIds.Contains(e.Id));
+            exhibition.Exhibits.AddRange(exhibitsToAdd);
+
             if (updateExhibitDto.ImagesData != null)
             {
-                exhibit.Images = null;
+                exhibition.Images = null;
                 _imageService.AddAndUpload(updateExhibitDto.ImagesData);
             }
         }

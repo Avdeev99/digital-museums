@@ -39,7 +39,8 @@
         <app-checkbox-group
             [options]="exhibitOptions"
             [label]="'shared.controls.exhibits' | translate"
-            [control]="formGroup.controls.exhibits"
+            [control]="formGroup.controls.exhibitIds"
+            [value]="selectedExhibits"
         ></app-checkbox-group>
     </div>
 

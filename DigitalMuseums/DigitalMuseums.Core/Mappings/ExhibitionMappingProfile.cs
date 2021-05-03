@@ -4,6 +4,7 @@ using AutoMapper;
 using DigitalMuseums.Api.Contracts.Responses.Exhibition;
 using DigitalMuseums.Core.Domain.DTO.Exhibition;
 using DigitalMuseums.Core.Domain.DTO.Image;
+using DigitalMuseums.Core.Domain.Models;
 using DigitalMuseums.Core.Domain.Models.Domain;
 using Microsoft.AspNetCore.Http;
 
@@ -44,6 +45,8 @@ namespace DigitalMuseums.Core.Mappings
                 .ReverseMap();
 
             CreateMap<ExhibitionItem, GetExhibitionResponse>().ReverseMap();
+
+            CreateMap<Exhibition, BasePredefinedEntity>().ReverseMap();
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, Input, Optional, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -14,7 +14,7 @@ import { IOption } from '../../form.interface';
   styleUrls: ['./chips.component.scss'],
 })
 export class CustomChipsComponent implements OnInit {
-  public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  public readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   public hiddenControl: FormControl;
   public filteredOptions$: Observable<string[]>;
   @Input() @Optional() public control: FormControl;

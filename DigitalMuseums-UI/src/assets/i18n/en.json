@@ -26,6 +26,7 @@
         }
     },
     "user": {
+        "entity": "User",
         "errors": {
             "not-found": "The user not found."
         }
@@ -48,6 +49,7 @@
         "home": "Home",
         "museums": "Museums",
         "exhibits": "Exhibits",
+        "exhibitions": "Exhibitions",
         "login": "Login",
         "museum": "Museum",
         "souvenirs": "Souvenirs"

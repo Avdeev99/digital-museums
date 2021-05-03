@@ -38,21 +38,23 @@ export class ExhibitionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.prepareExhibitionStepsData();
-        this.getSteps();
-        this.getActiveStep();
-        this.startWatchingRouteChanges();
+
+        this.prepareExhibitionService.getExhibition(this.exhibitionId).subscribe(exhibition => {
+            this.exhibition = exhibition;
+
+            this.prepareExhibitionStepsData();
+            this.getSteps();
+            this.getActiveStep();
+            this.startWatchingRouteChanges();
+        });
     }
 
     prepareExhibitionStepsData(): void {
-        this.prepareExhibitionService.getExhibition(this.exhibitionId).subscribe(exhibition => {
-            this.exhibition = exhibition;
-            this.exhibitionService.setExhibitionData(this.exhibition);
-            this.exhibitionService.setExhibitionSteps(
-                this.prepareExhibitionService.prepareExhibitionStepsList(this.exhibition),
-            );
-            this.exhibitionService.setFirstStepToShow();
-        });
+        this.exhibitionService.setExhibitionData(this.exhibition);
+        this.exhibitionService.setExhibitionSteps(
+            this.prepareExhibitionService.prepareExhibitionStepsList(this.exhibition),
+        );
+        this.exhibitionService.setFirstStepToShow();
     }
 
     getSteps(): void {
@@ -84,6 +86,7 @@ export class ExhibitionComponent implements OnInit {
     }
 
     private processActiveStep(activeStep: number): void {
+        debugger;
         const { component, id, data } = this.steps[activeStep];
         let componentRef;
 

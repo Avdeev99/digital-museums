@@ -12,7 +12,7 @@ namespace DigitalMuseums.Core.Domain.DTO.Exhibition
 
         public List<string> Tags { get; set; }
         
-        public List<int> Exhibits { get; set; }
+        public List<int> ExhibitIds { get; set; }
         
         public ExhibitionImagesUnit ImagesData { get; set; }
     }

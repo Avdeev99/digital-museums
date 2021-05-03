@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
 import { IOption, IOptionChecked } from 'src/app/core/form/form.interface';
 import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
-import { ExhibitionEditing } from 'src/app/exhibition/models/exhibition.model';
+import { Exhibition, ExhibitionEditing } from 'src/app/exhibition/models/exhibition.model';
 import { ExhibitionService } from 'src/app/exhibition/services/exhibition.service';
 import { MuseumService } from 'src/app/museum/services/museum.service';
 
@@ -18,9 +18,10 @@ import { MuseumService } from 'src/app/museum/services/museum.service';
 })
 export class ExhibitionEditingComponent implements OnInit {
   public formGroup: FormGroup;
-  public exhibition: ExhibitionEditing;
+  public exhibition: Exhibition;
   public museums$: Observable<Array<IOption>>;
   public exhibitOptions: Array<IOptionChecked>;
+  public selectedExhibits: Array<IOptionChecked>;
 
   private exhibitionId: number;
   private currentUserId?: number;
@@ -107,7 +108,7 @@ export class ExhibitionEditingComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       tags: new FormControl([], [Validators.required]),
-      exhibits: new FormControl([], [Validators.required]),
+      exhibitIds: new FormControl([], [Validators.required]),
       images: new FormControl(null, [Validators.required]),
     });
   }
@@ -120,12 +121,20 @@ export class ExhibitionEditingComponent implements OnInit {
         museumId: museumId
       }).subscribe(exhibits => {
         this.exhibitOptions = exhibits.map((exhibit) => {
+          const exhibitSelected: boolean = !!this.exhibition.exhibits.find(e => e.id === exhibit.id);
+
           return { 
             id: exhibit.id,
             name: exhibit.name,
-            selected: false,
+            selected: exhibitSelected,
           }
         });
+
+        const selectedExhibitIds = this.exhibitOptions.filter(e => e.selected).map(e => e.id);
+
+        setTimeout(() => {
+          this.formGroup.controls.exhibitIds.setValue(selectedExhibitIds);
+        }, 0);
       })
     });
   }

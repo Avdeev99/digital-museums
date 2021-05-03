@@ -5,43 +5,21 @@ import { Injectable } from "@angular/core";
 import { ExhibitionFormComponent } from "../components/exbition-form/exhibition-form.component";
 import { ExhibitionInstructionalScreenComponent } from "../components/exhibition-instructional-screen/exhibition-instructional-screen.component";
 import { Exhibition, StepsComponentModel, ExhibitionStepComponentsType, StepType, InfoScreenStepNames, InfoScreenType, ExhibitionInstructionalModel } from "../models/exhibition.model";
+import { HttpClient } from '@angular/common/http';
+import { api } from 'src/app/core/shared/constants/api.constants';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PrepareExhibitionService {
-    constructor() {}
+    constructor(
+        private httpClient: HttpClient,
+    ) {}
 
     getExhibition(id: number): Observable<Exhibition> {
-        return of({
-            id: 1,
-            name: 'Test Exhibition',
-            description: 'Test Exhibition Description',
-            museumId: 1,
-            tags: [],
-            exhibits: [
-                {
-                    id: 1,
-                    name: 'Exhibit 1',
-                    description: 'Exhibit 1 Description',
-                    author: 'Author 1',
-                    museumId: 1,
-                    tags: [],
-                    imagePaths: [],
-                    date: null,
-                },
-                {
-                    id: 2,
-                    name: 'Exhibit 2',
-                    description: 'Exhibit 2 Description',
-                    author: 'Author 2',
-                    museumId: 1,
-                    tags: [],
-                    imagePaths: [],
-                    date: null,
-                }
-            ]
-        });
+        const requestUrl: string = `${api.exhibition}/${id}`
+
+        return this.httpClient.get<Exhibition>(requestUrl);
     }
 
     prepareExhibitionStepsList(exhibition: Exhibition): StepsComponentModel<ExhibitionStepComponentsType>[] {

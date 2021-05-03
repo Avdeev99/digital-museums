@@ -23,9 +23,9 @@ namespace DigitalMuseums.Core.Domain.Models.Domain
         
         public List<string> Tags { get; set; }
 
-        public ICollection<Exhibit> Exhibits { get; set; }
+        public List<Exhibit> Exhibits { get; set; }
         
-        public ICollection<Image> Images { get; set; }
+        public List<Image> Images { get; set; }
         
         public bool IsDeleted { get; set; }
     }

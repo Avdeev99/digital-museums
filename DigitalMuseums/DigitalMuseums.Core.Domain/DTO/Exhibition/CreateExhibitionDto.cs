@@ -13,5 +13,7 @@ namespace DigitalMuseums.Core.Domain.DTO.Exhibition
         public int MuseumId { get; set; }
         
         public ExhibitionImagesUnit ImagesData { get; set; }
+
+        public List<int> ExhibitIds { get; set; }
     }
 }

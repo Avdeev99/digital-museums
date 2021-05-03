@@ -30,7 +30,6 @@ export class ExhibitionService {
 
     constructor(
         private httpClient: HttpClient,
-
     ) {
         this.exhibition$$ = new BehaviorSubject(null);
         this.currentExhibitNumber$$ = new BehaviorSubject(0);
@@ -49,10 +48,10 @@ export class ExhibitionService {
         return this.httpClient.get<Array<Exhibition>>(api.exhibition, { params: httpParams });
     }
 
-    public get(id: number): Observable<ExhibitionEditing> {
+    public get(id: number): Observable<Exhibition> {
         const requestUrl: string = `${api.exhibition}/${id}`
 
-        return this.httpClient.get<ExhibitionEditing>(requestUrl);
+        return this.httpClient.get<Exhibition>(requestUrl);
     }
 
     public create(exhibition: ExhibitionEditing): Observable<any> {

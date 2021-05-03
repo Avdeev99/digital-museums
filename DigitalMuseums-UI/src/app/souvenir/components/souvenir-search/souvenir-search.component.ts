@@ -84,6 +84,11 @@ export class SouvenirSearchComponent implements OnInit {
         href: `/exhibit/${this.museumId}/search`,
         state,
       },
+      {
+        name: 'menu.exhibitions',
+        href: `/exhibition/${this.museumId}/search`,
+        state,
+      },
     ];
   }
 }

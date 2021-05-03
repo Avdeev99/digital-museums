@@ -13,7 +13,7 @@ namespace DigitalMuseums.Api.Contracts.Requests.Exhibition
 
         public List<string> Tags { get; set; }
         
-        public List<int> Exhibits { get; set; }
+        public List<int> ExhibitIds { get; set; }
         
         public List<IFormFile> Images { get; set; }
     }

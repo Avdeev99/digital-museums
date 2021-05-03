@@ -83,9 +83,11 @@ namespace DigitalMuseums.Api.Mappings
             CreateMap<CreateExhibitionRequest, CreateExhibitionDto>()
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
             CreateMap<UpdateExhibitionRequest, UpdateExhibitionDto>()
-                .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
-            CreateMap<UpdateExhibitionRequest, ExhibitionImagesUnit>()
-                .ForMember(dest => dest.ExhibitionId, opt => opt.MapFrom(s => s.Id));
+                .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images))
+                .AfterMap((src, dest) =>
+                {
+                    dest.ImagesData.ExhibitionId = src.Id;
+                });
         }
     }
 }

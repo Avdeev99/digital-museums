@@ -61,7 +61,7 @@ export interface ExhibitionEditing {
     id: number;
     name: string;
     description: string;
-    exhibits: number[];
+    exhibitIds: number[];
     museumId: number;
     tags: string[];
     images: FileList;

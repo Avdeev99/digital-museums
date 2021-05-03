@@ -53,13 +53,9 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromForm] UpdateExhibitionRequest request)
+        public async Task<IActionResult> Update([FromForm] UpdateExhibitionRequest request)
         {
             var exhibitionDto = _mapper.Map<UpdateExhibitionDto>(request);
-            // if (exhibitDto.ImagesData != null)
-            // {
-            //     exhibitDto.ImagesData.ExhibitionId = id;
-            // }
 
             await _exhibitionService.UpdateAsync(exhibitionDto);
             
