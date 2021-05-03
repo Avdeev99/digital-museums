@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Exhibit;
+using DigitalMuseums.Api.Contracts.Requests.Exhibition;
 using DigitalMuseums.Api.Contracts.Requests.Genre;
 using DigitalMuseums.Api.Contracts.Requests.Museum;
 using DigitalMuseums.Api.Contracts.Requests.Souvenir;
@@ -7,10 +8,12 @@ using DigitalMuseums.Core.Domain.DTO;
 using DigitalMuseums.Core.Domain.Models.Secondary;
 using DigitalMuseums.Api.Contracts.Responses;
 using DigitalMuseums.Api.Contracts.Responses.Exhibit;
+using DigitalMuseums.Api.Contracts.Responses.Exhibition;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Api.Contracts.Responses.Souvenir;
 using DigitalMuseums.Api.Contracts.ViewModels;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
+using DigitalMuseums.Core.Domain.DTO.Exhibition;
 using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.DTO.Souvenir;
 using DigitalMuseums.Core.Domain.Models;
@@ -74,6 +77,15 @@ namespace DigitalMuseums.Api.Mappings
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
             CreateMap<FilterSouvenirsRequest, FilterSouvenirsDto>();
             CreateMap<FilteredSouvenirItem, GetFilteredSouvenirsResponseItem>();
+            
+            CreateMap<FilterExhibitionsRequest, FilterExhibitionsDto>().ReverseMap();
+            CreateMap<FilteredExhibitionItem, GetFilteredExhibitionsResponseItem>();
+            CreateMap<CreateExhibitionRequest, CreateExhibitionDto>()
+                .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
+            CreateMap<UpdateExhibitionRequest, UpdateExhibitionDto>()
+                .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
+            CreateMap<UpdateExhibitionRequest, ExhibitionImagesUnit>()
+                .ForMember(dest => dest.ExhibitionId, opt => opt.MapFrom(s => s.Id));
         }
     }
 }

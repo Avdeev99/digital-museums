@@ -9,6 +9,8 @@
         
         public const string MuseumNotFoundCode = "museum.errors.not-found";
         
+        public const string ExhibitionNotFoundCode = "exhibition.errors.not-found";
+        
         public const string UserNotFoundCode = "user.errors.not-found";
     }
 }

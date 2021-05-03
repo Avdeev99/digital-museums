@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
+using DigitalMuseums.Core.Domain.Interfaces;
+using DigitalMuseums.Core.Domain.Models.Secondary;
 
 namespace DigitalMuseums.Core.Domain.Models.Domain
 {
-    public class Exhibition : BaseEntity
+    public class Exhibition : BaseEntity, ISoftDelete
     {
         public string Name { get; set; }
         
         public string Description { get; set; }
+
+        public int MuseumId { get; set; }
+        
+        public Museum Museum { get; set; }
 
         public DateTime? StartDate { get; set; }
         
@@ -18,5 +24,9 @@ namespace DigitalMuseums.Core.Domain.Models.Domain
         public List<string> Tags { get; set; }
 
         public ICollection<Exhibit> Exhibits { get; set; }
+        
+        public ICollection<Image> Images { get; set; }
+        
+        public bool IsDeleted { get; set; }
     }
 }
