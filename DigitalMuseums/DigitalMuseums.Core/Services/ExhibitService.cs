@@ -11,6 +11,7 @@ using DigitalMuseums.Core.Errors;
 using DigitalMuseums.Core.Exceptions;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace DigitalMuseums.Core.Services
 {
@@ -59,7 +60,7 @@ namespace DigitalMuseums.Core.Services
                 TrackingState.Enabled);
             if (exhibit == null || exhibit.IsDeleted)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
+                throw new BusinessLogicException(BusinessErrorCodes.ExhibitNotFoundCode);
             }
             
             UpdateExhibitItem(exhibit, updateExhibitDto);
@@ -78,7 +79,7 @@ namespace DigitalMuseums.Core.Services
                 });
             if (exhibit == null || exhibit.IsDeleted)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
+                throw new BusinessLogicException(BusinessErrorCodes.ExhibitNotFoundCode, StatusCodes.Status404NotFound);
             }
 
             var result = _mapper.Map<ExhibitItem>(exhibit);
@@ -106,7 +107,7 @@ namespace DigitalMuseums.Core.Services
             var exhibit = await _exhibitRepository.GetAsync(museum => museum.Id == id, TrackingState.Enabled);
             if (exhibit == null)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
+                throw new BusinessLogicException(BusinessErrorCodes.ExhibitNotFoundCode, StatusCodes.Status404NotFound);
             }
 
             exhibit.IsDeleted = true;

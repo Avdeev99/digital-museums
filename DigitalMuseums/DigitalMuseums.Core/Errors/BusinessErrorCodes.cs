@@ -9,6 +9,14 @@
         
         public const string MuseumNotFoundCode = "museum.errors.not-found";
         
+        public const string ExhibitNotFoundCode = "exhibit.errors.not-found";
+        
+        public const string SouvenirNotFoundCode = "souvenir.errors.not-found";
+        
+        public const string ExceededAvailableSouvenirCountCode = "souvenir.errors.limit-exceeded";
+        
+        public const string OrderNotFoundCode = "order.errors.not-found";
+        
         public const string ExhibitionNotFoundCode = "exhibition.errors.not-found";
         
         public const string UserNotFoundCode = "user.errors.not-found";

@@ -14,6 +14,7 @@ using DigitalMuseums.Core.Errors;
 using DigitalMuseums.Core.Exceptions;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace DigitalMuseums.Core.Services
 {
@@ -78,7 +79,7 @@ namespace DigitalMuseums.Core.Services
             var museum = await _museumRepository.GetAsync(museum => museum.Id == id, TrackingState.Enabled);
             if (museum == null)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
+                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode, StatusCodes.Status404NotFound);
             }
 
             museum.IsDeleted = true;
@@ -118,7 +119,7 @@ namespace DigitalMuseums.Core.Services
                 TrackingState.Enabled);
             if (museum == null || museum.IsDeleted)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
+                throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode, StatusCodes.Status404NotFound);
             }
 
             museum.VisitedCount++;

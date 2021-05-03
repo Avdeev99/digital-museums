@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using DigitalMuseums.Core.Domain.Models.Adjacent;
 using DigitalMuseums.Core.Domain.Models.Auth;
-using DigitalMuseums.Core.Domain.Models.Domain;
 
 namespace DigitalMuseums.Core.Domain.Models.Order
 {
@@ -15,6 +15,6 @@ namespace DigitalMuseums.Core.Domain.Models.Order
 
         public User User { get; set; }
 
-        public ICollection<Souvenir> Souvenirs { get; set; }
+        public ICollection<SouvenirOrderDetail> OrderDetails { get; set; }
     }
 }

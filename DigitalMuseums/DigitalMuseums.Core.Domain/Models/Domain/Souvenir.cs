@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DigitalMuseums.Core.Domain.Interfaces;
+using DigitalMuseums.Core.Domain.Models.Adjacent;
 using DigitalMuseums.Core.Domain.Models.Secondary;
 
 namespace DigitalMuseums.Core.Domain.Models.Domain
@@ -22,7 +23,7 @@ namespace DigitalMuseums.Core.Domain.Models.Domain
 
         public ICollection<Image> Images { get; set; }
 
-        public ICollection<Order.Order> Orders { get; set; }
+        public ICollection<SouvenirOrderDetail> OrderDetails { get; set; }
         
         public bool IsDeleted { get; set; }
     }

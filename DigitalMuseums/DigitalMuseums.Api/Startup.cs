@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Stripe;
 
 namespace DigitalMuseums.Api
 {
@@ -52,8 +53,11 @@ namespace DigitalMuseums.Api
                 cfg.AddProfile<UserMappingProfile>();
                 cfg.AddProfile<ExhibitMappingProfile>();
                 cfg.AddProfile<ExhibitionMappingProfile>();
+                cfg.AddProfile<CartMappingProfile>();
             });
             services.AddApi();
+            
+            services.AddHttpContextAccessor();
 
             AuthConfiguratorExtensions.Configure(services, configuration);
             services.AddCloudinary(configuration);
@@ -90,6 +94,8 @@ namespace DigitalMuseums.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "DigitalMuseums.API v1");
             });
+
+            StripeConfiguration.ApiKey = configuration["Stripe:SecretKey"];
             
             if (env.IsDevelopment())
             {

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Reflection;
+using DigitalMuseums.Core.Domain.Models.Adjacent;
 using DigitalMuseums.Core.Domain.Models.Auth;
 using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Domain.Models.Location;
@@ -80,6 +81,9 @@ namespace DigitalMuseums.Data.DbContext
         /// Gets or sets orders.
         /// </summary>
         public DbSet<Order> Orders { get; set; }
+        
+        
+        public DbSet<SouvenirOrderDetail> SouvenirOrderDetails { get; set; }
 
         /// <summary>
         /// Gets or sets genres.

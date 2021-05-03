@@ -12,6 +12,10 @@ namespace DigitalMuseums.Core.Exceptions
         {
         }
         
+        public BusinessLogicException(string message, int statusCode) : base(message, statusCode)
+        {
+        }
+        
         public BusinessLogicException(string message, Dictionary<string, List<string>> errors) : base(message)
         {
             Errors = errors ?? new Dictionary<string, List<string>>();

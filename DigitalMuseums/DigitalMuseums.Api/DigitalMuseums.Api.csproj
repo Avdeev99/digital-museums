@@ -11,6 +11,7 @@
       <PackageReference Include="Google.Apis.Auth" Version="1.49.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.2" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="Stripe.net" Version="39.45.0" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 

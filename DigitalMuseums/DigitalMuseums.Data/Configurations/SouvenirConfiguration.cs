@@ -24,14 +24,6 @@ namespace DigitalMuseums.Data.Configurations
             builder.Property(e => e.Tags).IsRequired();
 
             builder
-                .HasMany(src => src.Orders)
-                .WithMany(dest => dest.Souvenirs)
-                .UsingEntity<SouvenirOrderDetails>(
-                        e => e.HasOne(src => src.Order).WithMany().HasForeignKey(o => o.OrderId),
-                        e => e.HasOne(src => src.Souvenir).WithMany().HasForeignKey(o => o.SouvenirId),
-                        e => e.HasKey(od => od.Id));
-            
-            builder
                 .HasOne(src => src.Museum)
                 .WithMany(dest => dest.Souvenirs)
                 .HasForeignKey(e => e.MuseumId)
