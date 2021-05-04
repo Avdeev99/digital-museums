@@ -1,6 +1,18 @@
-<div class="layout">
+<!-- <div class="layout header">
     <a routerLink="/">{{ 'menu.home' | translate }}</a>
     <a routerLink="/museum/search">{{ 'menu.museums' | translate }}</a>
     <a routerLink="login">{{ 'menu.login' | translate }}</a>
+</div> -->
+
+
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="d-flex nav_links_holder">
+            <a routerLink="/" class="nav_logo d-flex align-items-center">{{ 'menu.home' | translate }}</a>
+        </div>
+        <div class="nav_links_holder">
+            <a routerLink="/museum/search">{{ 'menu.museums' | translate }}</a>
+            <a routerLink="login">{{ 'menu.login' | translate }}</a>        
+        </div>
+    </div>
 </div>
-  

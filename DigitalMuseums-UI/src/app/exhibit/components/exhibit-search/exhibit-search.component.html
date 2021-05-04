@@ -1,52 +1,64 @@
-<app-submenu
-    [menuList]="menuList"
->
-</app-submenu>
-
-<div class="search-block">
-    <div class="filter-block">
-        <form [formGroup]="formGroup">
-            <div>
-                <label>
-                    {{ 'shared.controls.name' | translate }}
-                    <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
-                  </label>
-            </div>
-    
-            <div>
-                <label>
-                    {{ 'exhibit.author' | translate }}
-                    <app-input [label]="'exhibit.author' | translate" [control]="formGroup.controls.author"></app-input>
-                  </label>
-            </div>
-    
-            <div>
-                <label>
-                    {{ 'exhibit.date' | translate }}
-                    <app-input [label]="'exhibit.date' | translate" [control]="formGroup.controls.date"></app-input>
-                  </label>
-            </div>
-    
-            <div>
-                <label>
-                {{ 'shared.controls.tags' | translate }}
-                <app-chips 
-                    [label]="'shared.controls.tags' | translate"
-                    [control]="formGroup.controls.tags"
-                ></app-chips>
-                </label>
-            </div>
-    
-            <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
-        </form>
+<div class="container p-0 pt-4">
+    <div class="museum_menu_holder">
+        <app-submenu [menuList]="menuList"></app-submenu>
     </div>
     
-    <div class="exhibits-block">
-        <div *ngFor="let exhibit of exhibits$ | async">
-            <label>{{ 'shared.controls.name' | translate }}: {{ exhibit.name }}</label>
-            <br>
-            <app-button (click)="onDetails(exhibit.id)" [label]="'museum.buttons.details' | translate"></app-button>
+    <div class="search-block">
+        <div class="filter-block">
+            <form [formGroup]="formGroup">
+                <div>
+                    <label>
+                        {{ 'shared.controls.name' | translate }}
+                        <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
+                      </label>
+                </div>
+        
+                <div>
+                    <label>
+                        {{ 'exhibit.author' | translate }}
+                        <app-input [label]="'exhibit.author' | translate" [control]="formGroup.controls.author"></app-input>
+                      </label>
+                </div>
+        
+                <div>
+                    <label>
+                        {{ 'exhibit.date' | translate }}
+                        <app-input [label]="'exhibit.date' | translate" [control]="formGroup.controls.date"></app-input>
+                      </label>
+                </div>
+        
+                <div>
+                    <label>
+                    {{ 'shared.controls.tags' | translate }}
+                    <app-chips 
+                        [label]="'shared.controls.tags' | translate"
+                        [control]="formGroup.controls.tags"
+                    ></app-chips>
+                    </label>
+                </div>
+        
+                <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+            </form>
+        </div>
+        
+        <div class="exhibits-block">
+            <section class="list_items_section">
+                <div class="container-fluid container-fluid-padding">
+                    <div class="row">
+                        <div *ngFor="let exhibit of exhibits$ | async" class="col-lg-6 list_item_block cursor-pointer" (click)="onDetails(exhibit.id)" [label]="'museum.buttons.details' | translate">
+                            <div  class="list_item_image_holder" [ngStyle]="{'background-image': getExhibitImage(exhibit)}">
+                                            
+                            </div>
+                            <div class="list_item_description">
+                                <span class="list_item_description_makemodel">{{ 'shared.controls.name' | translate }}: {{ exhibit.name }}</span>
+                            </div>
+                            <div class="list_item_badges_holder">
+                                <div *ngFor="let tag of exhibit.tags" class="list_item_badge">{{ tag }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </div>
-

@@ -1,15 +1,30 @@
-<p>login works!</p>
+<div class="login_bg">
+  <div class="container-fluid">
+      <div class="row h-100-vh align-items-center">
+          <div class="col-12">
+              <div class="login_holder">
 
-<form [formGroup]="formGroup">
-    <label>
-      {{ 'account.login.email' | translate }}
-      <app-input [label]="'account.login.email' | translate" [control]="formGroup.controls.email"></app-input>
-    </label>
-    <label>
-        {{ 'account.login.password' | translate }}
-        <app-input [label]="'account.login.password' | translate" [control]="formGroup.controls.password"></app-input>
-    </label>
-    <button (click)="authenticate()">{{ 'account.login.login-btn' | translate }}</button>
-</form>
-  
-<button (click)="externalAuth(googleProviderId)">{{ 'account.login.google-login-btn' | translate }}</button>
+                  <h1 class="sans-serif">{{ 'account.login.login-btn' | translate }}</h1>
+
+                  <form [formGroup]="formGroup">
+                    <div class="label">
+                        <div class="label-inside">
+                            <label for="email">{{ 'account.login.email' | translate }}</label>
+                        </div>
+                    </div>
+                    <app-input class="login-input" [label]="'account.login.email' | translate" [control]="formGroup.controls.email"></app-input>
+                  
+                    <div class="label">
+                        <div class="label-inside">
+                            <label for="password">{{ 'account.login.password' | translate }}</label>
+                        </div>
+                    </div>
+                    <app-input class="login-input" [label]="'account.login.password' | translate" [control]="formGroup.controls.password"></app-input>
+                    <button class="btn submit-btn-lower" (click)="authenticate()">{{ 'account.login.login-btn' | translate }}</button>
+                    <button class="btn submit-btn-lower submit-btn-lower-google-auth" (click)="externalAuth(googleProviderId)">{{ 'account.login.google-login-btn' | translate }}</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

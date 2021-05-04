@@ -6,8 +6,13 @@ import { ExhibitModule } from './exhibit/exhibit.module';
 import { SouvenirModule } from './souvenir/souvenir.module';
 import { ExhibitionModule } from './exhibition/exhibition.module';
 import { CartModule } from './cart/cart.module';
+import { HomeComponent } from './layout/home/home.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
   {
     path: 'login',
     loadChildren: (): Promise<AccountModule> => import('./account/account.module').then((m): AccountModule => m.AccountModule),

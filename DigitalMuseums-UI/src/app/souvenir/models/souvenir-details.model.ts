@@ -7,4 +7,5 @@ export interface SouvenirDetails {
     availableUnits: number;
     tags: string[];
     imagePaths: string[];
+    imagePath: string;
 }
