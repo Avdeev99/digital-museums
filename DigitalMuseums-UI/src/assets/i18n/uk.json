@@ -54,6 +54,9 @@
         "museum": "Музей",
         "souvenirs": "Сувеніри"
     },
+    "cart": {
+        "pay": "До сплати"
+    },
     "shared": {
         "controls": {
             "name": "Назва",

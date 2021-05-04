@@ -5,6 +5,7 @@ import { AccountModule } from './account/account.module';
 import { ExhibitModule } from './exhibit/exhibit.module';
 import { SouvenirModule } from './souvenir/souvenir.module';
 import { ExhibitionModule } from './exhibition/exhibition.module';
+import { CartModule } from './cart/cart.module';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'exhibition',
     loadChildren: (): Promise<ExhibitionModule> => import('./exhibition/exhibition.module').then((m): ExhibitionModule => m.ExhibitionModule),
+  },
+  {
+    path: 'cart',
+    loadChildren: (): Promise<CartModule> => import('./cart/cart.module').then((m): CartModule => m.CartModule),
   },
 ];
 

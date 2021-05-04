@@ -15,4 +15,10 @@ export class CurrentUserService {
 
         return currentUser;
     }
+
+    public getUserToken(): string {
+        const token: string = JSON.parse(localStorage.getItem(storage.token));
+
+        return token;
+    }
 }

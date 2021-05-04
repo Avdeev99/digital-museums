@@ -1,0 +1,27 @@
+<p>Total sum: {{ totalOrderPrice$ | async }}</p>
+<app-button [label]="'Pay'" (click)="checkout()"></app-button>
+
+
+<div>
+    <div *ngFor="let orderDetailsItem of orderDetails">
+        <div>
+            <label>{{ 'museum.name' | translate }}: {{ orderDetailsItem.price }}</label>
+        </div>
+        <br>
+
+        <div>
+            <label>Quantity: {{ orderDetailsItem.quantity }}</label>
+        </div>
+        <br>
+        <app-button
+            [isDisabled]="isDecreaseBtnDisabled(orderDetailsItem.souvenir.id)"
+            (click)="decreaseItemQuantity(orderDetailsItem.souvenir.id)"
+            [label]="'-'"
+        ></app-button>
+        <app-button
+            [isDisabled]="isIncreaseBtnDisabled(orderDetailsItem.souvenir.id)"
+            (click)="increaseItemQuantity(orderDetailsItem.souvenir.id)"
+            [label]="'+'"
+        ></app-button>
+    </div>
+</div>

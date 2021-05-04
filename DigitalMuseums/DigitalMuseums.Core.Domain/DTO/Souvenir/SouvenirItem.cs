@@ -4,6 +4,8 @@ namespace DigitalMuseums.Core.Domain.DTO.Souvenir
 {
     public class SouvenirItem
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }

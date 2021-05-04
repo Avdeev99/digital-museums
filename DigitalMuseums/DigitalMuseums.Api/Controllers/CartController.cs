@@ -46,6 +46,7 @@ namespace DigitalMuseums.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetCurrentCart()
         {
             var userId = GetUserId();
@@ -56,7 +57,8 @@ namespace DigitalMuseums.Api.Controllers
         }
         
         [HttpPost("payment")]
-        public async Task<IActionResult> Pay(PayCartRequest request)
+        [Authorize]
+        public async Task<IActionResult> Pay([FromBody] PayCartRequest request)
         {
             var userId = GetUserId();
             var currentCart = await _cartService.GetCurrentCartAsync(userId);

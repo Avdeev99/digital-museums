@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { CartService } from 'src/app/cart/services/cart.service';
 import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { SouvenirDetails } from '../../models/souvenir-details.model';
 import { SouvenirService } from '../../services/souvenir.service';
@@ -24,6 +25,7 @@ export class SouvenirDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private souvenirService: SouvenirService,
     private router: Router,
+    private cartService: CartService,
   ) { 
     this.setSouvenirId();
   }
@@ -38,6 +40,10 @@ export class SouvenirDetailsComponent implements OnInit {
 
   private setSouvenirId(): void {
     this.souvenirId = this.route.snapshot.params.id;
+  }
+
+  public addToCart(): void {
+    this.cartService.updateCartItem(this.souvenirId, 1).subscribe();
   }
 
   private fetchSouvenir(): void {

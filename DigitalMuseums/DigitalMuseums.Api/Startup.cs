@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using AutoMapper;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Stripe;
 
@@ -66,8 +68,38 @@ namespace DigitalMuseums.Api
                 setup =>
                 {
                     setup.SwaggerDoc("v1", new OpenApiInfo { Title = "DigitalMuseums.API", Version = "v1" });
+
+                    setup.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Description = "Please add Bearer prefix before {token}",
+                        Name = HeaderNames.Authorization,
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer"
+                    });
+
+                    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                },
+                                Scheme = "Bearer",
+                                Name = "Bearer",
+                                In = ParameterLocation.Header,
+
+                            },
+                            new List<string>()
+                        }
+                    });
+
+                    setup.CustomSchemaIds(x => x.FullName);
                 });
-            
+
             services.AddControllers(options =>
                 {
                     options.Filters.Add(typeof(ModelValidityFilter));

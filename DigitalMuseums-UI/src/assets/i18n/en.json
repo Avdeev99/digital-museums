@@ -54,6 +54,9 @@
         "museum": "Museum",
         "souvenirs": "Souvenirs"
     },
+    "cart": {
+        "pay": "Pay"
+    },
     "shared": {
         "controls": {
             "name": "Name",
