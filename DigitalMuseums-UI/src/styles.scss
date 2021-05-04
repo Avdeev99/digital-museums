@@ -432,6 +432,21 @@ button {
     font-size: 16px;
 }
 
+button.submit-btn-lower,
+button.submit-btn-lower:active,
+button.submit-btn-lower:focus,
+button.submit-btn-lower:visited {
+  border: 0.5px solid lightgray;
+}
+
+.login-input * {
+  border-top: 0;
+}
+
+.submit-btn-lower-google-auth {
+  margin-top: 15px;
+}
+
     .submit-btn-lower:hover {
         background-color: #FF6B80;
         color: #fff;
