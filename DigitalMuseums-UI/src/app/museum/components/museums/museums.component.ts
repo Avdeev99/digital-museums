@@ -35,7 +35,7 @@ export class MuseumsComponent extends MuseumBase implements OnInit {
   }
 
   public getMuseumImage(museum: MuseumDetails): string {
-    return museum && museum.imagePaths && museum.imagePaths.length ? museum.imagePaths[0] : null;
+    return museum ? 'url(' + museum.imagePath + ')'  : null;
   }
 
   public onSubmit(): void {

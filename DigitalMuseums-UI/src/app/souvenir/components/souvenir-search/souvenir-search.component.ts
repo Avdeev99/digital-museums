@@ -50,6 +50,10 @@ export class SouvenirSearchComponent implements OnInit {
     this.router.navigate([`souvenir/${souvenirId}`]);
   }
 
+  public getSouvenirImage(souvenir: SouvenirDetails): string {
+    return souvenir ? 'url(' + souvenir.imagePath + ')'  : null;
+  }
+
   private initForm(): void {
     this.formGroup = this.fb.group({
       name: new FormControl(null),

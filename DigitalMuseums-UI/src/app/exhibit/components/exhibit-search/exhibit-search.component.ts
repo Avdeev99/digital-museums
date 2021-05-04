@@ -50,6 +50,10 @@ export class ExhibitSearchComponent implements OnInit {
     this.router.navigate([`exhibit/${exhibitId}`]);
   }
 
+  public getExhibitImage(exhibit: ExhibitDetails): string {
+    return exhibit ? 'url(' + exhibit.imagePath + ')'  : null;
+  }
+
   private initForm(): void {
     this.formGroup = this.fb.group({
       name: new FormControl(null),

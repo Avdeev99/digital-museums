@@ -7,4 +7,5 @@ export interface ExhibitDetails {
     date: string;
     tags: string[];
     imagePaths: string[];
+    imagePath: string;
 }

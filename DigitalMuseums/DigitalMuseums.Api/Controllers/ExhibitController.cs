@@ -62,7 +62,7 @@ namespace DigitalMuseums.Api.Controllers
             var filterDto = _mapper.Map<FilterExhibitsDto>(filter);
             
             var filteredItems = await _exhibitService.GetFilteredAsync(filterDto);
-            var result = _mapper.Map<List<GetFilteredMuseumsResponseItem>>(filteredItems);
+            var result = _mapper.Map<List<GetFilteredExhibitsResponseItem>>(filteredItems);
 
             return Ok(result);
         }
