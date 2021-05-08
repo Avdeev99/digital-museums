@@ -20,11 +20,21 @@ export class CartService {
         return this.httpClient.post<any>(requestUrl, { token });
     }
 
-    public updateCartItem(souvenirId: number, quantity: number): Observable<any> {
+    public updateCartItem(souvenirId: number, quantity: number): Observable<void> {
         return this.httpClient.put<any>(api.cart, { souvenirId, quantity });
     }
 
     public getCurrentCart(): Observable<CartDetails> {
         return this.httpClient.get<CartDetails>(api.cart);
+    }
+
+    public deleteCartItem(souvenirId: number): Observable<void> {
+        const requestUrl: string = `${api.cart}/souvenir/${souvenirId}`
+
+        return this.httpClient.delete<any>(requestUrl);
+    }
+
+    public addCartItem(souvenirId: number): Observable<void> {
+        return this.httpClient.post<any>(api.cart, { souvenirId });
     }
 }

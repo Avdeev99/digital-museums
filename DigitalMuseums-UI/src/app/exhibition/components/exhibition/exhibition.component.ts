@@ -86,7 +86,6 @@ export class ExhibitionComponent implements OnInit {
     }
 
     private processActiveStep(activeStep: number): void {
-        debugger;
         const { component, id, data } = this.steps[activeStep];
         let componentRef;
 

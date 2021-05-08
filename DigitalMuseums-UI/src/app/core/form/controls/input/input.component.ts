@@ -16,6 +16,7 @@ export class CustomInputComponent implements OnInit, OnDestroy {
   @Input() @Optional() public inputType: 'text' | 'number' | 'date' = 'text';
   @Output() public valueChange: EventEmitter<FormControl> = new EventEmitter();
   @Input() @Optional() private value: string;
+  @Input() @Optional() private readonly: boolean;
   private unsubscribe$: Subject<void> = new Subject();
   public constructor() {}
 

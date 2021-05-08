@@ -55,7 +55,12 @@
         "souvenirs": "Souvenirs"
     },
     "cart": {
-        "pay": "Pay"
+        "pay": "Pay",
+        "delivery": "Delivery",
+        "totalValue": "Total Value",
+        "checkout": "Checkout",
+        "remove": "Remove",
+        "items": "Items"
     },
     "shared": {
         "controls": {

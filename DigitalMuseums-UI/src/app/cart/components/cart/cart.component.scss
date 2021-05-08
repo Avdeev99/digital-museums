@@ -1,0 +1,121 @@
+.cart-items-holder {
+    width: 60%;
+}
+
+.order-summary-holder {
+    width: 35%;
+}
+
+.cart-title-block {
+    border-bottom: 1px solid #D8D8D8;
+    margin-bottom: 25px;
+}
+.basket-item {
+    border-bottom: 1px solid #D8D8D8;
+    margin: 0;
+    margin-bottom: 24px;
+    padding: 24px;
+    background-color: #FFFF;
+}
+.basket-item:last-child { border-bottom: none; }
+.basket-item-image {
+    height: 100%;
+    width: 100%;
+}
+.basket-item-image img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+.basket-item-description { padding-left: 24px; }
+.underline-link {
+    color: #FF7E2A;
+    text-decoration: underline;
+    transition: ease all .3s;
+    cursor: pointer;
+}
+.underline-link:hover { color: #E97427; }
+.basket-item-description-memory { color: #727272; }
+.basket-item-description-price {
+    color: #404040;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 15px 0px;
+}
+.basket-item-description-quantity { margin: 0 20px; }
+.basket-item-description-quantity-button {
+    align-items: center;
+    border: 1px solid #D8D8D8;
+    cursor: pointer;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    padding: 8px 7px;
+    transition: ease all .3s;
+    width: 30px;
+}
+.basket-item-description-quantity-button svg {
+    height: 20px;
+    width: 22px;
+}
+.basket-item-description-quantity-button:not(.basket-item-description-quantity-button-disabled):hover {
+    background: #FF7E2A;
+    border: #FF7E2A;
+}
+.basket-item-description-quantity-button:not(.basket-item-description-quantity-button-disabled):hover .basket-quantity-adjust-icon { stroke: #FFF; }
+.basket-item-description-quantity-button-disabled { cursor: default; }
+.basket-item-description-quantity-button-disabled .basket-quantity-adjust-icon { stroke: #727272; }
+.order {
+    background-color: #FFF;
+    margin-top: 70px;
+    padding: 25px 30px;
+}
+
+.order-title {
+    border-bottom: 1px solid #DCDCDC;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.order-details {
+    border-bottom: 1px solid #DCDCDC;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+}
+
+.basket-checkout {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+}
+
+.basket-checkout:hover {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.delivery-input ::ng-deep mat-form-field {
+    display: block;
+    max-width: 80%;
+}
+
+.mb15 {
+    margin-bottom: 15px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+.fs18 {
+    font-size: 18px;
+}
+
+.title {
+    font-size: 37px;
+    font-weight: bold;
+}

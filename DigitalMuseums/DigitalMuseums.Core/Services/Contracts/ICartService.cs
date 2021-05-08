@@ -9,6 +9,10 @@ namespace DigitalMuseums.Core.Services.Contracts
 
         Task<CurrentCart> GetCurrentCartAsync(int userId);
         
-        Task ProcessCart(int userId);
+        Task ProcessCartAsync(int userId);
+
+        Task AddCartItemAsync(int userId, int souvenirId);
+
+        Task DeleteCartItemAsync(int userId, int souvenirId);
     }
 }

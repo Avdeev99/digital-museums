@@ -45,6 +45,17 @@ namespace DigitalMuseums.Api.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddCartItem(AddCartItemRequest request)
+        {
+            var userId = GetUserId();
+
+            await _cartService.AddCartItemAsync(userId, request.SouvenirId);
+
+            return Ok();
+        }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetCurrentCart()
@@ -69,11 +80,22 @@ namespace DigitalMuseums.Api.Controllers
             };
 
             var charge = _paymentService.ProcessStripeCharge(processStripeChargeDto);
-            await _cartService.ProcessCart(userId);
+            await _cartService.ProcessCartAsync(userId);
 
             return Ok(charge);
         }
-        
+
+        [Authorize]
+        [HttpDelete("souvenir/{souvenirId}")]
+        public async Task<IActionResult> DeleteCartItem([FromRoute] int souvenirId)
+        {
+            var userId = GetUserId();
+
+            await _cartService.DeleteCartItemAsync(userId, souvenirId);
+
+            return Ok();
+        }
+
         private static UpdateCartItemDto BuildAddItemDto(UpdateCartItemRequest request, int userId)
         {
             var result = new UpdateCartItemDto

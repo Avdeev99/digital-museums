@@ -55,7 +55,12 @@
         "souvenirs": "Сувеніри"
     },
     "cart": {
-        "pay": "До сплати"
+        "pay": "До сплати",
+        "delivery": "Доставка",
+        "totalValue": "Загальна вартість",
+        "checkout": "Оплатити",
+        "remove": "Видалити",
+        "items": "Предмети"
     },
     "shared": {
         "controls": {

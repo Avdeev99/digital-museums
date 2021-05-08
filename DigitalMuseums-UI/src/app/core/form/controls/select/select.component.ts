@@ -17,6 +17,7 @@ export class CustomSelectComponent implements OnInit, OnDestroy {
   @Output() public valueChange: EventEmitter<FormControl> = new EventEmitter();
   @Output() public selectOpenChange: EventEmitter<FormControl> = new EventEmitter();
   @Input() @Optional() private value: IOption;
+  @Input() @Optional() private disabled: boolean;
   private unsubscribe$: Subject<void> = new Subject();
   public constructor() {}
 

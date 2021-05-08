@@ -20,5 +20,7 @@
         public const string ExhibitionNotFoundCode = "exhibition.errors.not-found";
         
         public const string UserNotFoundCode = "user.errors.not-found";
+
+        public const string SouvenirAlreadyAddedToCartCode = "cart.errors.souvenir-already-added";
     }
 }

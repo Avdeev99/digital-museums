@@ -52,11 +52,6 @@ export class CartStateService {
 
         cartItem.quantity++;
 
-        // cartDetails.orderDetails[cartItemIndex] = {
-        //     ...cartItem,
-        //     quantity: cartItem.quantity++,
-        // };
-
         this.cartService.updateCartItem(cartItem.souvenir.id, cartItem.quantity).subscribe(() => {
             this.loadCartDetails();
         });
@@ -71,11 +66,6 @@ export class CartStateService {
         }
 
         cartItem.quantity--;
-
-        // cartDetails.orderDetails[cartItemIndex] = {
-        //     ...cartItem,
-        //     quantity: cartItem.quantity++,
-        // };
 
         this.cartService.updateCartItem(cartItem.souvenir.id, cartItem.quantity).subscribe(() => {
             this.loadCartDetails();
@@ -94,5 +84,11 @@ export class CartStateService {
         const cartItem = cartDetails.orderDetails.find(x => !!x.souvenir && x.souvenir.id === souvenirId);
 
         return cartItem.quantity > 1;
+    }
+
+    public deleteCartItem(souvenirId: number): void {
+        this.cartService.deleteCartItem(souvenirId).subscribe(() => {
+            this.loadCartDetails();
+        });
     }
 }

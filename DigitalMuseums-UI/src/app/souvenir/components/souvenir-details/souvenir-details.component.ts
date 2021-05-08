@@ -43,7 +43,9 @@ export class SouvenirDetailsComponent implements OnInit {
   }
 
   public addToCart(): void {
-    this.cartService.updateCartItem(this.souvenirId, 1).subscribe();
+    this.cartService.addCartItem(this.souvenirId).subscribe(() => {
+      this.router.navigate(['cart']);
+    });
   }
 
   private fetchSouvenir(): void {
