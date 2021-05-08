@@ -9,6 +9,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { SubmenuComponent } from './components/submenu/submenu.component';
 import { RouterModule } from '@angular/router';
+import { SelectLanguageComponent } from './components/select-language/select-language.component';
+import { CustomFormModule } from '../form/custom-form.module';
 
 const services: Array<any> = [
   LocationService,
@@ -17,7 +19,8 @@ const services: Array<any> = [
 @NgModule({
   declarations: [
     CustomButtonComponent,
-    SubmenuComponent
+    SubmenuComponent,
+    SelectLanguageComponent
   ],
   imports: [
     RouterModule,
@@ -26,12 +29,14 @@ const services: Array<any> = [
     MatSelectModule, 
     TranslateModule,
     MatMenuModule,
+    CustomFormModule,
   ],
   exports: [
     CustomButtonComponent,
     TranslateModule,
     MatSelectModule,
-    SubmenuComponent
+    SubmenuComponent,
+    SelectLanguageComponent,
   ],
   providers: [
     ...services,

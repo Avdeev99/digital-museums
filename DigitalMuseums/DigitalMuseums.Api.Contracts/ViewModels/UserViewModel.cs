@@ -14,6 +14,6 @@ namespace DigitalMuseums.Api.Contracts.ViewModels
 
         public DateTime BirthDate { get; set; }
 
-        public RoleViewModel Role { get; set; }
+        public string Role { get; set; }
     }
 }

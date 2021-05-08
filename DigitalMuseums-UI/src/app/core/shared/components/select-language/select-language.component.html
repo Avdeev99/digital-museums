@@ -1,0 +1,7 @@
+<app-select #langSelect class="language-select"
+    [options]="languages"
+    [value]="defaultLang"
+    [hasUnsetOption]="false"
+    (valueChange)="onLanguageChange($event)"    
+>
+</app-select>

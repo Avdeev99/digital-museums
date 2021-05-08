@@ -21,6 +21,8 @@
         
         public const string UserNotFoundCode = "user.errors.not-found";
 
+        public const string RoleNotFoundCode = "role.errors.not-found";
+
         public const string SouvenirAlreadyAddedToCartCode = "cart.errors.souvenir-already-added";
     }
 }

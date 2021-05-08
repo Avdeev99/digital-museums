@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DigitalMuseums.Core.Domain.Constants;
 using DigitalMuseums.Core.Domain.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -27,8 +28,8 @@ namespace DigitalMuseums.Data.Configurations
 
             builder.HasData(new List<Role>
             {
-                new Role { Id = 1, Name = "Admin" },
-                new Role { Id = 2, Name = "MuseumOwner" },
+                new Role { Id = 1, Name = UserRoleConstants.Admin },
+                new Role { Id = 2, Name = UserRoleConstants.MuseumOwner }
             });
         }
     }

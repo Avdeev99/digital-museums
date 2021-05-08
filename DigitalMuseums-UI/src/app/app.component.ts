@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'DigitalMuseums-UI';
 
   constructor(private translateService: TranslateService) {
+    this.translateService.addLangs(environment.locales);
     this.translateService.setDefaultLang(environment.defaultLocale);
     this.translateService.use(environment.defaultLocale);
   }

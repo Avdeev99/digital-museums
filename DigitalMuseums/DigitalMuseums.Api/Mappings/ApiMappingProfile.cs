@@ -42,7 +42,12 @@ namespace DigitalMuseums.Api.Mappings
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
 
 
-            CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<User, UserViewModel>()
+                .AfterMap((src, dest) =>
+                {
+                    dest.Role = src.Role?.Name;
+                })
+                .ReverseMap();
             CreateMap<Role, RoleViewModel>().ReverseMap();
             
             CreateMap<AuthDto, AuthResponse>().ReverseMap();

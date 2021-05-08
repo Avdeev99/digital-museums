@@ -14,17 +14,18 @@ export class CustomSelectComponent implements OnInit, OnDestroy {
   @Input() @Optional() public control: FormControl;
   @Input() @Optional() public label: string;
   @Input() @Optional() public validatorErrors: IValidatorError[];
-  @Output() public valueChange: EventEmitter<FormControl> = new EventEmitter();
+  @Input() @Optional() public disabled: boolean;
+  @Input() @Optional() public hasUnsetOption: boolean = true;
+  @Output() public valueChange: EventEmitter<IOption> = new EventEmitter();
   @Output() public selectOpenChange: EventEmitter<FormControl> = new EventEmitter();
   @Input() @Optional() private value: IOption;
-  @Input() @Optional() private disabled: boolean;
   private unsubscribe$: Subject<void> = new Subject();
   public constructor() {}
 
   public ngOnInit(): void {
     this.control = !!this.control ? this.control : new FormControl(this.value);
     this.control.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
-      this.valueChange.emit(this.control);
+      this.valueChange.emit(this.control.value);
     });
   }
 
