@@ -1101,7 +1101,7 @@ header, .header {
 }
 
 .index_search_block {
-    background: url('./assets/images/hero-foliage-van-large-v3@2x.0e11cbd8.jpg');
+    background: url('./assets/images/hero-foliage-van-large-v3@2x.0e11cbd8.jpg'); 
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
@@ -1111,6 +1111,11 @@ header, .header {
     color: #fff;
 }
 
+.index_search_holder {
+    background-color: rgba(0, 0, 0, 0.33);
+    border-radius: 15px;
+    padding: 15px 20px;
+}
 h1.index_search_holder_h1 {
     font-size: 72px;
     margin-bottom: 15px;
@@ -1122,7 +1127,7 @@ h2.index_search_holder_h2 {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     font-size: 18px;
-    margin-bottom: 40px;
+    //margin-bottom: 40px;
     text-align: center;
 }
 
