@@ -1,0 +1,25 @@
+<div class="exhibition-item-screen">
+    <div class="white-block">
+        <div class="exhibition-item-screen__content">
+            <h1 class="exhibition-item-screen__title">{{data.name}}</h1>
+            <div class="exhibition-item-screen__text">
+                <p>{{ data.description }}</p>
+            </div>
+            <app-button
+                class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
+                (click)="handleBack()"
+                [label]="'shared.buttons.previous' | translate"
+            ></app-button>
+
+            <app-button
+                class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
+                (click)="handleNext()"
+                [label]="'shared.buttons.next' | translate"
+            ></app-button>
+        </div>
+    </div>
+
+    <div class="exhibition-form__controls-tracker">
+        <app-progress-tracker></app-progress-tracker>
+    </div>
+</div>

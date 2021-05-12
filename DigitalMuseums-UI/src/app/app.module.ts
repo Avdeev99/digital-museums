@@ -11,6 +11,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MissingTranslationService } from './core/translation/missing-translation.service';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

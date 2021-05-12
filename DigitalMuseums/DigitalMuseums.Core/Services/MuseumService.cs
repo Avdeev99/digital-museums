@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Core.Data.Contracts;
+using DigitalMuseums.Core.Domain.Constants;
 using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.Models;
 using DigitalMuseums.Core.Domain.Models.Auth;
@@ -26,18 +27,21 @@ namespace DigitalMuseums.Core.Services
         private readonly IMapper _mapper;
         private readonly IBaseRepository<Museum> _museumRepository;
         private readonly IBaseRepository<User> _userRepository;
+        private readonly IBaseRepository<Role> _roleRepository;
         private readonly IBaseRepository<Location> _locationRepository;
 
         public MuseumService(
             IUnitOfWork unitOfWork,
             IImageService imageService,
-            IOrderedFilterPipeline<Museum, FilterMuseumsDto> museumFilterPipeline,
-            IMapper mapper)
+            IOrderedFilterPipeline<Museum,FilterMuseumsDto> museumFilterPipeline,
+            IMapper mapper,
+            IBaseRepository<Role> roleRepository)
         {
             _unitOfWork = unitOfWork;
             _imageService = imageService;
             _museumFilterPipeline = museumFilterPipeline;
             _mapper = mapper;
+            _roleRepository = roleRepository;
             _museumRepository = unitOfWork.GetRepository<Museum>();
             _userRepository = unitOfWork.GetRepository<User>();
             _locationRepository = unitOfWork.GetRepository<Location>();
@@ -89,8 +93,8 @@ namespace DigitalMuseums.Core.Services
 
         public async Task LinkUserAsync(LinkUserToMuseumDto linkUserToMuseumDto)
         {
-            var isUserExist = await _userRepository.IsExistAsync(user => user.Id == linkUserToMuseumDto.UserId);
-            if (!isUserExist)
+            var user = await _userRepository.GetAsync(user => user.Id == linkUserToMuseumDto.UserId, TrackingState.Enabled);
+            if (user == null)
             {
                 throw new BusinessLogicException(BusinessErrorCodes.UserNotFoundCode);
             }
@@ -102,6 +106,13 @@ namespace DigitalMuseums.Core.Services
                 throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
             }
 
+            var role = await _roleRepository.GetAsync(r => r.Name == UserRoleConstants.MuseumOwner);
+            if (role == null)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.RoleNotFoundCode);
+            }
+
+            user.RoleId = role.Id;
             museum.UserId = linkUserToMuseumDto.UserId;
             await _unitOfWork.SaveChangesAsync();
         }

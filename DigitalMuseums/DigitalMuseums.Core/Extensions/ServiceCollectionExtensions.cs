@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
+using DigitalMuseums.Core.Domain.DTO.Exhibition;
 using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.DTO.Souvenir;
 using DigitalMuseums.Core.Domain.Models.Domain;
@@ -40,11 +41,13 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped<ChargeService>();
             
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IExhibitionService, ExhibitionService>();
             services.AddScoped(typeof(IBasePredefinedEntityService<>), typeof(BasePredefinedEntityService<>));
 
             services.AddScoped<IOrderedFilterPipeline<Museum, FilterMuseumsDto>, MuseumFilterPipeline>();
             services.AddScoped<IOrderedFilterPipeline<Souvenir, FilterSouvenirsDto>, SouvenirFilterPipeline>();
             services.AddScoped<IFilterPipeline<Exhibit, FilterExhibitsDto>, ExhibitFilterPipeline>();
+            services.AddScoped<IFilterPipeline<Exhibition, FilterExhibitionsDto>, ExhibitionFilterPipeline>();
 
             return services;
         }

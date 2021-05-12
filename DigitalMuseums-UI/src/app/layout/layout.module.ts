@@ -17,7 +17,8 @@ import { HomeComponent } from './home/home.component';
   imports: [
     CommonModule,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    SharedModule,
   ],
   exports: [
     HeaderComponent,

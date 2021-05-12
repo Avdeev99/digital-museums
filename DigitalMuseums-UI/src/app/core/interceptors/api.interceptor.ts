@@ -2,9 +2,14 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
+import { AuthUser } from '../auth/models/auth-user.model';
+import { CurrentUserService } from '../shared/services/current-user.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
+
+  constructor(private currrentUserService: CurrentUserService) {}
+
   public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const re = /assets/gi;
     
@@ -18,9 +23,14 @@ export class ApiInterceptor implements HttpInterceptor {
     }
 
     const { baseUrl } = environment;
+    const authToken: string = this.currrentUserService.getUserToken();
+    const headers = !!authToken
+      ? req.headers.append('Authorization', `Bearer ${authToken}`)
+      : req.headers;
 
     const clonedReq: HttpRequest<any> = req.clone({
       url: `${baseUrl}${req.url}`,
+      headers: headers,
     });
 
     return next.handle(clonedReq);

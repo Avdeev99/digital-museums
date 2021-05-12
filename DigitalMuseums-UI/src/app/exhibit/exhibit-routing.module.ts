@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "../core/auth/guards/auth.guard";
+import { AuthRole } from "../core/auth/models/auth-role.enum";
 import { ExhibitDetailsComponent } from "./components/exhibit-details/exhibit-details.component";
 import { ExhibitEditingComponent } from "./components/exhibit-editing/exhibit-editing.component";
 import { ExhibitSearchComponent } from "./components/exhibit-search/exhibit-search.component";
@@ -7,19 +9,29 @@ import { ExhibitSearchComponent } from "./components/exhibit-search/exhibit-sear
 const routes: Routes = [
     {
       path: 'create',
-      component: ExhibitEditingComponent
+      component: ExhibitEditingComponent,
+      canActivate: [AuthGuard],
+      data: {
+        roles: [AuthRole.Admin, AuthRole.MuseumOwner],
+      },
     },
     {
       path: 'update/:id',
-      component: ExhibitEditingComponent
+      component: ExhibitEditingComponent,
+      canActivate: [AuthGuard],
+      data: {
+        roles: [AuthRole.Admin, AuthRole.MuseumOwner],
+      },
     },
     {
       path: ':museumId/search',
-      component: ExhibitSearchComponent
+      component: ExhibitSearchComponent,
+      canActivate: [AuthGuard],
     },
     {
       path: ':id',
-      component: ExhibitDetailsComponent
+      component: ExhibitDetailsComponent,
+      canActivate: [AuthGuard],
     },
   ];
   
