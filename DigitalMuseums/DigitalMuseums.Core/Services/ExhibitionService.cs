@@ -43,7 +43,7 @@ namespace DigitalMuseums.Core.Services
         public async Task CreateAsync(CreateExhibitionDto createExhibitionDto)
         {
             var exhibition = _mapper.Map<Exhibition>(createExhibitionDto);
-            var exhibits = await _exhibitRepository.GetAllAsync(e => createExhibitionDto.ExhibitIds.Contains(e.Id));
+            var exhibits = await _exhibitRepository.GetAllAsync(e => createExhibitionDto.ExhibitIds.Contains(e.Id), TrackingState.Enabled);
             exhibition.Exhibits = exhibits;
 
             var createdExhibition = _exhibitionRepository.Create(exhibition);

@@ -121,7 +121,7 @@ export class ExhibitionEditingComponent implements OnInit {
         museumId: museumId
       }).subscribe(exhibits => {
         this.exhibitOptions = exhibits.map((exhibit) => {
-          const exhibitSelected: boolean = !!this.exhibition.exhibits.find(e => e.id === exhibit.id);
+          const exhibitSelected: boolean = !!this.exhibition?.exhibits?.find(e => e.id === exhibit.id);
 
           return { 
             id: exhibit.id,
