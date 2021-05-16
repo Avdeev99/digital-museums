@@ -8,6 +8,12 @@
             "errors": {
                 "invalid-credentials": "Invalid credentials."
             }
+        },
+        "change-password": {
+            "title": "Change Password",
+            "old-password": "Old password",
+            "new-password": "New password",
+            "confirm-new-password": "Confirm new password"
         }
     },
     "museum": {
@@ -27,6 +33,7 @@
     },
     "user": {
         "entity": "User",
+        "profile": "Profile",
         "errors": {
             "not-found": "The user not found."
         }
@@ -52,7 +59,12 @@
         "exhibitions": "Exhibitions",
         "login": "Login",
         "museum": "Museum",
-        "souvenirs": "Souvenirs"
+        "souvenirs": "Souvenirs",
+        "cart": "Cart",
+        "profile": {
+            "change-password": "Change password",
+            "logout": "Logout"
+        }
     },
     "cart": {
         "pay": "Pay",

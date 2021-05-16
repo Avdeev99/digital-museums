@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/auth/guards/auth.guard';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { LoginComponent } from './components/login/login.component';
-import { TestComponent } from './components/test/test.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
   },
-  // test protected page for login redirection
   {
-    path: 'test',
-    component: TestComponent,
+    path: 'change-password',
+    component: ChangePasswordComponent,
     canActivate: [AuthGuard],
-  },
+  }
 ];
 
 @NgModule({

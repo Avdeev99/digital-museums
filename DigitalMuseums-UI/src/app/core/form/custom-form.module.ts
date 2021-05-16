@@ -10,6 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatCardModule} from '@angular/material/card';
 
 import { CustomSelectComponent } from './controls/select/select.component';
 import { CustomInputComponent } from './controls/input/input.component';
@@ -43,6 +44,7 @@ import { CheckboxGroupComponent } from './controls/checkbox-group/checkbox-group
     MatCheckboxModule,
     MatSliderModule,
     MatListModule,
+    MatCardModule,
   ],
   exports: [
     CustomSelectComponent,
@@ -53,6 +55,7 @@ import { CheckboxGroupComponent } from './controls/checkbox-group/checkbox-group
     CustomErrorComponent,
     SliderComponent,
     CheckboxGroupComponent,
+    MatCardModule,
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'never' } }],
 })
