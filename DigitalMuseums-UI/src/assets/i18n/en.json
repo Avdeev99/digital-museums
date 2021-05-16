@@ -13,7 +13,15 @@
             "title": "Change Password",
             "old-password": "Old password",
             "new-password": "New password",
-            "confirm-new-password": "Confirm new password"
+            "confirm-new-password": "Confirm new password",
+            "changed-successful": "Password changed successfuly."
+        },
+        "user-info": {
+            "title": "Personal Info",
+            "changed-successful": "Personal info changed successfuly."
+        },
+        "errors": {
+            "invalid-password": "Invalid password."
         }
     },
     "museum": {
@@ -62,6 +70,7 @@
         "souvenirs": "Souvenirs",
         "cart": "Cart",
         "profile": {
+            "user-info": "Personal info",
             "change-password": "Change password",
             "logout": "Logout"
         }
@@ -89,6 +98,10 @@
             "start": "Start",
             "goToMuseum": "Go To Museum",
             "details": "Details"
+        },
+        "validation-errors": {
+            "required": "This field is required",
+            "passwordsNotMatched": "Password and password confirmation must be equal"
         }
     }
 }

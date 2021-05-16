@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/auth/guards/auth.guard';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { LoginComponent } from './components/login/login.component';
+import { UserInfoEditingComponent } from './components/user-info-editing/user-info-editing.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: 'change-password',
     component: ChangePasswordComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'user-info',
+    component: UserInfoEditingComponent,
     canActivate: [AuthGuard],
   }
 ];

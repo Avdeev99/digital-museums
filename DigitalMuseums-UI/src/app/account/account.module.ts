@@ -7,12 +7,14 @@ import { CustomFormModule } from '../core/form/custom-form.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatDialogModule } from '@angular/material/dialog';
-import { ChangePasswordComponent } from './components/change-password/change-password.component'
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { UserInfoEditingComponent } from './components/user-info-editing/user-info-editing.component'
 
 @NgModule({
   declarations: [
     LoginComponent,
     ChangePasswordComponent,
+    UserInfoEditingComponent,
   ],
   imports: [
       CommonModule,

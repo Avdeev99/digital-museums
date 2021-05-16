@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DigitalMuseums.Api.Contracts.Requests.Account;
 using DigitalMuseums.Api.Contracts.Requests.Exhibit;
 using DigitalMuseums.Api.Contracts.Requests.Exhibition;
 using DigitalMuseums.Api.Contracts.Requests.Genre;
@@ -13,6 +14,7 @@ using DigitalMuseums.Api.Contracts.Responses.Exhibition;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Api.Contracts.Responses.Souvenir;
 using DigitalMuseums.Api.Contracts.ViewModels;
+using DigitalMuseums.Core.Domain.DTO.Account;
 using DigitalMuseums.Core.Domain.DTO.Cart;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Domain.DTO.Exhibition;
@@ -102,6 +104,8 @@ namespace DigitalMuseums.Api.Mappings
             CreateMap<CurrentCartDetail, Api.Contracts.Responses.Cart.CurrentCartDetail>();
             CreateMap<SouvenirItem, Api.Contracts.Responses.Cart.SouvenirItem>();
             CreateMap<CurrentCart, GetCurrentCartResponse>();
+
+            CreateMap<ChangePasswordRequest, ChangePasswordDto>().ReverseMap();
         }
     }
 }

@@ -17,6 +17,7 @@
                 *ngIf="isAuthenticated"
                 [menuList]="menuList"
                 [title]="'user.profile' | translate"
+                (menuItemSelected)="onMenuItemSelected($event)"
             >
             </app-submenu>
 

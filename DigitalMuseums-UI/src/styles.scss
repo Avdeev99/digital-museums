@@ -2216,7 +2216,21 @@ h2.index_search_holder_h2 {
 
 /*/THANKGIVING*/
 
+.form-group {
+    margin-bottom: 10px;
 
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.text-danger {
+    color: red;
+}
+
+.text-success {
+    color: green;
+}
 
 
 

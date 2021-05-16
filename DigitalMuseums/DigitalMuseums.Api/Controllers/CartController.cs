@@ -1,13 +1,12 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Cart;
 using DigitalMuseums.Api.Contracts.Responses.Cart;
 using DigitalMuseums.Core.Domain.DTO.Cart;
 using DigitalMuseums.Core.Domain.DTO.Payment;
 using DigitalMuseums.Core.Services.Contracts;
+using DigitalMuseums.Core.Services.Contracts.Providers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalMuseums.Api.Controllers
@@ -18,26 +17,26 @@ namespace DigitalMuseums.Api.Controllers
     {
         private readonly ICartService _cartService;
         private readonly IPaymentService _paymentService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILoggedInPersonProvider _loggedInPersonProvider;
         private readonly IMapper _mapper;
 
         public CartController(
             ICartService cartService, 
             IPaymentService paymentService,
-            IHttpContextAccessor httpContextAccessor,
-            IMapper mapper)
+            IMapper mapper,
+            ILoggedInPersonProvider loggedInPersonProvider)
         {
             _cartService = cartService;
             _paymentService = paymentService;
-            _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
+            _loggedInPersonProvider = loggedInPersonProvider;
         }
 
         [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateCartItem(UpdateCartItemRequest request)
         {
-            var userId = GetUserId();
+            var userId = _loggedInPersonProvider.GetUserId();
             var addItemDto = BuildAddItemDto(request, userId);
             
             await _cartService.UpdateCartItemAsync(addItemDto);
@@ -49,7 +48,7 @@ namespace DigitalMuseums.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCartItem(AddCartItemRequest request)
         {
-            var userId = GetUserId();
+            var userId = _loggedInPersonProvider.GetUserId();
 
             await _cartService.AddCartItemAsync(userId, request.SouvenirId);
 
@@ -60,7 +59,7 @@ namespace DigitalMuseums.Api.Controllers
         [Authorize]
         public async Task<IActionResult> GetCurrentCart()
         {
-            var userId = GetUserId();
+            var userId = _loggedInPersonProvider.GetUserId();
             var currentCart = await _cartService.GetCurrentCartAsync(userId);
             
             var result = _mapper.Map<GetCurrentCartResponse>(currentCart);
@@ -71,7 +70,7 @@ namespace DigitalMuseums.Api.Controllers
         [Authorize]
         public async Task<IActionResult> Pay([FromBody] PayCartRequest request)
         {
-            var userId = GetUserId();
+            var userId = _loggedInPersonProvider.GetUserId();
             var currentCart = await _cartService.GetCurrentCartAsync(userId);
             var processStripeChargeDto = new ProcessStripeChargeDto
             {
@@ -89,7 +88,7 @@ namespace DigitalMuseums.Api.Controllers
         [HttpDelete("souvenir/{souvenirId}")]
         public async Task<IActionResult> DeleteCartItem([FromRoute] int souvenirId)
         {
-            var userId = GetUserId();
+            var userId = _loggedInPersonProvider.GetUserId();
 
             await _cartService.DeleteCartItemAsync(userId, souvenirId);
 
@@ -106,12 +105,6 @@ namespace DigitalMuseums.Api.Controllers
             };
 
             return result;
-        }
-
-        private int GetUserId()
-        {
-            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return int.Parse(userId);
         }
     }
 }

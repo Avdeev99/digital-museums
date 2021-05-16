@@ -13,6 +13,7 @@ using DigitalMuseums.Infrastructure.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stripe;
+using AccountService = DigitalMuseums.Core.Services.AccountService;
 
 namespace DigitalMuseums.Core.Extensions
 {
@@ -39,6 +40,8 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped<IClock, Clock>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ChargeService>();
+            services.AddScoped<ILoggedInPersonProvider, LoggedInPersonProvider>();
+            services.AddScoped<IAccountService, AccountService>();
             
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IExhibitionService, ExhibitionService>();

@@ -8,13 +8,22 @@
             "google-login-btn": "Вхід за допомогою Google",
             "errors": {
                 "invalid-credentials": "Невірний логін або пароль."
-            },
-            "change-password": {
-                "title": "Змінити пароль",
-                "old-password": "Старий пароль",
-                "new-password": "Новий пароль",
-                "confirm-new-password": "Підтвердження нового пароля"
             }
+        },
+        "change-password": {
+            "title": "Змінити пароль",
+            "old-password": "Старий пароль",
+            "new-password": "Новий пароль",
+            "confirm-new-password": "Підтвердження нового пароля",
+            "changed-successful": "Пароль успішно змінено."
+        },
+        "user-info": {
+            "title": "Особиста Інформація",
+            "changed-successful": "Особисту інформацію успішно змінено."
+
+        },
+        "errors": {
+            "invalid-password": "Невірний пароль."
         }
     },
     "museum": {
@@ -62,6 +71,7 @@
         "souvenirs": "Сувеніри",
         "cart": "Кошик",
         "profile": {
+            "user-info": "Особиста інформація",
             "change-password": "Змінити пароль",
             "logout": "Вихід"
         }
@@ -89,6 +99,9 @@
             "start": "Розпочати",
             "goToMuseum": "Перейти До Музею",
             "details": "Деталі"
+        },
+        "validation-errors": {
+            "required": "Це поле є обов'язковим"
         }
     }
 }

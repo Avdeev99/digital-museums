@@ -20,8 +20,19 @@ export class HeaderComponent implements OnInit {
     return this.authService.isAuthenticated();
   }
 
+  public onMenuItemSelected(event: any): void {
+    const isLogout = event?.menuItem === 'logout';
+    if (isLogout) {
+      this.authService.logout();
+    }
+  }
+
   private initMenulist(): void {
     this.menuList = [
+      {
+        name: 'menu.profile.user-info',
+        href: '/account/user-info',
+      },
       {
         name: 'menu.profile.change-password',
         href: '/account/change-password',
@@ -29,6 +40,9 @@ export class HeaderComponent implements OnInit {
       {
         name: 'menu.profile.logout',
         href: `/`,
+        actionData: {
+          menuItem: 'logout'
+        }
       },
     ];
   }
