@@ -59,7 +59,8 @@ namespace DigitalMuseums.Core.Services
 
             var includes = new List<Expression<Func<User, object>>>()
             {
-                u => u.Role
+                u => u.Role,
+                u => u.Museum
             };
             existingUser = await _userRepository.GetAsync(u => u.Email.Equals(user.Email), includes);
 
@@ -76,7 +77,8 @@ namespace DigitalMuseums.Core.Services
         {
             var includes = new List<Expression<Func<User, object>>>()
             {
-                u => u.Role
+                u => u.Role,
+                u => u.Museum
             };
             var existingUser = await _userRepository.GetAsync(u => u.Email.Equals(email), includes);
             

@@ -13,6 +13,7 @@ import { ExhibitionStepContainerDirective } from './directives/exhibition-step-c
 import { ProgressTrackerComponent } from './components/progress-tracker/progress-tracker.component';
 import { ExhibitionSearchComponent } from './components/exhibition-search/exhibition-search.component';
 import { ExhibitionEditingComponent } from './components/exhibition-editing/exhibition-editing.component';
+import { ExhibitionListComponent } from './components/exhibition-list/exhibition-list.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,8 @@ import { ExhibitionEditingComponent } from './components/exhibition-editing/exhi
         ExhibitionSearchComponent,
 
         ExhibitionEditingComponent,
+
+        ExhibitionListComponent,
     ],
     imports: [
         CommonModule,

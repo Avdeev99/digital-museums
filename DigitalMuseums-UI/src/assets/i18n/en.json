@@ -72,7 +72,8 @@
         "profile": {
             "user-info": "Personal info",
             "change-password": "Change password",
-            "logout": "Logout"
+            "logout": "Logout",
+            "museum": "Museum"
         }
     },
     "cart": {

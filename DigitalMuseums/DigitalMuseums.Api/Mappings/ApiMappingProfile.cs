@@ -48,6 +48,7 @@ namespace DigitalMuseums.Api.Mappings
                 .AfterMap((src, dest) =>
                 {
                     dest.Role = src.Role?.Name;
+                    dest.MuseumId = src.Museum?.Id;
                 })
                 .ReverseMap();
             CreateMap<Role, RoleViewModel>().ReverseMap();

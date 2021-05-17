@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthRole } from 'src/app/core/auth/models/auth-role.enum';
 import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
+import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,9 @@ import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 export class HeaderComponent implements OnInit {
   public menuList: Array<MenuItem>;
 
-  public constructor(private authService: AuthService) {}
+  public constructor(
+    private authService: AuthService,
+    private currentUserService: CurrentUserService) {}
 
   public ngOnInit(): void {
     this.initMenulist();
@@ -45,5 +49,14 @@ export class HeaderComponent implements OnInit {
         }
       },
     ];
+
+    const userRole: AuthRole = this.currentUserService.getRole();
+    
+    if (userRole === AuthRole.MuseumOwner) {
+      this.menuList.push({
+        name: 'menu.profile.museum',
+        href: '/account/museum',
+      });
+    }
   }
 }

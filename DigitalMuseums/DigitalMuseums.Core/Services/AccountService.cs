@@ -68,7 +68,8 @@ namespace DigitalMuseums.Core.Services
             var userId = _loggedInPersonProvider.GetUserId();
             var includes = new List<Expression<Func<User, object>>>()
             {
-                u => u.Role
+                u => u.Role,
+                u => u.Museum
             };
 
             var user = await _userRepository.GetAsync(u => u.Id == userId, includes);

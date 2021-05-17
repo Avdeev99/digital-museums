@@ -73,7 +73,9 @@
         "profile": {
             "user-info": "Особиста інформація",
             "change-password": "Змінити пароль",
-            "logout": "Вихід"
+            "logout": "Вихід",
+            "museum": "Музей"
+
         }
     },
     "cart": {

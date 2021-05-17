@@ -5,4 +5,5 @@ export interface AuthUser {
     userName: string;
     email: string;
     role: AuthRole;
+    museumId?: number; 
   }
