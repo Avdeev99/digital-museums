@@ -2,7 +2,6 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
-import { AuthUser } from '../auth/models/auth-user.model';
 import { CurrentUserService } from '../shared/services/current-user.service';
 
 @Injectable()

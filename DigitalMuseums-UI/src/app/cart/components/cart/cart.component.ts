@@ -70,7 +70,7 @@ export class CartComponent extends LocationBase implements OnInit {
         });
 
         const panelLabel: string = this.translateService.instant('cart.pay');
-        const user: AuthUser = this.currentUserService.getUser();
+        const user: AuthUser = this.currentUserService.getUserData();
 
         handler.open({
             name: "Digital Museums",

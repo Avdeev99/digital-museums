@@ -1,30 +1,20 @@
+<app-spinner *ngIf="isFetching"></app-spinner>
 <form [formGroup]="formGroup">
-    <div>
-        <label>
-            {{ 'museum.entity' | translate }}
-            <app-select
-                [label]="'museum.entity' | translate"
-                [control]="formGroup.controls.museumId"
-                [options]="museums$ | async"
-            ></app-select>
-          </label>
-    </div>
-
-    <div>
+    <div class="form-group">
         <label>
             {{ 'shared.controls.name' | translate }}
             <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'shared.controls.description' | translate }}
             <app-input [label]="'shared.controls.description' | translate" [control]="formGroup.controls.description"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'shared.controls.tags' | translate }}
             <app-chips 
@@ -35,7 +25,7 @@
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <app-checkbox-group
             [options]="exhibitOptions"
             [label]="'shared.controls.exhibits' | translate"
@@ -46,15 +36,17 @@
 
     <br>
 
-    <input
+    <div class="form-group">
+        <input
         multiple
         type='file'
         value=""
         [formControl]="formGroup.controls.images"
         (change)="onSelectFile($event.target.files)">
+    </div>
 
     <br>
-    <br>
+
     <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
 </form>
 

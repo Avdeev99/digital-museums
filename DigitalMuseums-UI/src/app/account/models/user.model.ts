@@ -6,4 +6,5 @@ export interface User {
     email: string;
     birthDate: string;
     role: Role;
+    museumId?: number; 
 }

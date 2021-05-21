@@ -78,7 +78,7 @@ export class SouvenirEditingComponent implements OnInit {
   }
 
   private setUserId(): void {
-    const currentUser: AuthUser = this.currentUserService.getUser();
+    const currentUser: AuthUser = this.currentUserService.getUserData();
     this.currentUserId = currentUser?.id;
   }
 

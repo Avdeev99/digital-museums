@@ -14,6 +14,7 @@ import { ProgressTrackerComponent } from './components/progress-tracker/progress
 import { ExhibitionSearchComponent } from './components/exhibition-search/exhibition-search.component';
 import { ExhibitionEditingComponent } from './components/exhibition-editing/exhibition-editing.component';
 import { ExhibitionListComponent } from './components/exhibition-list/exhibition-list.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -22,17 +23,15 @@ import { ExhibitionListComponent } from './components/exhibition-list/exhibition
         ExhibitionComponent,
         ExhibitionInstructionalScreenComponent,
         ProgressTrackerComponent,
+        ExhibitionSearchComponent,
+        ExhibitionEditingComponent,
+        ExhibitionListComponent,
 
         // directives
         ExhibitionStepContainerDirective,
-
-        ExhibitionSearchComponent,
-
-        ExhibitionEditingComponent,
-
-        ExhibitionListComponent,
     ],
     imports: [
+        RouterModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,

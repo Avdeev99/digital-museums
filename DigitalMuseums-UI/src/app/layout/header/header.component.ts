@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { AuthRole } from 'src/app/core/auth/models/auth-role.enum';
+import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
 import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
 
@@ -50,13 +51,15 @@ export class HeaderComponent implements OnInit {
       },
     ];
 
-    const userRole: AuthRole = this.currentUserService.getRole();
+    this.currentUserService.getUser().subscribe((user: AuthUser) => {
+      const userRole: AuthRole = user?.role;
     
-    if (userRole === AuthRole.MuseumOwner) {
-      this.menuList.push({
-        name: 'menu.profile.museum',
-        href: '/account/museum',
-      });
-    }
+      if (userRole === AuthRole.MuseumOwner) {
+        this.menuList.unshift({
+          name: 'menu.profile.museum',
+          href: '/account/museum',
+        });
+      }
+    });
   }
 }

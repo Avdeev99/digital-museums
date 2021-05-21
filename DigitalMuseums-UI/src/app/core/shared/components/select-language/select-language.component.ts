@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { storage } from 'src/app/core/auth/constants/api.constants';
 import { IOption } from 'src/app/core/form/form.interface';
 
 @Component({
@@ -25,6 +26,7 @@ export class SelectLanguageComponent implements OnInit {
   }
 
   onLanguageChange(lang: string): void {
+    localStorage.setItem(storage.selectedLocale, lang);
     this.translateService.use(lang);
   }
 }

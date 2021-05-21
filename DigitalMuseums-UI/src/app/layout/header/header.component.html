@@ -16,7 +16,8 @@
             <app-submenu
                 *ngIf="isAuthenticated"
                 [menuList]="menuList"
-                [title]="'user.profile' | translate"
+                [matIconType]="'account_circle'"
+                [title]="''"
                 (menuItemSelected)="onMenuItemSelected($event)"
             >
             </app-submenu>
@@ -24,7 +25,11 @@
             <a 
                 *ngIf="isAuthenticated"
                 routerLink="cart"
-            >{{ 'menu.cart' | translate }}</a>
+            >
+                <button mat-icon-button>
+                    <mat-icon>add_shopping_cart</mat-icon>
+                </button>
+            </a>
 
             <app-select-language></app-select-language>     
         </div>

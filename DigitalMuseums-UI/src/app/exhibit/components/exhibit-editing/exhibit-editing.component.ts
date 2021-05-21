@@ -79,7 +79,7 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
   }
 
   private setUserId(): void {
-    const currentUser: AuthUser = this.currentUserService.getUser();
+    const currentUser: AuthUser = this.currentUserService.getUserData();
     this.currentUserId = currentUser?.id;
   }
 

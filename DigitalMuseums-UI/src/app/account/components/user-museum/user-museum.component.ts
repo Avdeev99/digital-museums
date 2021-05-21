@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
 import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
 
 @Component({
@@ -8,35 +10,43 @@ import { CurrentUserService } from 'src/app/core/shared/services/current-user.se
 })
 export class UserMuseumComponent implements OnInit {
     navTabs: any[];
+    user: AuthUser;
 
-    constructor(private currentUserService: CurrentUserService) {
+    constructor(
+        private currentUserService: CurrentUserService,
+        private router: Router,
+    ) {
+        this.user = this.currentUserService.getUserData();
         this.initNavTabs();
     }
 
     ngOnInit(): void {
+        const isBaseComponentUrl = this.router.url === '/account/museum';
+        
+        if (isBaseComponentUrl) {
+            this.router.navigate([`account/museum/update/${this.user.museumId}`]);
+        }
     }
 
     initNavTabs(): void {
-        const user = this.currentUserService.getUser();
-
         this.navTabs = [
             {
                 label: 'menu.museum',
-                link: `./museum/update/${user.museumId}`,
+                link: `./museum/update/${this.user.museumId}`,
                 index: 0
             }, {
                 label: 'menu.exhibits',
-                link: `./exhibit/${user.museumId}/list`,
+                link: `./exhibit/${this.user.museumId}/list`,
                 index: 1
             }, 
             {
                 label: 'menu.exhibitions',
-                link: `./exhibition/${user.museumId}/list`,
+                link: `./exhibition/${this.user.museumId}/list`,
                 index: 2
             },
             {
                 label: 'menu.souvenirs',
-                link: `./souvenir/${user.museumId}/list`,
+                link: `./souvenir/${this.user.museumId}/list`,
                 index: 3
             },
         ];

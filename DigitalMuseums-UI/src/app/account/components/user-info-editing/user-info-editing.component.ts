@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
-import { storage } from 'src/app/core/auth/constants/api.constants';
 import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
 import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
 import { AccountService } from '../../services/account.service';
@@ -63,13 +62,13 @@ export class UserInfoEditingComponent implements OnInit {
 
     private fetchUserInfo(): void {
         this.accountService.getCurrentUser().subscribe((user: AuthUser) => {
-            localStorage.setItem(storage.currentUser, JSON.stringify(user));
+            this.currentUserService.setUser(user);
             this.fillForm();
         });
     }
 
     private fillForm(): void {
-        const user: AuthUser = this.currentUserService.getUser();
+        const user: AuthUser = this.currentUserService.getUserData();
 
         this.formGroup.patchValue({
             name: user.userName,

@@ -16,6 +16,10 @@ export class SubmenuComponent implements OnInit {
   @Optional() 
   public title: string = "Menu";
 
+  @Input()
+  @Optional()
+  public matIconType: string = "menu";
+
   @Output()
   public menuItemSelected: EventEmitter<any> = new EventEmitter();
 

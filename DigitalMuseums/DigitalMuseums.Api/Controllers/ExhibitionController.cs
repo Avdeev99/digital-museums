@@ -62,9 +62,11 @@ namespace DigitalMuseums.Api.Controllers
             return Ok();
         }
         
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
+            await _exhibitionService.DeleteAsync(id);
+
             return Ok();
         }
     }
