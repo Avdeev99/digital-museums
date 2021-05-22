@@ -54,7 +54,7 @@ export class AuthService {
     return this.httpClient.post(requestUrl, authRequest).pipe(
       tap((authResponse: IAuthResponse) =>{
         localStorage.setItem(storage.token, JSON.stringify(authResponse.token));
-        localStorage.setItem(storage.currentUser, JSON.stringify(authResponse.user));
+        this.currentUserService.setUser(authResponse.user);
 
         this.router.navigate([this.returnUrl]);
       }),
@@ -62,7 +62,6 @@ export class AuthService {
   }
 
   public logout(): void {
-    localStorage.removeItem(storage.token);
-    localStorage.removeItem(storage.currentUser);
+    this.currentUserService.logoutUser();
   }
 }

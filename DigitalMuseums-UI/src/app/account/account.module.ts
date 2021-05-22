@@ -10,7 +10,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { UserInfoEditingComponent } from './components/user-info-editing/user-info-editing.component';
-import { UserMuseumComponent } from './components/user-museum/user-museum.component'
+import { UserMuseumComponent } from './components/user-museum/user-museum.component';
+import { AdminPortalComponent } from './components/admin-portal/admin-portal.component'
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { UserMuseumComponent } from './components/user-museum/user-museum.compon
     ChangePasswordComponent,
     UserInfoEditingComponent,
     UserMuseumComponent,
+    AdminPortalComponent,
   ],
   imports: [
       CommonModule,

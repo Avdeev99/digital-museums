@@ -13,6 +13,24 @@ import { CurrentUserService } from 'src/app/core/shared/services/current-user.se
 export class HeaderComponent implements OnInit {
   public menuList: Array<MenuItem>;
 
+  private defaultMenuList: Array<MenuItem> = [
+    {
+      name: 'menu.profile.user-info',
+      href: '/account/user-info',
+    },
+    {
+      name: 'menu.profile.change-password',
+      href: '/account/change-password',
+    },
+    {
+      name: 'menu.profile.logout',
+      href: `/`,
+      actionData: {
+        menuItem: 'logout'
+      }
+    },
+  ];
+
   public constructor(
     private authService: AuthService,
     private currentUserService: CurrentUserService) {}
@@ -33,31 +51,26 @@ export class HeaderComponent implements OnInit {
   }
 
   private initMenulist(): void {
-    this.menuList = [
-      {
-        name: 'menu.profile.user-info',
-        href: '/account/user-info',
-      },
-      {
-        name: 'menu.profile.change-password',
-        href: '/account/change-password',
-      },
-      {
-        name: 'menu.profile.logout',
-        href: `/`,
-        actionData: {
-          menuItem: 'logout'
-        }
-      },
-    ];
+    this.menuList = this.defaultMenuList;
 
     this.currentUserService.getUser().subscribe((user: AuthUser) => {
       const userRole: AuthRole = user?.role;
+
+      if(!userRole) {
+        this.menuList = [...this.defaultMenuList];
+      }
     
-      if (userRole === AuthRole.MuseumOwner) {
+      if (userRole === AuthRole.MuseumOwner && !this.menuList.find(x => x.href === '/account/museum')) {
         this.menuList.unshift({
           name: 'menu.profile.museum',
           href: '/account/museum',
+        });
+      }
+
+      if (userRole === AuthRole.Admin && !this.menuList.find(x => x.href === '/account/admin-portal')) {
+        this.menuList.unshift({
+          name: 'menu.profile.admin-portal',
+          href: '/account/admin-portal',
         });
       }
     });

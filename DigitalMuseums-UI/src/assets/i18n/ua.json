@@ -74,8 +74,9 @@
             "user-info": "Особиста інформація",
             "change-password": "Змінити пароль",
             "logout": "Вихід",
-            "museum": "Музей"
-
+            "museum": "Музей",
+            "admin-portal": "Адмін портал",
+            "genres": "Жанри"
         }
     },
     "cart": {

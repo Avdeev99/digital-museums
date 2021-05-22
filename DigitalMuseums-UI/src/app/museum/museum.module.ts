@@ -10,13 +10,15 @@ import { MuseumRoutingModule } from './museum-routing.module';
 import { MuseumDetailsComponent } from './components/museum-details/museum-details.component';
 import { MuseumsComponent } from './components/museums/museums.component';
 import { LinkingMuseumToUserComponent } from './components/linking-museum-to-user/linking-museum-to-user.component';
+import { MuseumListComponent } from './components/museum-list/museum-list.component';
 
 @NgModule({
   declarations: [
     AddMuseumComponent,
     MuseumDetailsComponent,
     MuseumsComponent,
-    LinkingMuseumToUserComponent
+    LinkingMuseumToUserComponent,
+    MuseumListComponent
   ],
   imports: [
       CommonModule,

@@ -73,7 +73,9 @@
             "user-info": "Personal info",
             "change-password": "Change password",
             "logout": "Logout",
-            "museum": "Museum"
+            "museum": "Museum",
+            "admin-portal": "Admin portal",
+            "genres": "Genres"
         }
     },
     "cart": {
