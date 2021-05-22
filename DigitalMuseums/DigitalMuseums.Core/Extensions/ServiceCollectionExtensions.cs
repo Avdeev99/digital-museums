@@ -36,6 +36,7 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped<IExhibitService, ExhibitService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISouvenirService, SouvenirService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IClock, Clock>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ChargeService>();

@@ -6,6 +6,8 @@ import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { MuseumDetails } from '../../models/museum-details.model';
 import { MuseumService } from '../../services/museum.service';
 
+declare var carousel: any;
+
 @Component({
   selector: 'app-museum-details',
   templateUrl: './museum-details.component.html',
@@ -13,7 +15,7 @@ import { MuseumService } from '../../services/museum.service';
 })
 export class MuseumDetailsComponent implements OnInit {
   public museum: MuseumDetails;
-  public menuList: Array<MenuItem>;
+  public relatedItems: Array<MenuItem>;
 
   private museumId: number;
   private backUrl: string;
@@ -31,8 +33,8 @@ export class MuseumDetailsComponent implements OnInit {
     this.fetchMuseum();
   }
 
-  public get museumImage(): string {
-    return this.museum && this.museum.imagePaths.length ? this.museum.imagePaths[0] : null;
+  public get museumImages(): string[] {
+    return this.museum && this.museum.imagePaths.length ? this.museum.imagePaths: null;
   }
 
   private setMuseumId(): void {
@@ -50,6 +52,7 @@ export class MuseumDetailsComponent implements OnInit {
       .subscribe(data => {
         this.museum = data;
       });
+      carousel();
   }
 
   private checkNavigationState(): void {
@@ -59,13 +62,13 @@ export class MuseumDetailsComponent implements OnInit {
       this.backUrl = currentNavigationState.extras.state.backUrl;
     }
 
-    this.initMenuList();
+    this.initRelatedItems();
   }
 
-  private initMenuList(): void {
+  private initRelatedItems(): void {
     let state: any = this.backUrl ? { backUrl: this.backUrl } : {};
 
-    this.menuList = [
+    this.relatedItems = [
       {
         name: 'menu.exhibits',
         href: `/exhibit/${this.museumId}/search`,

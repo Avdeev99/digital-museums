@@ -24,7 +24,8 @@ namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline
                 var exhibitionFilterNamePipe = new ExhibitionFilterNamePipe(filter.Name);
                 resultQuery = exhibitionFilterNamePipe.Apply(resultQuery);
             }
-            
+
+            filter.Tags = filter.Tags.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
             if (filter.Tags != null && filter.Tags.Any())
             {
                 var exhibitFilterTagsPipe = new ExhibitionFilterTagsPipe(filter.Tags);

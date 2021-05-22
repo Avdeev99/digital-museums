@@ -43,6 +43,7 @@ namespace DigitalMuseums.Core.Infrastructure.Filter_Pipeline
                 resultQuery = exhibitFilterDateToPipe.Apply(resultQuery);
             }
 
+            filter.Tags = filter.Tags.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
             if (filter.Tags != null && filter.Tags.Any())
             {
                 var exhibitFilterTagsPipe = new ExhibitFilterTagsPipe(filter.Tags);

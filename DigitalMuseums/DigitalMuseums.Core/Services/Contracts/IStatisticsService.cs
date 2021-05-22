@@ -1,7 +1,10 @@
-﻿namespace DigitalMuseums.Core.Services.Contracts
+﻿using System.Threading.Tasks;
+using DigitalMuseums.Core.Domain.DTO.Statistics;
+
+namespace DigitalMuseums.Core.Services.Contracts
 {
-    public class IStatisticsService
+    public interface IStatisticsService
     {
-        
+        Task<StatisticsDetails> Get();
     }
 }

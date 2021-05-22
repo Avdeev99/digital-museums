@@ -7,6 +7,8 @@ import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { SouvenirDetails } from '../../models/souvenir-details.model';
 import { SouvenirService } from '../../services/souvenir.service';
 
+declare var carousel: any;
+
 @Component({
   selector: 'app-souvenir-details',
   templateUrl: './souvenir-details.component.html',
@@ -14,12 +16,13 @@ import { SouvenirService } from '../../services/souvenir.service';
 })
 export class SouvenirDetailsComponent implements OnInit {
   public souvenir: SouvenirDetails;
-
+  
   public menuList: Array<MenuItem>;
 
   private backUrl: string;
   private souvenirId: number;
   private museumId: number;
+  public slider: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,8 +37,10 @@ export class SouvenirDetailsComponent implements OnInit {
     this.fetchSouvenir();
   }
 
-  public get souvenirImage(): string {
-    return this.souvenir && this.souvenir.imagePaths.length ? this.souvenir.imagePaths[0] : null;
+
+
+  public get souvenirImages(): string[] {
+    return this.souvenir && this.souvenir.imagePaths.length ? this.souvenir.imagePaths: null;
   }
 
   private setSouvenirId(): void {
@@ -46,6 +51,10 @@ export class SouvenirDetailsComponent implements OnInit {
     this.cartService.addCartItem(this.souvenirId).subscribe(() => {
       this.router.navigate(['cart']);
     });
+  }
+
+  public initSlider(): void {
+    this.slider.init();
   }
 
   private fetchSouvenir(): void {
@@ -61,6 +70,7 @@ export class SouvenirDetailsComponent implements OnInit {
         this.museumId = data.museumId;
 
         this.checkNavigationState();
+        carousel();
       });
   }
 

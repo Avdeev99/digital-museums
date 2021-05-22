@@ -149,6 +149,11 @@ namespace DigitalMuseums.Data.Repositories
             }
         }
 
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return await databaseSet.CountAsync(filter);
+        }
+
         /// <inheritdoc />
         public async Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> condition)
         {

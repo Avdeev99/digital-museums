@@ -7,6 +7,7 @@
 @import './assets/styles/slider.scss';
 @import './assets//styles/variables.scss';
 @import './assets/icons/Icon-font-7-stroke-PIXEDEN-v-1.2.0/pe-icon-7-stroke/css/pe-icon-7-stroke.css';
+@import './assets/icons/fontawesome-free-5.9.0-web/css/all.min.css';
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -1226,6 +1227,7 @@ h2.index_search_holder_h2 {
 .second_block_btn_holder {
     text-align: center;
     margin-top: 35px;
+    margin-bottom: 6px;
 }
 
     .second_block_btn_holder a {
@@ -1278,7 +1280,7 @@ h2.index_search_holder_h2 {
 
 .index_porsche_section {
     padding: 65px 0;
-    background: url("./assets/images/porsche-bg_web@2x.9f3c9e03.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.35)), url("./assets/images/porsche-bg_web@2x.9f3c9e03.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -1313,6 +1315,14 @@ h2.index_search_holder_h2 {
 
 .index_porsche_section_btn_section {
     text-align: center;
+}
+
+.footer {
+    text-align: center;
+}
+
+.btn-index-page {
+    margin-bottom: 15px;
 }
 
 .index_footer_notice, .footer {
@@ -1695,6 +1705,11 @@ h2.index_search_holder_h2 {
     /*    font-weight: bolder;*/
 }
 
+.preview_characteristics_line .list_item_badge {
+    font-size: 10px;
+    font-weight: bolder;
+}
+
 .preview_characteristics_line .preview_characteristics_line_first .row .col-lg-6 i,
 .preview_characteristics_line .preview_characteristics_line_second .row .col-lg-6 i,
 .preview_characteristics_line .preview_characteristics_line_third .row .col-lg-6 i {
@@ -1710,7 +1725,7 @@ h2.index_search_holder_h2 {
 
 .preview_description_holder {
     position: relative;
-    max-height: 136px;
+    // max-height: 136px;
     overflow: hidden;
 }
 
@@ -1769,7 +1784,7 @@ h2.index_search_holder_h2 {
 }
 
 .preview_form_section_price_currency {
-    font-size: 24px;
+    font-size: 44px;
     font-weight: 600;
     line-height: .8;
     margin: 23px 0 0 5px;
@@ -1850,6 +1865,30 @@ h2.index_search_holder_h2 {
     font-family: 'Roboto', sans-serif;
     padding-bottom: 15px;
     border-bottom: 1px solid #e6e6e6;
+}
+
+.preview_form_section_form_holder_link_holder {
+    margin-bottom: 15px;
+}
+
+.preview_form_section_form_holder_link_holder a {
+    display: block;
+    text-align: center;
+    color:#000;
+    border-right: 4px solid #f39c12;
+    border-left: 4px solid #f39c12;
+    border-radius: 3px;
+    padding: 6px 10px;
+    font-size: 19px;
+
+    -webkit-transition: ease all 0.4s;
+    -o-transition: ease all 0.4s;
+    -moz-transition: ease all 0.4s;
+    transition: ease all 0.4s;
+}
+
+.preview_form_section_form_holder_link_holder a:hover {
+    background: rgba(241, 241, 241, 0.993);
 }
 
 /*/PREVIEW*/
@@ -2033,13 +2072,18 @@ h2.index_search_holder_h2 {
 
 /*TRIPS*/
 
-.museum_menu_holder {
+.museum_menu_holder, .souvenir_menu_holder{
   padding-bottom: 5px;
   margin-bottom: 15px;
   border-bottom: 1px solid lightgray;
 }
 
-.museum_menu_holder button {
+.souvenir_menu_holder {
+    border-bottom: none;
+}
+
+.museum_menu_holder button,
+.souvenir_menu_holder button {
   background-color: lightgray;
 }
 
