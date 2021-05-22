@@ -18,7 +18,7 @@
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: $black;}
+body { margin: 0; font-family: 'Roboto', sans-serif; color: $black;}
 main {
   // padding-top: 20px;
   // padding-bottom: 20px;
@@ -2265,7 +2265,21 @@ h2.index_search_holder_h2 {
 
 /*/THANKGIVING*/
 
+.form-group {
+    margin-bottom: 10px;
 
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.text-danger {
+    color: red;
+}
+
+.text-success {
+    color: green;
+}
 
 
 

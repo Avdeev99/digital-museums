@@ -42,6 +42,6 @@ $finder-primary: (
 );
 
 $finder-theme-primary: mat-palette($finder-primary);
-$finder-theme: mat-light-theme($finder-theme-primary, $mat-indigo, $mat-red);
+$finder-theme: mat-light-theme($finder-theme-primary, $mat-indigo);
 
 @include angular-material-theme($finder-theme);

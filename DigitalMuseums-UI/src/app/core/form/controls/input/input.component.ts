@@ -12,8 +12,8 @@ import { IValidatorError } from '../../form.interface';
 export class CustomInputComponent implements OnInit, OnDestroy {
   @Input() @Optional() public label: string;
   @Input() @Optional() public control: FormControl;
-  @Input() @Optional() public validatorErrors: IValidatorError[];
-  @Input() @Optional() public inputType: 'text' | 'number' | 'date' = 'text';
+  @Input() @Optional() public validatorErrors: IValidatorError[] = [];
+  @Input() @Optional() public inputType: 'text' | 'number' | 'date' | 'password' = 'text';
   @Input() @Optional() public readonly: boolean;
   @Output() public valueChange: EventEmitter<FormControl> = new EventEmitter();
   @Input() @Optional() private value: string;
@@ -31,4 +31,8 @@ export class CustomInputComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
+  // public hasError(errorKey: string): boolean {
+
+  // }
 }

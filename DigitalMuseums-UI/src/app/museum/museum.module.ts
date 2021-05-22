@@ -12,7 +12,12 @@ import { MuseumsComponent } from './components/museums/museums.component';
 import { LinkingMuseumToUserComponent } from './components/linking-museum-to-user/linking-museum-to-user.component';
 
 @NgModule({
-  declarations: [AddMuseumComponent, MuseumDetailsComponent, MuseumsComponent, LinkingMuseumToUserComponent],
+  declarations: [
+    AddMuseumComponent,
+    MuseumDetailsComponent,
+    MuseumsComponent,
+    LinkingMuseumToUserComponent
+  ],
   imports: [
       CommonModule,
       FormsModule,

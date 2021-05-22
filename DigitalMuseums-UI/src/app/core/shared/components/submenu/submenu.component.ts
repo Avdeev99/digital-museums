@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from '../../models/menu-item.model';
 
@@ -11,6 +11,14 @@ import { MenuItem } from '../../models/menu-item.model';
 export class SubmenuComponent implements OnInit {
   @Input() 
   public menuList: Array<MenuItem> = [];
+
+  @Input()
+  @Optional() 
+  public title: string = "Menu";
+
+  @Input()
+  @Optional()
+  public matIconType: string = "menu";
 
   @Output()
   public menuItemSelected: EventEmitter<any> = new EventEmitter();

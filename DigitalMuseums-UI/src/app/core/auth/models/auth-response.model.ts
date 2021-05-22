@@ -1,6 +1,6 @@
-import { User } from "src/app/account/models/user.model";
+import { AuthUser } from "./auth-user.model";
 
 export interface IAuthResponse {
   token: string;
-  user: User;
+  user: AuthUser;
 }

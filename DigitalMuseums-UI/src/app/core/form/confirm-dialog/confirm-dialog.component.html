@@ -1,0 +1,15 @@
+<div class="dialog">
+    <div mat-dialog-title>
+        <h2>{{title | translate}}</h2>
+        <hr/>
+    </div>
+
+    <div>
+        <p>{{message | translate}}</p>
+    </div>
+    
+    <div mat-dialog-actions align="end">
+        <button mat-button (click)="onDismiss()">{{ 'confirm-dialog.no' | translate }}</button>
+        <button mat-raised-button color="primary" (click)="onConfirm()">{{ 'confirm-dialog.yes' | translate }}</button>
+    </div>
+</div>

@@ -2,6 +2,6 @@
   <mat-label>{{ label }}</mat-label>
   <input [formControl]="control" matInput [type]="inputType" [readonly]="readonly" />
   <mat-error>
-    <app-field-error [control]="control" [validatorErrors]="validatorErrors"></app-field-error>
+    <app-field-error [control]="control"></app-field-error>
   </mat-error>
 </mat-form-field>

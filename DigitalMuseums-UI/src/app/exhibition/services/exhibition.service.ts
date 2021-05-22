@@ -66,6 +66,12 @@ export class ExhibitionService {
         return this.httpClient.put(`${api.exhibition}/${exhibition.id}`, formData);
     }
 
+    public delete(id: number): Observable<void> {
+        const requestUrl: string = `${api.exhibition}/${id}`
+
+        return this.httpClient.delete<void>(requestUrl);
+    }
+
     private getFormData(exhibit: ExhibitionEditing): FormData {
         const formData: FormData = serialize(exhibit);
         Array.from(exhibit.images).forEach(image => {

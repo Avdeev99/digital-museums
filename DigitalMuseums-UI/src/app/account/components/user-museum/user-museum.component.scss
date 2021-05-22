@@ -1,0 +1,19 @@
+:host {    
+    display: flex;
+    justify-content: center;
+    
+    mat-card {
+        width: 50%;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        padding: 30px;
+
+        &-title {
+            text-align: center;
+        }
+    }
+
+    mat-tab-link-container {
+        margin-bottom: 20px;
+    }
+}

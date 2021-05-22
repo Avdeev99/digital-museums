@@ -1,18 +1,36 @@
-<!-- <div class="layout header">
-    <a routerLink="/">{{ 'menu.home' | translate }}</a>
-    <a routerLink="/museum/search">{{ 'menu.museums' | translate }}</a>
-    <a routerLink="login">{{ 'menu.login' | translate }}</a>
-</div> -->
-
-
 <div class="container">
     <div class="row justify-content-between">
         <div class="d-flex nav_links_holder">
             <a routerLink="/" class="nav_logo d-flex align-items-center">{{ 'menu.home' | translate }}</a>
-            <a routerLink="/museum/search">{{ 'menu.museums' | translate }}</a>
+            <a 
+                *ngIf="isAuthenticated"
+                routerLink="/museum/search"
+            >{{ 'menu.museums' | translate }}</a>
         </div>
         <div class="nav_links_holder">
-            <a routerLink="login">{{ 'menu.login' | translate }}</a>
+            <a 
+                *ngIf="!isAuthenticated"
+                routerLink="account/login"
+            >{{ 'menu.login' | translate }}</a>
+
+            <app-submenu
+                *ngIf="isAuthenticated"
+                [menuList]="menuList"
+                [matIconType]="'account_circle'"
+                [title]="''"
+                (menuItemSelected)="onMenuItemSelected($event)"
+            >
+            </app-submenu>
+
+            <a 
+                *ngIf="isAuthenticated"
+                routerLink="cart"
+            >
+                <button mat-icon-button>
+                    <mat-icon>add_shopping_cart</mat-icon>
+                </button>
+            </a>
+
             <app-select-language></app-select-language>     
         </div>
     </div>

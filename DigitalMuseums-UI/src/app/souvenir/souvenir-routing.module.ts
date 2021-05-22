@@ -4,9 +4,18 @@ import { AuthGuard } from "../core/auth/guards/auth.guard";
 import { AuthRole } from "../core/auth/models/auth-role.enum";
 import { SouvenirDetailsComponent } from "./components/souvenir-details/souvenir-details.component";
 import { SouvenirEditingComponent } from "./components/souvenir-editing/souvenir-editing.component";
+import { SouvenirListComponent } from "./components/souvenir-list/souvenir-list.component";
 import { SouvenirSearchComponent } from "./components/souvenir-search/souvenir-search.component";
 
 const routes: Routes = [
+    {
+        path: ':museumId/list',
+        component: SouvenirListComponent,
+        canActivate: [AuthGuard],
+        data: {
+          roles: [AuthRole.Admin, AuthRole.MuseumOwner],
+        },
+    },
     {
         path: 'create',
         component: SouvenirEditingComponent,

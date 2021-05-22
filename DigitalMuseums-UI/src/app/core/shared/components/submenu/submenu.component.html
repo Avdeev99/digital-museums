@@ -1,4 +1,8 @@
-<button mat-button [matMenuTriggerFor]="afterMenu">Menu</button>
+<button mat-icon-button [matMenuTriggerFor]="afterMenu">
+  <mat-icon>{{ matIconType }}</mat-icon>
+  {{ title }}
+</button>
+<!-- <button mat-button [matMenuTriggerFor]="afterMenu">{{ title }}</button> -->
 <mat-menu #afterMenu="matMenu" xPosition="after" ngbDropdownMenu>
   <a *ngFor="let menuItem of menuList" 
     mat-menu-item

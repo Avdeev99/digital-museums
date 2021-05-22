@@ -10,6 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatCardModule} from '@angular/material/card';
 
 import { CustomSelectComponent } from './controls/select/select.component';
 import { CustomInputComponent } from './controls/input/input.component';
@@ -19,6 +20,12 @@ import { CustomCheckboxComponent } from './controls/checkbox/checkbox.component'
 import { CustomErrorComponent } from './controls/error/error.component';
 import { SliderComponent } from './controls/slider/slider.component';
 import { CheckboxGroupComponent } from './controls/checkbox-group/checkbox-group.component';
+import { ListComponent } from './list/list.component';
+import { MatButtonModule } from '@angular/material/button';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +37,8 @@ import { CheckboxGroupComponent } from './controls/checkbox-group/checkbox-group
     CustomErrorComponent,
     SliderComponent,
     CheckboxGroupComponent,
+    ListComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +52,10 @@ import { CheckboxGroupComponent } from './controls/checkbox-group/checkbox-group
     MatCheckboxModule,
     MatSliderModule,
     MatListModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
+    TranslateModule,
   ],
   exports: [
     CustomSelectComponent,
@@ -53,6 +66,11 @@ import { CheckboxGroupComponent } from './controls/checkbox-group/checkbox-group
     CustomErrorComponent,
     SliderComponent,
     CheckboxGroupComponent,
+    MatCardModule,
+    ListComponent,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'never' } }],
 })

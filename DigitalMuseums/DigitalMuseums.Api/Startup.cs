@@ -44,7 +44,7 @@ namespace DigitalMuseums.Api
         {
             var dbConnectionString = configuration.GetConnectionString(DatabaseConnectionStringName);
             services.AddDbDataAccess(dbConnectionString);
-            services.AddCore();
+            services.AddCore(configuration);
             services.AddAuth(configuration);
             services.AddAutoMapper(cfg =>
             {

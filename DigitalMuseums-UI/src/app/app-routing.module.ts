@@ -14,7 +14,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'login',
+    path: 'account',
     loadChildren: (): Promise<AccountModule> => import('./account/account.module').then((m): AccountModule => m.AccountModule),
   },
   {

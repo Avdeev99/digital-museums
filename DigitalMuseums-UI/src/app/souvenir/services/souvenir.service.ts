@@ -27,6 +27,12 @@ export class SouvenirService {
         return this.httpClient.put(`${api.souvenir}/${souvenir.id}`, formData);
     }
 
+    public delete(id: number): Observable<void> {
+        const requestUrl: string = `${api.souvenir}/${id}`
+
+        return this.httpClient.delete<void>(requestUrl);
+    }
+
     public get(id: number): Observable<SouvenirDetails> {
         const requestUrl: string = `${api.souvenir}/${id}`
 

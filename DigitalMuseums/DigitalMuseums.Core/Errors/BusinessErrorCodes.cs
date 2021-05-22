@@ -24,5 +24,7 @@
         public const string RoleNotFoundCode = "role.errors.not-found";
 
         public const string SouvenirAlreadyAddedToCartCode = "cart.errors.souvenir-already-added";
+
+        public const string InvalidPassword = "account.errors.invalid-password";
     }
 }

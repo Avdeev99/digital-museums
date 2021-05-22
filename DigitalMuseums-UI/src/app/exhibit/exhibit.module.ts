@@ -9,9 +9,10 @@ import { ExhibitRoutingModule } from './exhibit-routing.module';
 import { ExhibitEditingComponent } from './components/exhibit-editing/exhibit-editing.component';
 import { ExhibitDetailsComponent } from './components/exhibit-details/exhibit-details.component';
 import { ExhibitSearchComponent } from './components/exhibit-search/exhibit-search.component';
+import { ExhibitListComponent } from './components/exhibit-list/exhibit-list.component';
 
 @NgModule({
-  declarations: [ExhibitEditingComponent, ExhibitDetailsComponent, ExhibitSearchComponent],
+  declarations: [ExhibitEditingComponent, ExhibitDetailsComponent, ExhibitSearchComponent, ExhibitListComponent],
   imports: [
       CommonModule,
       FormsModule,

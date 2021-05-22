@@ -15,8 +15,8 @@ import { MissingTranslationService } from './core/translation/missing-translatio
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     HttpClientModule,
     StoreModule.forRoot({}, {}),
     BrowserAnimationsModule,

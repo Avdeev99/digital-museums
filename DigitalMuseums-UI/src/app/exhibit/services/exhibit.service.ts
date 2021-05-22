@@ -27,6 +27,12 @@ export class ExhibitService {
         return this.httpClient.put(`${api.exhibit}/${exhibit.id}`, formData);
     }
 
+    public delete(id: number): Observable<void> {
+        const requestUrl: string = `${api.exhibit}/${id}`
+
+        return this.httpClient.delete<void>(requestUrl);
+    }
+
     public get(id: number): Observable<ExhibitDetails> {
         const requestUrl: string = `${api.exhibit}/${id}`
 

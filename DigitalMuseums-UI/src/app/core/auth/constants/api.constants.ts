@@ -4,5 +4,6 @@ export const api: Record<string, string> = {
 
 export const storage: Record<string, string> = {
   token: 'token',
-  currentUser: 'currentUser'
+  currentUser: 'currentUser',
+  selectedLocale: 'selectedLocale',
 };

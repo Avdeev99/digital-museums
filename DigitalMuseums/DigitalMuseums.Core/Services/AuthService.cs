@@ -21,17 +21,23 @@ namespace DigitalMuseums.Core.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBaseRepository<User> _userRepository;
         private readonly ITokenProvider _tokenProvider;
+        private readonly IEmailService _emailService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthService"/> class.
         /// </summary>
         /// <param name="unitOfWork">The <see cref="IUnitOfWork"/> reference.</param>
         /// <param name="tokenProvider">The <see cref="ITokenProvider"/> reference.</param>
-        public AuthService(IUnitOfWork unitOfWork, ITokenProvider tokenProvider)
+        public AuthService(
+            IUnitOfWork unitOfWork,
+            ITokenProvider tokenProvider,
+            IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
             _tokenProvider = tokenProvider;
+            _emailService = emailService;
             _userRepository = unitOfWork.GetRepository<User>();
+            _emailService = emailService;
         }
 
         /// <inheritdoc/>
@@ -41,13 +47,20 @@ namespace DigitalMuseums.Core.Services
 
             if (existingUser == null)
             {
+                var password = GenerateSixDigitCode();
+                user.Password = Crypto.HashPassword(password);
+
                 _userRepository.Create(user);
+
+                SendRegistrationEmail(user, password);
+
                 await _unitOfWork.SaveChangesAsync();
             }
 
             var includes = new List<Expression<Func<User, object>>>()
             {
-                u => u.Role
+                u => u.Role,
+                u => u.Museum
             };
             existingUser = await _userRepository.GetAsync(u => u.Email.Equals(user.Email), includes);
 
@@ -64,7 +77,8 @@ namespace DigitalMuseums.Core.Services
         {
             var includes = new List<Expression<Func<User, object>>>()
             {
-                u => u.Role
+                u => u.Role,
+                u => u.Museum
             };
             var existingUser = await _userRepository.GetAsync(u => u.Email.Equals(email), includes);
             
@@ -84,7 +98,25 @@ namespace DigitalMuseums.Core.Services
                 Token = _tokenProvider.GenerateTokenForUser(existingUser),
                 User = existingUser
             };
+
             return authResult;
+        }
+
+        private void SendRegistrationEmail(User user, string password)
+        {
+            _emailService.Send(
+                user.Email,
+                $"Welcome, {user.UserName}",
+                $"Your temporary password: {password}"
+            );
+        }
+
+        private string GenerateSixDigitCode()
+        {
+            var random = new Random();
+            var code = random.Next(0, int.MaxValue).ToString("D6");
+
+            return code;
         }
     }
 }

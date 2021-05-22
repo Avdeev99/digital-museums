@@ -1,0 +1,6 @@
+<app-spinner *ngIf="isFetching"></app-spinner>
+<app-list
+    [data]="exhibitions$ | async"
+    (deleteEvent)="onDelete($event)"
+    (editEvent)="onEdit($event)"
+></app-list>

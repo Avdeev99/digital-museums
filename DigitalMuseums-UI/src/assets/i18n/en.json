@@ -38,6 +38,20 @@
             "errors": {
                 "invalid-credentials": "Invalid credentials."
             }
+        },
+        "change-password": {
+            "title": "Change Password",
+            "old-password": "Old password",
+            "new-password": "New password",
+            "confirm-new-password": "Confirm new password",
+            "changed-successful": "Password changed successfuly."
+        },
+        "user-info": {
+            "title": "Personal Info",
+            "changed-successful": "Personal info changed successfuly."
+        },
+        "errors": {
+            "invalid-password": "Invalid password."
         }
     },
     "museum": {
@@ -58,6 +72,7 @@
     },
     "user": {
         "entity": "User",
+        "profile": "Profile",
         "errors": {
             "not-found": "The user not found."
         }
@@ -86,7 +101,14 @@
         "exhibitions": "Exhibitions",
         "login": "Login",
         "museum": "Museum",
-        "souvenirs": "Souvenirs"
+        "souvenirs": "Souvenirs",
+        "cart": "Cart",
+        "profile": {
+            "user-info": "Personal info",
+            "change-password": "Change password",
+            "logout": "Logout",
+            "museum": "Museum"
+        }
     },
     "cart": {
         "pay": "Pay",
@@ -95,6 +117,12 @@
         "checkout": "Checkout",
         "remove": "Remove",
         "items": "Items"
+    },
+    "confirm-dialog": {
+        "title": "Confirmation",
+        "message": "Are you sure you want to do this?",
+        "yes": "Yes",
+        "no": "No"
     },
     "footer": {
         "warning": "All Liberty Mutual liability insurance in the UA is offered through Insurance Agency. Terms, conditions, and exclusions apply."
@@ -114,6 +142,10 @@
             "start": "Start",
             "goToMuseum": "Go To Museum",
             "details": "Details"
+        },
+        "validation-errors": {
+            "required": "This field is required",
+            "passwordsNotMatched": "Password and password confirmation must be equal"
         }
     }
 }
