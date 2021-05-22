@@ -9,9 +9,7 @@ namespace DigitalMuseums.Core.Domain.DTO.Exhibition
         public string Description { get; set; }
 
         public List<string> Tags { get; set; }
-        
-        public int MuseumId { get; set; }
-        
+
         public ExhibitionImagesUnit ImagesData { get; set; }
 
         public List<int> ExhibitIds { get; set; }

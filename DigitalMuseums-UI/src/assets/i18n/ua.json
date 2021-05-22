@@ -110,6 +110,9 @@
         },
         "validation-errors": {
             "required": "Це поле є обов'язковим"
+        },
+        "actions": {
+            "add": "Додати"
         }
     }
 }

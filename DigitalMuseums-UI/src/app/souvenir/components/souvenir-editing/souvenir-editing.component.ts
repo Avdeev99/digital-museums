@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
 import { IOption } from 'src/app/core/form/form.interface';
-import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
 import { SouvenirDetails } from 'src/app/souvenir/models/souvenir-details.model';
 import { Souvenir } from 'src/app/souvenir/models/souvenir.model';
 import { SouvenirService } from 'src/app/souvenir/services/souvenir.service';
-import { MuseumService } from 'src/app/museum/services/museum.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-souvenir-editing',
@@ -20,10 +18,10 @@ export class SouvenirEditingComponent implements OnInit {
   public formGroup: FormGroup;
   public souvenir: SouvenirDetails;
   public museums$: Observable<Array<IOption>>;
+  public isFetching: boolean = false;
 
   private souvenirId: number;
   private selectedImages: FileList;
-  private currentUserId?: number;
   private unsubscribe$: Subject<void> = new Subject();
 
   public constructor(
@@ -31,16 +29,14 @@ export class SouvenirEditingComponent implements OnInit {
       private souvenirService: SouvenirService,
       private route: ActivatedRoute,
       private router: Router,
-      private museumService: MuseumService,
-      private currentUserService: CurrentUserService,
+      private dialogRef: MatDialogRef<SouvenirEditingComponent>,
+      @Inject(MAT_DIALOG_DATA) public dialogData: { souvenirId: number },
     ) {
     this.setSouvenirId();
-    this.setUserId();
   }
 
   public ngOnInit(): void {
     this.initForm();
-    this.initDropdowns();
     this.fetchSouvenir();
   }
 
@@ -51,7 +47,10 @@ export class SouvenirEditingComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.formGroup.invalid) {
+      return;
     }
+
+    this.isFetching = true;
 
     const souvenir: Souvenir = {
       ...this.formGroup.getRawValue(),
@@ -63,7 +62,10 @@ export class SouvenirEditingComponent implements OnInit {
       ? this.souvenirService.update(souvenir)
       : this.souvenirService.create(souvenir);
 
-      souvenirRequest.subscribe(() => this.router.navigate(['/']));
+    souvenirRequest.subscribe(() => {
+      this.dialogRef.close(true);
+      this.isFetching = false;
+    });
   }
 
   public onSelectFile(files: FileList) {
@@ -74,33 +76,32 @@ export class SouvenirEditingComponent implements OnInit {
   }
 
   private setSouvenirId(): void {
-    this.souvenirId = this.route.snapshot.params.id;
-  }
-
-  private setUserId(): void {
-    const currentUser: AuthUser = this.currentUserService.getUserData();
-    this.currentUserId = currentUser?.id;
+    this.souvenirId = this.dialogData?.souvenirId;
   }
 
   private fetchSouvenir(): void {
     if (this.souvenirId) {
+      this.isFetching = true;
+
       this.souvenirService.get(this.souvenirId)
         .pipe(
           catchError(err => {
             this.router.navigate(['souvenir']);
+            this.isFetching = false;
+
             return throwError(err);
           }),
         )
         .subscribe(data => {
           this.souvenir = data;
           this.formGroup.patchValue(data);
+          this.isFetching = false;
         });
     }
   }
 
   private initForm(): void {
     this.formGroup = this.fb.group({
-      museumId: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
@@ -108,9 +109,5 @@ export class SouvenirEditingComponent implements OnInit {
       tags: new FormControl([], [Validators.required]),
       images: new FormControl(null, [Validators.required]),
     });
-  }
-
-  private initDropdowns(): void {
-    this.museums$ = this.museumService.getBaseListByUserId(this.currentUserId);
   }
 }

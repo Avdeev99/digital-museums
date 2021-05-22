@@ -16,9 +16,6 @@ namespace DigitalMuseums.Api.Contracts.Requests.Exhibition
         public List<string> Tags { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        public int MuseumId { get; set; }
-
-        [Required(AllowEmptyStrings = false)]
         public List<IFormFile> Images { get; set; }
         
         [Required]

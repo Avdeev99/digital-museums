@@ -34,15 +34,14 @@
         ></app-checkbox-group>
     </div>
 
-    <br>
-
     <div class="form-group">
+        <div class="mb5">{{ 'shared.controls.images' | translate }}</div>
         <input
-        multiple
-        type='file'
-        value=""
-        [formControl]="formGroup.controls.images"
-        (change)="onSelectFile($event.target.files)">
+            multiple
+            type='file'
+            value=""
+            [formControl]="formGroup.controls.images"
+            (change)="onSelectFile($event.target.files)">
     </div>
 
     <br>

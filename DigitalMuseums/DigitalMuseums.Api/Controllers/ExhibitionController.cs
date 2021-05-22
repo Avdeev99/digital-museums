@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Exhibition;
 using DigitalMuseums.Api.Contracts.Responses.Exhibition;
-using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Core.Domain.DTO.Exhibition;
 using DigitalMuseums.Core.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalMuseums.Api.Controllers
 {
     [ApiController]
     [Route("/api/exhibition")]
+    [Authorize]
     public class ExhibitionController : Controller
     {
         private readonly IMapper _mapper;

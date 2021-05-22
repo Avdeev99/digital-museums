@@ -6,11 +6,13 @@ using AutoMapper;
 using DigitalMuseums.Core.Data.Contracts;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Domain.Models;
+using DigitalMuseums.Core.Domain.Models.Auth;
 using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Errors;
 using DigitalMuseums.Core.Exceptions;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services.Contracts;
+using DigitalMuseums.Core.Services.Contracts.Providers;
 using Microsoft.AspNetCore.Http;
 
 namespace DigitalMuseums.Core.Services
@@ -21,26 +23,43 @@ namespace DigitalMuseums.Core.Services
         private readonly IFilterPipeline<Exhibit, FilterExhibitsDto> _exhibitFilterPipeline;
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
-        
+        private readonly ILoggedInPersonProvider _loggedInPersonProvider;
+
         private readonly IBaseRepository<Exhibit> _exhibitRepository;
+        private readonly IBaseRepository<User> _userRepository;
 
         public ExhibitService(
             IUnitOfWork unitOfWork,
             IFilterPipeline<Exhibit, FilterExhibitsDto> exhibitFilterPipeline,
             IImageService imageService,
-            IMapper mapper)
+            IMapper mapper,
+            ILoggedInPersonProvider loggedInPersonProvider)
         {
             _unitOfWork = unitOfWork;
             _exhibitFilterPipeline = exhibitFilterPipeline;
             _imageService = imageService;
             _mapper = mapper;
+            _loggedInPersonProvider = loggedInPersonProvider;
 
             _exhibitRepository = unitOfWork.GetRepository<Exhibit>();
+            _userRepository = unitOfWork.GetRepository<User>();
         }
 
         public async Task CreateAsync(CreateExhibitDto createExhibitDto)
         {
+            var userId = _loggedInPersonProvider.GetUserId();
+            var includes = new List<Expression<Func<User, object>>>
+            {
+                u => u.Museum
+            };
+            var user = await _userRepository.GetAsync(u => u.Id == userId, includes);
+            if (user?.Museum == null)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseum);
+            }
+
             var exhibit = _mapper.Map<Exhibit>(createExhibitDto);
+            exhibit.MuseumId = user.Museum.Id;
             var exhibitResult = _exhibitRepository.Create(exhibit);
             await _unitOfWork.SaveChangesAsync();
 

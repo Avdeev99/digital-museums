@@ -109,6 +109,9 @@
         "validation-errors": {
             "required": "This field is required",
             "passwordsNotMatched": "Password and password confirmation must be equal"
+        },
+        "actions": {
+            "add": "Add"
         }
     }
 }

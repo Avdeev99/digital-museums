@@ -5,12 +5,14 @@ using DigitalMuseums.Api.Contracts.Requests.Souvenir;
 using DigitalMuseums.Api.Contracts.Responses.Souvenir;
 using DigitalMuseums.Core.Domain.DTO.Souvenir;
 using DigitalMuseums.Core.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalMuseums.Api.Controllers
 {
     [ApiController]
     [Route("/api/souvenir")]
+    [Authorize]
     public class SouvenirController : Controller
     {
         private readonly IMapper _mapper;

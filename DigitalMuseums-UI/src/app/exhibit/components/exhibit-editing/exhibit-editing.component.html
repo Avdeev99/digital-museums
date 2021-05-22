@@ -1,37 +1,28 @@
-<form [formGroup]="formGroup">
-    <div>
-        <label>
-            {{ 'museum.entity' | translate }}
-            <app-select
-                [label]="'museum.entity' | translate"
-                [control]="formGroup.controls.museumId"
-                [options]="museums$ | async"
-            ></app-select>
-          </label>
-    </div>
+<app-spinner *ngIf="isFetching"></app-spinner>
 
-    <div>
+<form [formGroup]="formGroup">
+    <div class="form-group">
         <label>
             {{ 'shared.controls.name' | translate }}
             <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'shared.controls.description' | translate }}
             <app-input [label]="'shared.controls.description' | translate" [control]="formGroup.controls.description"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'exhibit.author' | translate }}
             <app-input [label]="'exhibit.author' | translate" [control]="formGroup.controls.author"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'exhibit.date' | translate }}
             <app-input 
@@ -42,7 +33,7 @@
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'shared.controls.tags' | translate }}
             <app-chips 
@@ -53,16 +44,17 @@
           </label>
     </div>
 
+    <div class="form-group">
+        <div class="mb5">{{ 'shared.controls.images' | translate }}</div>
+        <input
+            multiple
+            type='file'
+            value=""
+            [formControl]="formGroup.controls.images"
+            (change)="onSelectFile($event.target.files)">
+    </div>
+    
     <br>
 
-    <input
-        multiple
-        type='file'
-        value=""
-        [formControl]="formGroup.controls.images"
-        (change)="onSelectFile($event.target.files)">
-
-    <br>
-    <br>
     <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
 </form>
