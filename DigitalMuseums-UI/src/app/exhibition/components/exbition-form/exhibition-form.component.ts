@@ -14,6 +14,8 @@ export class ExhibitionFormComponent extends ExhibitionStepBase {
     @Input()
     data: ExhibitDetails;
 
+    public isPartOfExhibition: boolean = true;
+
     constructor(injector: Injector) {
         super(injector);
     }

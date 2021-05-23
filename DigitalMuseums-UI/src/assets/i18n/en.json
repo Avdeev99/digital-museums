@@ -87,6 +87,9 @@
         "author": "Author",
         "date": "Date"
     },
+    "exhibition": {
+        "view": "View"
+    },
     "souvenir": {
         "price": "Price",
         "availableUnits": "Available units",

@@ -87,6 +87,9 @@
         "author": "Автор",
         "date": "Дата"
     },
+    "exhibition": {
+        "view": "Перегляд"
+    },
     "souvenir": {
         "price": "Ціна",
         "availableUnits": "У наявності",

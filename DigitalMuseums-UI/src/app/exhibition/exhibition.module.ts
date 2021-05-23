@@ -14,6 +14,7 @@ import { ProgressTrackerComponent } from './components/progress-tracker/progress
 import { ExhibitionSearchComponent } from './components/exhibition-search/exhibition-search.component';
 import { ExhibitionEditingComponent } from './components/exhibition-editing/exhibition-editing.component';
 import { ExhibitionListComponent } from './components/exhibition-list/exhibition-list.component';
+import { ExhibitModule } from '../exhibit/exhibit.module';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -40,6 +41,7 @@ import { RouterModule } from '@angular/router';
         MatDialogModule,
         SharedModule,
         ExhibitionRoutingModule,
+        ExhibitModule
       ],
   })
   export class ExhibitionModule {}

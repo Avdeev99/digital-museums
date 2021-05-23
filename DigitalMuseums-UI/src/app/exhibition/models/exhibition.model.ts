@@ -20,8 +20,7 @@ export enum InfoScreenStepNames {
 }
 
 export interface ExhibitionInstructionalModel {
-    title: string;
-    description: string;
+    exhibition: Exhibition;
     primaryButtonText: string;
     type: string;
 }

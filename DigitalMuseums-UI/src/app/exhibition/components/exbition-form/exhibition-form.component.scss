@@ -1,9 +1,9 @@
 @import './../../../../assets/styles/variables.scss';
 
-.white-block {
-    padding: 20px;
-    width: 660px;
-    box-shadow: 0 3px 12px 0 rgba(45, 42, 38, 0.04);
+.exhibition-view-item-holder {
     background-color: $white;
-    border-radius: 8px;
+    box-shadow: 0 3px 12px 0 rgba(45, 42, 38, 0.04);
+    height: 80vh;
+    margin: 15px 0;
+    overflow-y: auto;
 }

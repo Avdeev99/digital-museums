@@ -2,14 +2,11 @@ import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { NavigationService } from 'src/app/core/shared/services/navigation.service';
 import { ExhibitionStepContainerDirective } from '../../directives/exhibition-step-container.directive';
 import { Exhibition, ExhibitionStepComponentsType, ExhibitionStepUrlParamsModel, StepsComponentModel } from '../../models/exhibition.model';
 import { ExhibitionService } from '../../services/exhibition.service';
 import { PrepareExhibitionService } from '../../services/prepare-exhibition.service';
-
-declare var carousel: any;
 
 @Component({
     selector: 'app-exhibition',
@@ -20,12 +17,7 @@ export class ExhibitionComponent implements OnInit {
     exhibition: Exhibition;
     exhibitionId: number;
 
-    private backUrl: string;
-    private museumId: number;
-
     @ViewChild(ExhibitionStepContainerDirective, { static: true }) content: ExhibitionStepContainerDirective;
-
-    public menuList: Array<MenuItem>;
 
     steps: StepsComponentModel<ExhibitionStepComponentsType>[];
     stepsSubscription: Subscription;
@@ -46,33 +38,15 @@ export class ExhibitionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         this.prepareExhibitionService.getExhibition(this.exhibitionId).subscribe(exhibition => {
             this.exhibition = exhibition;
-            this.museumId = exhibition.museumId;
 
             this.prepareExhibitionStepsData();
             this.getSteps();
             this.getActiveStep();
             this.startWatchingRouteChanges();
-            this.checkNavigationState();
-            carousel();
         });
     }
-
-    public get exhibitionImages(): string[] {
-        return this.exhibition && this.exhibition.imagePaths.length ? this.exhibition.imagePaths: null;
-    }
-
-    private checkNavigationState(): void {
-        const currentNavigationState: any = this.router.getCurrentNavigation();
-    
-        if (currentNavigationState && currentNavigationState.extras && currentNavigationState.extras.state) {
-          this.backUrl = currentNavigationState.extras.state.backUrl;
-        }
-    
-        this.initMenuList();
-      }
 
     prepareExhibitionStepsData(): void {
         this.exhibitionService.setExhibitionData(this.exhibition);
@@ -157,24 +131,4 @@ export class ExhibitionComponent implements OnInit {
     private setExhibitionId(): void {
         this.exhibitionId = this.activeRoute.snapshot.params.id;
     }
-
-    private initMenuList(): void {
-        const state: { backUrl?: string } = this.backUrl ? { backUrl: this.backUrl } : {};
-        this.menuList = [
-          {
-            name: 'menu.museum',
-            href: `/museum/${this.museumId}`,
-            state,
-          },
-          {
-            name: 'menu.exhibits',
-            href: `/exhibit/${this.museumId}/search`
-          },
-          {
-            name: 'menu.souvenirs',
-            href: `/souvenir/${this.museumId}/search`,
-            state,
-          },
-        ];
-      }
 }

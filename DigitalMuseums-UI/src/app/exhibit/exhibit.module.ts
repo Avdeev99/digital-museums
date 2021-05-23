@@ -23,5 +23,8 @@ import { ExhibitListComponent } from './components/exhibit-list/exhibit-list.com
       SharedModule,
       ExhibitRoutingModule,
     ],
+  exports: [
+    ExhibitDetailsComponent
+  ]
 })
 export class ExhibitModule {}

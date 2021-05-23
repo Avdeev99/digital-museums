@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -19,6 +19,10 @@ export class ExhibitDetailsComponent implements OnInit {
 
   public menuList: Array<MenuItem>;
   public relatedItems: Array<RelatedItem>;
+
+  @Input()
+  @Optional() 
+  public isPartOfExhibition: boolean = false;
 
   private backUrl: string;
   private exhibitId: number;

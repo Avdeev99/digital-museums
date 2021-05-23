@@ -23,10 +23,11 @@
             <div class="col-lg-8 preview_info_section">
 
                 <div class="row preview_info_charcteristic_line">
-                    <div class="col-lg-3  preview_info_charcteristic_type souvenir_menu_holder">
+                    <div *ngIf="!isPartOfExhibition" class="col-lg-3  preview_info_charcteristic_type souvenir_menu_holder">
                         <app-submenu [menuList]="menuList"></app-submenu>
                     </div> 
-                    <div class="col-lg-9"></div>
+                    <div *ngIf="!isPartOfExhibition" class="col-lg-9"></div>
+                    
                     <div class="col-lg-3 preview_info_charcteristic_type">{{ 'shared.controls.name' | translate }}</div>
                     <div class="col-lg-9">
                         <div class="preview_makemodel_line">
@@ -78,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 preview_form_section">
+            <div *ngIf="!isPartOfExhibition" class="col-lg-4 preview_form_section">
                 <div class="preview_form_section_price_holder">
                     <div class="preview_form_section_price_currencyamount">
                         <div class="preview_form_section_header">{{ 'menu.exhibitions' | translate }}</div>
