@@ -12,7 +12,7 @@ export class CartStateService {
 
     public constructor(
         private cartService: CartService,
-    ) { 
+    ) {
         this.cartDetails$$ = new BehaviorSubject<CartDetails>(null);
         this.totalOrderPrice$$ = new BehaviorSubject<number>(null);
     }
@@ -34,7 +34,7 @@ export class CartStateService {
 
     public setTotalOrderPrice(): void {
         const cardDetails: CartDetails = this.cartDetails$$.getValue();
-        const totalOrderPrice: number = cardDetails.orderDetails.reduce((n, {price}) => n + price, 0);
+        const totalOrderPrice: number = cardDetails?.orderDetails?.reduce((n, {price}) => n + price, 0);
         this.totalOrderPrice$$.next(totalOrderPrice);
     }
 
@@ -74,16 +74,16 @@ export class CartStateService {
 
     public isIncreasingAllowed(souvenirId: number): boolean {
         const cartDetails = this.cartDetails$$.getValue();
-        const cartItem = cartDetails.orderDetails.find(x => !!x.souvenir && x.souvenir.id === souvenirId);
+        const cartItem = cartDetails?.orderDetails?.find(x => !!x.souvenir && x.souvenir.id === souvenirId);
 
-        return cartItem.quantity < cartItem.souvenir.availableUnits;
+        return cartItem?.quantity < cartItem?.souvenir?.availableUnits;
     }
 
     public isDecreasingAllowed(souvenirId: number): boolean {
         const cartDetails = this.cartDetails$$.getValue();
-        const cartItem = cartDetails.orderDetails.find(x => !!x.souvenir && x.souvenir.id === souvenirId);
+        const cartItem = cartDetails?.orderDetails?.find(x => !!x.souvenir && x.souvenir.id === souvenirId);
 
-        return cartItem.quantity > 1;
+        return cartItem?.quantity > 1;
     }
 
     public deleteCartItem(souvenirId: number): void {

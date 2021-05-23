@@ -56,9 +56,7 @@ export class CartComponent extends LocationBase implements OnInit {
         this.totalOrderPrice$ = this.cartStateService.getTotalOrderPrice();
 
         this.cartDetails$.subscribe(data => {
-            if (!!data) {
-                this.orderDetails = data.orderDetails;
-            }
+            this.orderDetails = data?.orderDetails;
         });
     }
 

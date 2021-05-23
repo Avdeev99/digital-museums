@@ -90,7 +90,7 @@ namespace DigitalMuseums.Core.Services
                 includes);
             if (order == null)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.OrderNotFoundCode, StatusCodes.Status404NotFound);
+                return null;
             }
 
             var result = _mapper.Map<CurrentCart>(order);
