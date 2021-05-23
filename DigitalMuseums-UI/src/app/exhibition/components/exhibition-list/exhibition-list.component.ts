@@ -29,6 +29,17 @@ export class ExhibitionListComponent implements OnInit {
     this.setMuseumExhibitions();
   }
 
+  public onAdd(): void {
+    const dialogRef = this.dialog.open(ExhibitionEditingComponent)
+      .afterClosed().subscribe((dialogResult: boolean) => {
+        if (!dialogResult) {
+          return;
+        };
+
+        this.setMuseumExhibitions();
+      });
+  }
+
   public onEdit(exhibitionId: number): void {
     const dialogRef = this.dialog.open(ExhibitionEditingComponent, {
       data: {

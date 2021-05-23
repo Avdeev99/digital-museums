@@ -6,12 +6,14 @@ using DigitalMuseums.Api.Contracts.Responses.Exhibit;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitalMuseums.Api.Controllers
 {
     [ApiController]
     [Route("/api/exhibit")]
+    [Authorize]
     public class ExhibitController : Controller
     {
         private readonly IMapper _mapper;

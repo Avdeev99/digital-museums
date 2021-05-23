@@ -6,8 +6,17 @@ import { MuseumsComponent } from './components/museums/museums.component';
 import { LinkingMuseumToUserComponent } from './components/linking-museum-to-user/linking-museum-to-user.component';
 import { AuthGuard } from '../core/auth/guards/auth.guard';
 import { AuthRole } from '../core/auth/models/auth-role.enum';
+import { MuseumListComponent } from './components/museum-list/museum-list.component';
 
 const routes: Routes = [
+    {
+      path: 'list',
+      component: MuseumListComponent,
+      canActivate: [AuthGuard],
+      data: {
+        roles: [AuthRole.Admin],
+      },
+    },
     {
       path: 'create',
       component: AddMuseumComponent,

@@ -19,6 +19,7 @@ import { MuseumDetails } from '../../models/museum-details.model';
 export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy {
   public formGroup: FormGroup;
   public museum: MuseumDetails;
+  public isFetching: boolean;
 
   private museumId: number;
   private selectedImages: FileList;
@@ -49,7 +50,10 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
 
   public onSubmit(): void {
     if (this.formGroup.invalid) {
+      return;
     }
+
+    this.isFetching = true;
 
     const museum: Museum = {
       ...this.formGroup.getRawValue(),
@@ -61,7 +65,9 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
       ? this.museumService.update(museum)
       : this.museumService.create(museum);
 
-      museumRequest.subscribe(() => this.router.navigate(['museum']));
+      museumRequest.subscribe(() => {
+        this.isFetching = false;
+      });
   }
 
   public onSelectFile(files: FileList) {
@@ -77,6 +83,8 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
 
   private fetchMuseum(): void {
     if (this.museumId) {
+      this.isFetching = true;
+
       this.museumService.get(this.museumId)
         .pipe(
           catchError(err => {
@@ -93,6 +101,8 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
             cityId: data.city.id,
             genreId: data.genre.id,
           });
+
+          this.isFetching = false;
         });
     }
   }

@@ -1,7 +1,7 @@
 import { ExhibitService } from 'src/app/exhibit/services/exhibit.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
@@ -24,7 +24,6 @@ export class ExhibitionEditingComponent implements OnInit {
   public selectedExhibits: Array<IOptionChecked>;
 
   private exhibitionId: number;
-  private currentUserId?: number;
   private selectedImages: FileList;
   public isFetching: boolean = false;
 
@@ -40,7 +39,6 @@ export class ExhibitionEditingComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dialogData: { exhibitionId: number },
   ) {
     this.setExhibitionId();
-    this.setUserId();
   }
 
   public ngOnInit(): void {
@@ -56,6 +54,7 @@ export class ExhibitionEditingComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.formGroup.invalid) {
+      return;
     }
 
     this.isFetching = true;
@@ -84,12 +83,7 @@ export class ExhibitionEditingComponent implements OnInit {
   }
 
   private setExhibitionId(): void {
-    this.exhibitionId = this.dialogData.exhibitionId;
-  }
-
-  private setUserId(): void {
-    const currentUser: AuthUser = this.currentUserService.getUserData();
-    this.currentUserId = currentUser?.id;
+    this.exhibitionId = this.dialogData?.exhibitionId;
   }
 
   private fetchExhibition(): void {
@@ -114,7 +108,6 @@ export class ExhibitionEditingComponent implements OnInit {
 
   private initForm(): void {
     this.formGroup = this.fb.group({
-      museumId: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       tags: new FormControl([], [Validators.required]),

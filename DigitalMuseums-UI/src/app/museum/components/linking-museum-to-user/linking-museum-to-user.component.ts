@@ -17,7 +17,7 @@ export class LinkingMuseumToUserComponent implements OnInit {
 
   public users$: Observable<Array<IOption>>;
   public museums$: Observable<Array<IOption>>;
-
+  public isFetching: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,11 +33,17 @@ export class LinkingMuseumToUserComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.formGroup.invalid) {
+      return;
     }
+
+    this.isFetching = true;
 
     const linkingMuseumToUser: LinkingMuseumToUser = this.formGroup.getRawValue();
     this.museumService.linkMuseumToUser(linkingMuseumToUser)
-      .subscribe(() => this.router.navigate(['/']));
+      .subscribe(() => {
+        this.router.navigate(['/']);
+        this.isFetching = false;
+      });
   }
 
   private initForm(): void {

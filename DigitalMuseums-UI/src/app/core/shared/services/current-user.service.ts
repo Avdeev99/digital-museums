@@ -29,11 +29,11 @@ export class CurrentUserService {
         return this.user$$.getValue();
     }
 
-    // public getUser(): AuthUser {
-    //     const currentUser: AuthUser = JSON.parse(localStorage.getItem(storage.currentUser));
-
-    //     return currentUser;
-    // }
+    public logoutUser(): void {
+        localStorage.removeItem(storage.token);
+        localStorage.removeItem(storage.currentUser);
+        this.user$$.next(null);
+    }
 
     public getUserToken(): string {
         const token: string = JSON.parse(localStorage.getItem(storage.token));

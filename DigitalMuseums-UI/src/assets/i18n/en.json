@@ -108,7 +108,9 @@
             "user-info": "Personal info",
             "change-password": "Change password",
             "logout": "Logout",
-            "museum": "Museum"
+            "museum": "Museum",
+            "admin-portal": "Admin portal",
+            "genres": "Genres"
         }
     },
     "cart": {
@@ -147,6 +149,9 @@
         "validation-errors": {
             "required": "This field is required",
             "passwordsNotMatched": "Password and password confirmation must be equal"
+        },
+        "actions": {
+            "add": "Add"
         }
     }
 }
