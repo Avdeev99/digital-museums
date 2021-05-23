@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -18,8 +19,8 @@ import { ExhibitService } from '../../services/exhibit.service';
 export class ExhibitEditingComponent implements OnInit, OnDestroy {
   public formGroup: FormGroup;
   public exhibit: ExhibitDetails;
-  public museums$: Observable<Array<IOption>>;
   public isFetching: boolean = false;
+  public serverError: string;
 
   private exhibitId: number;
   private selectedImages: FileList;
@@ -46,7 +47,6 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    debugger;
     if (this.formGroup.invalid) {
       return;
     }
@@ -63,7 +63,14 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
       ? this.exhibitService.update(exhibit)
       : this.exhibitService.create(exhibit);
 
-      exhibitRequest.subscribe(() => {
+      exhibitRequest.pipe(
+        catchError((errorResponse: HttpErrorResponse) => {
+          this.isFetching = false;
+          this.serverError = errorResponse.error.message;
+
+          throw(errorResponse);
+        })
+      ).subscribe(() => {
         this.dialogRef.close(true);
         this.isFetching = false;
       });
@@ -106,7 +113,7 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
       description: new FormControl(null, [Validators.required]),
       author: new FormControl(null, [Validators.required]),
       date: new FormControl(null, [Validators.required]),
-      tags: new FormControl([], [Validators.required]),
+      tags: new FormControl([]),
       images: new FormControl(null, [Validators.required]),
     });
   }

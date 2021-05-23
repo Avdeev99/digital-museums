@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/app/core/form/confirm-dialog/confirm-dialog.component';
 import { ExhibitDetails } from '../../models/exhibit-details.model';
 import { Exhibit } from '../../models/exhibit.model';
@@ -17,6 +19,7 @@ export class ExhibitListComponent implements OnInit {
   public museumId: number;
   public exhibits$: Observable<Array<ExhibitDetails>>;
   public isFetching: boolean = false;
+  public serverError: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -63,7 +66,14 @@ export class ExhibitListComponent implements OnInit {
 
       this.isFetching = true;
 
-      this.exhibitService.delete(exhibitId).subscribe(() => {
+      this.exhibitService.delete(exhibitId).pipe(
+        catchError((errorResponse: HttpErrorResponse) => {
+          this.isFetching = false;
+          this.serverError = errorResponse.error.message;
+
+          throw (errorResponse);
+        })
+      ).subscribe(() => {
         this.isFetching = false;
         this.setMuseumExhibits();
       });
@@ -83,6 +93,7 @@ export class ExhibitListComponent implements OnInit {
 
     this.exhibits$.subscribe(() => {
       this.isFetching = false;
+      this.serverError = null;
     });
   }
 }

@@ -86,6 +86,11 @@ namespace DigitalMuseums.Core.Services
                 throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode, StatusCodes.Status404NotFound);
             }
 
+            if (museum.UserId.HasValue)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.MuseumLinkedToUserCode);
+            }
+
             museum.IsDeleted = true;
 
             await _unitOfWork.SaveChangesAsync();
@@ -110,6 +115,12 @@ namespace DigitalMuseums.Core.Services
             if (role == null)
             {
                 throw new BusinessLogicException(BusinessErrorCodes.RoleNotFoundCode);
+            }
+
+            var oldMuseum = await _museumRepository.GetAsync(m => m.UserId == linkUserToMuseumDto.UserId, TrackingState.Enabled);
+            if (oldMuseum != null)
+            {
+                oldMuseum.UserId = null;
             }
 
             user.RoleId = role.Id;

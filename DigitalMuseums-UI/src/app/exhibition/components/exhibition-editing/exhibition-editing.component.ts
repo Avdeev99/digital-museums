@@ -10,6 +10,7 @@ import { CurrentUserService } from 'src/app/core/shared/services/current-user.se
 import { Exhibition, ExhibitionEditing } from 'src/app/exhibition/models/exhibition.model';
 import { ExhibitionService } from 'src/app/exhibition/services/exhibition.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-exhibition-editing',
@@ -26,6 +27,7 @@ export class ExhibitionEditingComponent implements OnInit {
   private exhibitionId: number;
   private selectedImages: FileList;
   public isFetching: boolean = false;
+  public serverError: string;
 
   private unsubscribe$: Subject<void> = new Subject();
 
@@ -53,6 +55,7 @@ export class ExhibitionEditingComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    debugger;
     if (this.formGroup.invalid) {
       return;
     }
@@ -69,7 +72,14 @@ export class ExhibitionEditingComponent implements OnInit {
       ? this.exhibitionService.update(exhibition)
       : this.exhibitionService.create(exhibition);
 
-    exhibitionRequest.subscribe(() => {
+    exhibitionRequest.pipe(
+      catchError((errorResponse: HttpErrorResponse) => {
+        this.isFetching = false;
+        this.serverError = errorResponse.error.message;
+
+        throw(errorResponse);
+      })
+    ).subscribe(() => {
       this.dialogRef.close(true);
       this.isFetching = false;
     });
@@ -110,8 +120,8 @@ export class ExhibitionEditingComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
-      tags: new FormControl([], [Validators.required]),
-      exhibitIds: new FormControl([], [Validators.required]),
+      tags: new FormControl([]),
+      exhibitIds: new FormControl(null, [Validators.required]),
       images: new FormControl(null, [Validators.required]),
     });
   }

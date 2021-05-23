@@ -56,11 +56,14 @@ namespace DigitalMuseums.Core.Services
             var user = await _userRepository.GetAsync(u => u.Id == userId, includes);
             if (user?.Museum == null)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseum);
+                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseumCode);
             }
 
             var souvenir = _mapper.Map<Souvenir>(createSouvenirDto);
             souvenir.MuseumId = user.Museum.Id;
+
+            await CheckSameNameExistenceAsync(souvenir.Name, souvenir.Id, souvenir.MuseumId);
+
             var souvenirResult = _souvenirRepository.Create(souvenir);
             await _unitOfWork.SaveChangesAsync();
 
@@ -82,7 +85,9 @@ namespace DigitalMuseums.Core.Services
             {
                 throw new BusinessLogicException(BusinessErrorCodes.SouvenirNotFoundCode);
             }
-            
+
+            await CheckSameNameExistenceAsync(updateSouvenirDto.Name, souvenir.Id, souvenir.MuseumId);
+
             UpdateInternal(souvenir, updateSouvenirDto);
             
             await _unitOfWork.SaveChangesAsync();
@@ -149,6 +154,17 @@ namespace DigitalMuseums.Core.Services
             {
                 souvenir.Images = null;
                 _imageService.AddAndUpload(updateSouvenirDto.ImagesData);
+            }
+        }
+
+        private async Task CheckSameNameExistenceAsync(string name, int souvenirId, int museumId)
+        {
+            var isExisted = await _souvenirRepository.IsExistAsync(x =>
+                x.Name == name && x.Id != souvenirId && x.MuseumId == museumId);
+
+            if (isExisted)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.SouvenirWithSameNameExistCode);
             }
         }
     }

@@ -57,13 +57,15 @@ namespace DigitalMuseums.Core.Services
             var user = await _userRepository.GetAsync(u => u.Id == userId, includes);
             if (user?.Museum == null)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseum);
+                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseumCode);
             }
 
             var exhibition = _mapper.Map<Exhibition>(createExhibitionDto);
             var exhibits = await _exhibitRepository.GetAllAsync(e => createExhibitionDto.ExhibitIds.Contains(e.Id), TrackingState.Enabled);
             exhibition.Exhibits = exhibits;
             exhibition.MuseumId = user.Museum.Id;
+
+            await CheckSameNameExistenceAsync(exhibition.Name, exhibition.Id, exhibition.MuseumId);
 
             var createdExhibition = _exhibitionRepository.Create(exhibition);
             await _unitOfWork.SaveChangesAsync();
@@ -87,7 +89,9 @@ namespace DigitalMuseums.Core.Services
             {
                 throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
             }
-            
+
+            await CheckSameNameExistenceAsync(updateExhibitionDto.Name, exhibition.Id, exhibition.MuseumId);
+
             await UpdateExhibitionItemAsync(exhibition, updateExhibitionDto);
             
             await _unitOfWork.SaveChangesAsync();
@@ -159,6 +163,17 @@ namespace DigitalMuseums.Core.Services
             {
                 exhibition.Images = null;
                 _imageService.AddAndUpload(updateExhibitDto.ImagesData);
+            }
+        }
+
+        private async Task CheckSameNameExistenceAsync(string name, int exhibitionId, int museumId)
+        {
+            var isExisted = await _exhibitionRepository.IsExistAsync(x =>
+                x.Name == name && x.Id != exhibitionId && x.MuseumId == museumId);
+
+            if (isExisted)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.ExhibitionWithSameNameExistCode);
             }
         }
     }

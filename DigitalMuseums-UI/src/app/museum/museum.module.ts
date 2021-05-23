@@ -11,6 +11,7 @@ import { MuseumDetailsComponent } from './components/museum-details/museum-detai
 import { MuseumsComponent } from './components/museums/museums.component';
 import { LinkingMuseumToUserComponent } from './components/linking-museum-to-user/linking-museum-to-user.component';
 import { MuseumListComponent } from './components/museum-list/museum-list.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MuseumListComponent } from './components/museum-list/museum-list.compon
       CustomFormModule,
       MatDialogModule,
       SharedModule,
-      MuseumRoutingModule
+      MuseumRoutingModule,
+      MatButtonModule,
     ],
 })
 export class MuseumModule {}

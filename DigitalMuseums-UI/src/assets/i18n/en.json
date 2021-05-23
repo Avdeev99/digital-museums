@@ -62,11 +62,14 @@
         "sortingMethod": "Sorting Method",
         "entity": "Museum",
         "user": "User",
+        "changed-successful": "Museum info changed successfuly.",
         "errors": {
-            "not-found": "The museum not found."
+            "not-found": "The museum not found.",
+            "linked-to-user": "You can't delete museum which is related to user!"
         },
         "buttons": {
-            "details": "Details"
+            "details": "Details",
+            "linkToUser": "Link to user"
         },
         "related": "Related"
     },
@@ -85,17 +88,27 @@
     },
     "exhibit": {
         "author": "Author",
-        "date": "Date"
+        "date": "Date",
+        "errors": {
+            "same-name-exist": "Exhibit with the same name already exists in museum!",
+            "related-to-exhibition": "You can't delete exhibit which is used by exhibition!"
+        }
     },
     "exhibition": {
-        "view": "View"
+        "view": "View",
+        "errors": {
+            "same-name-exist": "Exhibition with the same name already exists in museum!"
+        }
     },
     "souvenir": {
         "price": "Price",
         "availableUnits": "Available units",
         "totalPrice": "Total price",
         "addToCart": "Add to cart",
-        "youWontBeChargedYet": "You won’t be charged yet"
+        "youWontBeChargedYet": "You won’t be charged yet",
+        "errors": {
+            "same-name-exist": "Souvenir with the same name already exists in museum!"
+        }
     },
     "menu": {
         "menu": "Menu",
@@ -129,6 +142,12 @@
         "message": "Are you sure you want to do this?",
         "yes": "Yes",
         "no": "No"
+    },
+    "genre": {
+        "errors": {
+            "used-by-museum": "You can't delete genre which is used by museum!",
+            "same-name-exist": "Genre with the same name already exists!"
+        }
     },
     "footer": {
         "warning": "All Liberty Mutual liability insurance in the UA is offered through Insurance Agency. Terms, conditions, and exclusions apply."

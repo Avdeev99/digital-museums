@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Exhibit;
 using DigitalMuseums.Api.Contracts.Responses.Exhibit;
-using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;

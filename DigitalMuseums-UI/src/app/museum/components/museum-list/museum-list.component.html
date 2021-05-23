@@ -1,1 +1,24 @@
-<p>museum-list works!</p>
+<app-spinner *ngIf="isFetching"></app-spinner>
+
+<br>
+
+<div *ngIf="!!serverError" class="text-danger">
+    <span>{{ serverError | translate }}</span>
+    <br>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-stroked-button color="primary" class="linkToUser-btn" (click)="onLinkToUser()">
+        {{ 'museum.buttons.linkToUser' | translate }}
+    </button>
+    <button mat-raised-button color="primary" (click)="onAdd()">
+        <mat-icon>add</mat-icon>
+        {{ 'shared.actions.add' | translate }}
+    </button>
+</div>
+
+<app-list
+    [data]="museums$ | async"
+    (deleteEvent)="onDelete($event)"
+    (editEvent)="onEdit($event)"
+></app-list>

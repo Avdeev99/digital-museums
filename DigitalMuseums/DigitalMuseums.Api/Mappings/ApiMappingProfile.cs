@@ -36,7 +36,8 @@ namespace DigitalMuseums.Api.Mappings
         {
             CreateMap<BasePredefinedEntity, BasePredefinedEntityResponse>().ReverseMap();
 
-            CreateMap<AddGenreRequest, Genre>();
+            CreateMap<CreateGenreRequest, Genre>();
+            CreateMap<UpdateGenreRequest, Genre>();
            
             CreateMap<LinkUserToMuseumRequest, LinkUserToMuseumDto>();
             CreateMap<FilterMuseumsRequest, FilterMuseumsDto>();
