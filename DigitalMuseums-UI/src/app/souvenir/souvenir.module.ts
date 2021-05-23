@@ -9,12 +9,14 @@ import { SouvenirRoutingModule } from "./souvenir-routing.module";
 import { SouvenirDetailsComponent } from './components/souvenir-details/souvenir-details.component';
 import { SouvenirEditingComponent } from './components/souvenir-editing/souvenir-editing.component';
 import { SouvenirSearchComponent } from './components/souvenir-search/souvenir-search.component';
+import { SouvenirListComponent } from './components/souvenir-list/souvenir-list.component';
 
 @NgModule({
     declarations: [
         SouvenirDetailsComponent,
         SouvenirEditingComponent,
-        SouvenirSearchComponent
+        SouvenirSearchComponent,
+        SouvenirListComponent
     ],
     imports: [
         CommonModule,

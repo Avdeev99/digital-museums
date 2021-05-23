@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { CartService } from 'src/app/cart/services/cart.service';
 import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { SouvenirDetails } from '../../models/souvenir-details.model';
 import { SouvenirService } from '../../services/souvenir.service';
+
+declare var carousel: any;
 
 @Component({
   selector: 'app-souvenir-details',
@@ -13,17 +16,19 @@ import { SouvenirService } from '../../services/souvenir.service';
 })
 export class SouvenirDetailsComponent implements OnInit {
   public souvenir: SouvenirDetails;
-
+  
   public menuList: Array<MenuItem>;
 
   private backUrl: string;
   private souvenirId: number;
   private museumId: number;
+  public slider: any;
 
   constructor(
     private route: ActivatedRoute,
     private souvenirService: SouvenirService,
     private router: Router,
+    private cartService: CartService,
   ) { 
     this.setSouvenirId();
   }
@@ -32,12 +37,24 @@ export class SouvenirDetailsComponent implements OnInit {
     this.fetchSouvenir();
   }
 
-  public get souvenirImage(): string {
-    return this.souvenir && this.souvenir.imagePaths.length ? this.souvenir.imagePaths[0] : null;
+
+
+  public get souvenirImages(): string[] {
+    return this.souvenir && this.souvenir.imagePaths.length ? this.souvenir.imagePaths: null;
   }
 
   private setSouvenirId(): void {
     this.souvenirId = this.route.snapshot.params.id;
+  }
+
+  public addToCart(): void {
+    this.cartService.addCartItem(this.souvenirId).subscribe(() => {
+      this.router.navigate(['cart']);
+    });
+  }
+
+  public initSlider(): void {
+    this.slider.init();
   }
 
   private fetchSouvenir(): void {
@@ -53,6 +70,7 @@ export class SouvenirDetailsComponent implements OnInit {
         this.museumId = data.museumId;
 
         this.checkNavigationState();
+        carousel();
       });
   }
 

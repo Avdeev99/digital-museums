@@ -36,7 +36,8 @@ namespace DigitalMuseums.Core.Mappings
 
             CreateMap<CreateExhibitionDto, Exhibition>().ReverseMap();
 
-            CreateMap<Exhibition, FilteredExhibitionItem>().ReverseMap();
+            CreateMap<Exhibition, FilteredExhibitionItem>()
+                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(s => s.Images.First().Path));
 
             CreateMap<Exhibition, ExhibitionItem>()
                 .ForMember(

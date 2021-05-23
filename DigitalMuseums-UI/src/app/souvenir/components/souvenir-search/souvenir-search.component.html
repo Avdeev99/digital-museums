@@ -1,38 +1,50 @@
-<app-submenu
-    [menuList]="menuList"
->
-</app-submenu>
+<div class="container p-0 pt-4">
+    <div class="museum_menu_holder">
+        <app-submenu [menuList]="menuList"></app-submenu>
+    </div> 
 
-<div class="search-block">
-    <div class="filter-block">
-        <form [formGroup]="formGroup">
-            <div>
-                <label>
-                    {{ 'shared.controls.name' | translate }}
-                    <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
-                  </label>
-            </div>
-    
-            <div>
-                <label>
-                {{ 'shared.controls.tags' | translate }}
-                <app-chips 
-                    [label]="'shared.controls.tags' | translate"
-                    [control]="formGroup.controls.tags"
-                ></app-chips>
-                </label>
-            </div>
-    
-            <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
-        </form>
-    </div>
-    
-    <div class="souvenirs-block">
-        <div *ngFor="let souvenir of souvenirs$ | async">
-            <label>{{ 'shared.controls.name' | translate }}: {{ souvenir.name }}</label>
-            <br>
-            <app-button (click)="onDetails(souvenir.id)" [label]="'museum.buttons.details' | translate"></app-button>
+    <div class="search-block">
+        <div class="filter-block">
+            <form [formGroup]="formGroup">
+                <div>
+                    <label>
+                        {{ 'shared.controls.name' | translate }}
+                        <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
+                    </label>
+                </div>
+        
+                <div>
+                    <label>
+                    {{ 'shared.controls.tags' | translate }}
+                    <app-chips 
+                        [label]="'shared.controls.tags' | translate"
+                        [control]="formGroup.controls.tags"
+                    ></app-chips>
+                    </label>
+                </div>
+        
+                <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+            </form>
+        </div>
+        
+        <div class="souvenirs-block">
+            <section class="list_items_section">
+                <div class="container-fluid container-fluid-padding">
+                    <div class="row">
+                        <div *ngFor="let souvenir of souvenirs$ | async" class="col-lg-6 list_item_block cursor-pointer" (click)="onDetails(souvenir.id)" [label]="'museum.buttons.details' | translate">
+                            <div  class="list_item_image_holder" [ngStyle]="{'background-image': getSouvenirImage(souvenir)}">
+                                            
+                            </div>
+                            <div class="list_item_description">
+                                <span class="list_item_description_makemodel">{{ 'shared.controls.name' | translate }}: {{ souvenir.name }}</span>
+                            </div>
+                            <div class="list_item_badges_holder">
+                                <div *ngFor="let tag of souvenir.tags" class="list_item_badge">{{ tag }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </div>
-

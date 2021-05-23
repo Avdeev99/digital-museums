@@ -1,12 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Subject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
 import { IOption } from 'src/app/core/form/form.interface';
-import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
-import { MuseumService } from 'src/app/museum/services/museum.service';
 import { ExhibitDetails } from '../../models/exhibit-details.model';
 import { Exhibit } from '../../models/exhibit.model';
 import { ExhibitService } from '../../services/exhibit.service';
@@ -20,28 +19,25 @@ import { ExhibitService } from '../../services/exhibit.service';
 export class ExhibitEditingComponent implements OnInit, OnDestroy {
   public formGroup: FormGroup;
   public exhibit: ExhibitDetails;
-  public museums$: Observable<Array<IOption>>;
+  public isFetching: boolean = false;
+  public serverError: string;
 
   private exhibitId: number;
   private selectedImages: FileList;
-  private currentUserId?: number;
   private unsubscribe$: Subject<void> = new Subject();
 
   public constructor(
       private fb: FormBuilder,
       private exhibitService: ExhibitService,
-      private route: ActivatedRoute,
       private router: Router,
-      private museumService: MuseumService,
-      private currentUserService: CurrentUserService,
+      private dialogRef: MatDialogRef<ExhibitEditingComponent>,
+      @Inject(MAT_DIALOG_DATA) public dialogData: { exhibitId: number },
     ) {
     this.setExhibitId();
-    this.setUserId();
   }
 
   public ngOnInit(): void {
     this.initForm();
-    this.initDropdowns();
     this.fetchExhibit();
   }
 
@@ -52,7 +48,10 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     if (this.formGroup.invalid) {
+      return;
     }
+
+    this.isFetching = true;
 
     const exhibit: Exhibit = {
       ...this.formGroup.getRawValue(),
@@ -64,7 +63,17 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
       ? this.exhibitService.update(exhibit)
       : this.exhibitService.create(exhibit);
 
-      exhibitRequest.subscribe(() => this.router.navigate(['exhibit']));
+      exhibitRequest.pipe(
+        catchError((errorResponse: HttpErrorResponse) => {
+          this.isFetching = false;
+          this.serverError = errorResponse.error.message;
+
+          throw(errorResponse);
+        })
+      ).subscribe(() => {
+        this.dialogRef.close(true);
+        this.isFetching = false;
+      });
   }
 
   public onSelectFile(files: FileList) {
@@ -75,16 +84,13 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
   }
 
   private setExhibitId(): void {
-    this.exhibitId = this.route.snapshot.params.id;
-  }
-
-  private setUserId(): void {
-    const currentUser: AuthUser = this.currentUserService.getUser();
-    this.currentUserId = currentUser?.id;
+    this.exhibitId = this.dialogData?.exhibitId;
   }
 
   private fetchExhibit(): void {
     if (this.exhibitId) {
+      this.isFetching = true;
+
       this.exhibitService.get(this.exhibitId)
         .pipe(
           catchError(err => {
@@ -95,23 +101,20 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
         .subscribe(data => {
           this.exhibit = data;
           this.formGroup.patchValue(data);
+
+          this.isFetching = false;
         });
     }
   }
 
   private initForm(): void {
     this.formGroup = this.fb.group({
-      museumId: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       author: new FormControl(null, [Validators.required]),
       date: new FormControl(null, [Validators.required]),
-      tags: new FormControl([], [Validators.required]),
+      tags: new FormControl([]),
       images: new FormControl(null, [Validators.required]),
     });
-  }
-
-  private initDropdowns(): void {
-    this.museums$ = this.museumService.getBaseListByUserId(this.currentUserId);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IOption } from 'src/app/core/form/form.interface';
@@ -17,13 +18,14 @@ export class LinkingMuseumToUserComponent implements OnInit {
 
   public users$: Observable<Array<IOption>>;
   public museums$: Observable<Array<IOption>>;
-
+  public isFetching: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private museumService: MuseumService,
     private userService: UserService,
     private router: Router,
+    private dialogRef: MatDialogRef<LinkingMuseumToUserComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -33,11 +35,17 @@ export class LinkingMuseumToUserComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.formGroup.invalid) {
+      return;
     }
+
+    this.isFetching = true;
 
     const linkingMuseumToUser: LinkingMuseumToUser = this.formGroup.getRawValue();
     this.museumService.linkMuseumToUser(linkingMuseumToUser)
-      .subscribe(() => this.router.navigate(['/']));
+      .subscribe(() => {
+        this.isFetching = false;
+        this.dialogRef.close(true);
+      });
   }
 
   private initForm(): void {

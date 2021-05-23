@@ -1,7 +1,7 @@
 import { ExhibitService } from 'src/app/exhibit/services/exhibit.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthUser } from 'src/app/core/auth/models/auth-user.model';
@@ -9,7 +9,8 @@ import { IOption, IOptionChecked } from 'src/app/core/form/form.interface';
 import { CurrentUserService } from 'src/app/core/shared/services/current-user.service';
 import { Exhibition, ExhibitionEditing } from 'src/app/exhibition/models/exhibition.model';
 import { ExhibitionService } from 'src/app/exhibition/services/exhibition.service';
-import { MuseumService } from 'src/app/museum/services/museum.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-exhibition-editing',
@@ -24,8 +25,9 @@ export class ExhibitionEditingComponent implements OnInit {
   public selectedExhibits: Array<IOptionChecked>;
 
   private exhibitionId: number;
-  private currentUserId?: number;
   private selectedImages: FileList;
+  public isFetching: boolean = false;
+  public serverError: string;
 
   private unsubscribe$: Subject<void> = new Subject();
 
@@ -33,19 +35,18 @@ export class ExhibitionEditingComponent implements OnInit {
     private fb: FormBuilder,
     private exhibitionService: ExhibitionService,
     private exhibitService: ExhibitService,
-    private route: ActivatedRoute,
     private router: Router,
-    private museumService: MuseumService,
     private currentUserService: CurrentUserService,
+    private dialogRef: MatDialogRef<ExhibitionEditingComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogData: { exhibitionId: number },
   ) {
     this.setExhibitionId();
-    this.setUserId();
   }
 
   public ngOnInit(): void {
     this.initForm();
-    this.initDropdowns();
     this.fetchExhibition();
+    this.initExhibits();
   }
 
   public ngOnDestroy(): void {
@@ -54,8 +55,12 @@ export class ExhibitionEditingComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    debugger;
     if (this.formGroup.invalid) {
+      return;
     }
+
+    this.isFetching = true;
 
     const exhibition: ExhibitionEditing = {
       ...this.formGroup.getRawValue(),
@@ -67,7 +72,17 @@ export class ExhibitionEditingComponent implements OnInit {
       ? this.exhibitionService.update(exhibition)
       : this.exhibitionService.create(exhibition);
 
-    exhibitionRequest.subscribe(() => this.router.navigate(['exhibition']));
+    exhibitionRequest.pipe(
+      catchError((errorResponse: HttpErrorResponse) => {
+        this.isFetching = false;
+        this.serverError = errorResponse.error.message;
+
+        throw(errorResponse);
+      })
+    ).subscribe(() => {
+      this.dialogRef.close(true);
+      this.isFetching = false;
+    });
   }
 
   public onSelectFile(files: FileList) {
@@ -78,16 +93,13 @@ export class ExhibitionEditingComponent implements OnInit {
   }
 
   private setExhibitionId(): void {
-    this.exhibitionId = this.route.snapshot.params.id;
-  }
-
-  private setUserId(): void {
-    const currentUser: AuthUser = this.currentUserService.getUser();
-    this.currentUserId = currentUser?.id;
+    this.exhibitionId = this.dialogData?.exhibitionId;
   }
 
   private fetchExhibition(): void {
     if (this.exhibitionId) {
+      this.isFetching = true;
+
       this.exhibitionService.get(this.exhibitionId)
         .pipe(
           catchError(err => {
@@ -98,44 +110,47 @@ export class ExhibitionEditingComponent implements OnInit {
         .subscribe(data => {
           this.exhibition = data;
           this.formGroup.patchValue(data);
+
+          this.isFetching = false;
         });
     }
   }
 
   private initForm(): void {
     this.formGroup = this.fb.group({
-      museumId: new FormControl(null, [Validators.required]),
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
-      tags: new FormControl([], [Validators.required]),
-      exhibitIds: new FormControl([], [Validators.required]),
+      tags: new FormControl([]),
+      exhibitIds: new FormControl(null, [Validators.required]),
       images: new FormControl(null, [Validators.required]),
     });
   }
 
-  private initDropdowns(): void {
-    this.museums$ = this.museumService.getBaseListByUserId(this.currentUserId);
+  private initExhibits(): void {
+    const currentUser: AuthUser = this.currentUserService.getUserData();
+    const museumId: number = currentUser?.museumId;
 
-    this.formGroup.controls.museumId.valueChanges.subscribe((museumId: number) => {
-      this.exhibitService.getFiltered({
-        museumId: museumId
-      }).subscribe(exhibits => {
-        this.exhibitOptions = exhibits.map((exhibit) => {
-          const exhibitSelected: boolean = !!this.exhibition.exhibits.find(e => e.id === exhibit.id);
+    this.isFetching = true;
 
-          return { 
-            id: exhibit.id,
-            name: exhibit.name,
-            selected: exhibitSelected,
-          }
-        });
+    this.exhibitService.getFiltered({
+      museumId: museumId
+    }).subscribe(exhibits => {
+      this.exhibitOptions = exhibits.map((exhibit) => {
+        const exhibitSelected: boolean = !!this.exhibition?.exhibits?.find(e => e.id === exhibit.id);
 
-        const selectedExhibitIds = this.exhibitOptions.filter(e => e.selected).map(e => e.id);
+        return { 
+          id: exhibit.id,
+          name: exhibit.name,
+          selected: exhibitSelected,
+        }
+      });
 
-        setTimeout(() => {
-          this.formGroup.controls.exhibitIds.setValue(selectedExhibitIds);
-        }, 0);
-      })
-    });
+      const selectedExhibitIds = this.exhibitOptions.filter(e => e.selected).map(e => e.id);
+
+      setTimeout(() => {
+        this.formGroup.controls.exhibitIds.setValue(selectedExhibitIds);
+        this.isFetching = false;
+      }, 0);
+    })
   }
 }

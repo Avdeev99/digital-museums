@@ -1,0 +1,16 @@
+<app-spinner *ngIf="isFetching"></app-spinner>
+
+<br>
+
+<div mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="onAdd()">
+        <mat-icon>add</mat-icon>
+        {{ 'shared.actions.add' | translate }}
+    </button>
+</div>
+
+<app-list
+    [data]="exhibitions$ | async"
+    (deleteEvent)="onDelete($event)"
+    (editEvent)="onEdit($event)"
+></app-list>

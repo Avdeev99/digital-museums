@@ -1,25 +1,34 @@
 <div class="exhibition-item-screen">
-    <div class="white-block">
-        <div class="exhibition-item-screen__content">
-            <h1 class="exhibition-item-screen__title">{{data.name}}</h1>
-            <div class="exhibition-item-screen__text">
-                <p>{{ data.description }}</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="exhibition-view-item-holder">
+                    <div class="exhibition-item-screen__content">
+                        <app-exhibit-details [isPartOfExhibition]="isPartOfExhibition"></app-exhibit-details>
+                    </div>
+                </div>
             </div>
-            <app-button
-                class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
-                (click)="handleBack()"
-                [label]="'shared.buttons.previous' | translate"
-            ></app-button>
-
-            <app-button
-                class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
-                (click)="handleNext()"
-                [label]="'shared.buttons.next' | translate"
-            ></app-button>
+        </div>    
+        <div class="row exhibition-view-item-controls-holder">
+            <div class="col-lg-4">
+                <app-button
+                    class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
+                    (click)="handleBack()"
+                    [label]="'shared.buttons.previous' | translate">
+                </app-button>
+            </div>
+            <div class="col-lg-4">
+                <div class="exhibition-form__controls-tracker">
+                    <app-progress-tracker></app-progress-tracker>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <app-button
+                    class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
+                    (click)="handleNext()"
+                    [label]="'shared.buttons.next' | translate">
+                </app-button>
+            </div>
         </div>
-    </div>
-
-    <div class="exhibition-form__controls-tracker">
-        <app-progress-tracker></app-progress-tracker>
     </div>
 </div>

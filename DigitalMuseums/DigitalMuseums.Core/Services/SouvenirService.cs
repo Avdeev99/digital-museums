@@ -7,11 +7,13 @@ using AutoMapper;
 using DigitalMuseums.Core.Data.Contracts;
 using DigitalMuseums.Core.Domain.DTO.Souvenir;
 using DigitalMuseums.Core.Domain.Models;
+using DigitalMuseums.Core.Domain.Models.Auth;
 using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Errors;
 using DigitalMuseums.Core.Exceptions;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services.Contracts;
+using DigitalMuseums.Core.Services.Contracts.Providers;
 using Microsoft.AspNetCore.Http;
 
 namespace DigitalMuseums.Core.Services
@@ -22,26 +24,46 @@ namespace DigitalMuseums.Core.Services
         private readonly IImageService _imageService;
         private readonly IOrderedFilterPipeline<Souvenir, FilterSouvenirsDto> _souvenirFilterPipeline;
         private readonly IMapper _mapper;
-        
+        private readonly ILoggedInPersonProvider _loggedInPersonProvider;
+
         private readonly IBaseRepository<Souvenir> _souvenirRepository;
+        private readonly IBaseRepository<User> _userRepository;
 
         public SouvenirService(
             IUnitOfWork unitOfWork,
             IImageService imageService,
             IOrderedFilterPipeline<Souvenir, FilterSouvenirsDto> souvenirFilterPipeline,
-            IMapper mapper)
+            IMapper mapper,
+            ILoggedInPersonProvider loggedInPersonProvider)
         {
             _unitOfWork = unitOfWork;
             _imageService = imageService;
             _souvenirFilterPipeline = souvenirFilterPipeline;
             _mapper = mapper;
-            
+            _loggedInPersonProvider = loggedInPersonProvider;
+
             _souvenirRepository = unitOfWork.GetRepository<Souvenir>();
+            _userRepository = unitOfWork.GetRepository<User>();
         }
         
         public async Task CreateAsync(CreateSouvenirDto createSouvenirDto)
         {
+            var userId = _loggedInPersonProvider.GetUserId();
+            var includes = new List<Expression<Func<User, object>>>
+            {
+                u => u.Museum
+            };
+            var user = await _userRepository.GetAsync(u => u.Id == userId, includes);
+            if (user?.Museum == null)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseumCode);
+            }
+
             var souvenir = _mapper.Map<Souvenir>(createSouvenirDto);
+            souvenir.MuseumId = user.Museum.Id;
+
+            await CheckSameNameExistenceAsync(souvenir.Name, souvenir.Id, souvenir.MuseumId);
+
             var souvenirResult = _souvenirRepository.Create(souvenir);
             await _unitOfWork.SaveChangesAsync();
 
@@ -63,7 +85,9 @@ namespace DigitalMuseums.Core.Services
             {
                 throw new BusinessLogicException(BusinessErrorCodes.SouvenirNotFoundCode);
             }
-            
+
+            await CheckSameNameExistenceAsync(updateSouvenirDto.Name, souvenir.Id, souvenir.MuseumId);
+
             UpdateInternal(souvenir, updateSouvenirDto);
             
             await _unitOfWork.SaveChangesAsync();
@@ -130,6 +154,17 @@ namespace DigitalMuseums.Core.Services
             {
                 souvenir.Images = null;
                 _imageService.AddAndUpload(updateSouvenirDto.ImagesData);
+            }
+        }
+
+        private async Task CheckSameNameExistenceAsync(string name, int souvenirId, int museumId)
+        {
+            var isExisted = await _souvenirRepository.IsExistAsync(x =>
+                x.Name == name && x.Id != souvenirId && x.MuseumId == museumId);
+
+            if (isExisted)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.SouvenirWithSameNameExistCode);
             }
         }
     }

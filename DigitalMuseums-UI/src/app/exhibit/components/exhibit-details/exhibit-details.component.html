@@ -1,20 +1,96 @@
-<app-submenu
-    [menuList]="menuList"
->
-</app-submenu>
+<section class="preview_slider">
+    <div class="slider" id="main-slider">
+        <div class="slider-wrapper">
+            <img *ngFor="let image of exhibitImages" alt="" class="slide" src="{{ image }}" />
+        </div>
 
-<br>
-<div *ngIf="exhibit">
-    <div>
-        <label>{{ 'shared.controls.name' | translate }}: {{ exhibit.name }}</label>
+        <div class="buttons">
+            <button id="prev"><i class="fas fa-arrow-left"></i></button>
+            <button id="next"><i class="fas fa-arrow-right"></i></button>
+        </div>
     </div>
-    
-    <div>
-        <label>{{ 'shared.controls.description' | translate }}: {{ exhibit.description }}</label>
-    </div>
-    
-    <div>
-        <img [src] ="exhibitImage" style="width: 600px;height: 400px;"> 
-    </div>
-</div>
 
+    <div class="preview_count_image_holder">
+        <span class="preview_count_image_first">1</span>
+        <span> of </span>
+        <span class="preview_count_image_second">1</span>
+    </div>
+</section>
+
+<section class="preview_after_slider_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 preview_info_section">
+
+                <div class="row preview_info_charcteristic_line">
+                    <div *ngIf="!isPartOfExhibition" class="col-lg-3  preview_info_charcteristic_type souvenir_menu_holder">
+                        <app-submenu [menuList]="menuList"></app-submenu>
+                    </div> 
+                    <div *ngIf="!isPartOfExhibition" class="col-lg-9"></div>
+                    
+                    <div class="col-lg-3 preview_info_charcteristic_type">{{ 'shared.controls.name' | translate }}</div>
+                    <div class="col-lg-9">
+                        <div class="preview_makemodel_line">
+                            <h1>
+                                <span class="preview_makemodel">
+                                {{exhibit.name}}
+                                </span>
+                                <span class="preview_year"></span>
+                            </h1>
+                        </div>
+
+                        <div class="preview_characteristics_line">
+                            <div class="preview_characteristics_line_first">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-male" title="Author"></i><span>{{'exhibit.author' | translate}}: {{exhibit.author}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="preview_characteristics_line_second">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-tags" title="Tags"></i><span>{{'shared.controls.tags' | translate}}: </span> 
+                                        <div *ngFor="let tag of exhibit.tags" class="list_item_badge">{{ tag }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="preview_characteristics_line_third">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-calendar-alt" title="Date"></i><span>{{'exhibit.date' | translate}}: {{exhibit.date}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row preview_info_charcteristic_line">
+                    <div class="col-lg-3 preview_info_charcteristic_type">{{ 'shared.controls.description' | translate }}</div>
+                    <div class="col-lg-9">
+                        <div class="preview_description_line">
+                            <div class="preview_description_holder" id="preview_description_holder">
+                                <div>
+                                   {{exhibit.description}}<br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!isPartOfExhibition" class="col-lg-4 preview_form_section">
+                <div class="preview_form_section_price_holder">
+                    <div class="preview_form_section_price_currencyamount">
+                        <div class="preview_form_section_header">{{ 'menu.exhibitions' | translate }}</div>
+                    </div>
+                </div>
+                <div class="preview_form_section_form_holder">
+                    <div *ngFor="let relatedItem of relatedItems" class="preview_form_section_form_holder_link_holder"><a routerLink="{{relatedItem.href}}" class="preview_form_section_form_holder_link">{{relatedItem.name}}</a></div>
+                    <div class="preview_form_section_form_under_btn_alert"></div>
+                </div>
+                <div class="preview_form_section_cut"></div>
+            </div>
+        </div>
+    </div>
+</section>

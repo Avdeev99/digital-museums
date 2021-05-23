@@ -7,11 +7,13 @@ using AutoMapper;
 using DigitalMuseums.Core.Data.Contracts;
 using DigitalMuseums.Core.Domain.DTO.Exhibition;
 using DigitalMuseums.Core.Domain.Models;
+using DigitalMuseums.Core.Domain.Models.Auth;
 using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Errors;
 using DigitalMuseums.Core.Exceptions;
 using DigitalMuseums.Core.Infrastructure.Filter_Pipeline;
 using DigitalMuseums.Core.Services.Contracts;
+using DigitalMuseums.Core.Services.Contracts.Providers;
 
 namespace DigitalMuseums.Core.Services
 {
@@ -21,30 +23,49 @@ namespace DigitalMuseums.Core.Services
         private readonly IFilterPipeline<Exhibition, FilterExhibitionsDto> _exhibitionFilterPipeline;
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
+        private readonly ILoggedInPersonProvider _loggedInPersonProvider;
         
         private readonly IBaseRepository<Exhibition> _exhibitionRepository;
         private readonly IBaseRepository<Exhibit> _exhibitRepository;
+        private readonly IBaseRepository<User> _userRepository;
 
         public ExhibitionService(
             IUnitOfWork unitOfWork,
             IFilterPipeline<Exhibition, FilterExhibitionsDto> exhibitionFilterPipeline,
             IImageService imageService,
-            IMapper mapper)
+            IMapper mapper,
+            ILoggedInPersonProvider loggedInPersonProvider)
         {
             _unitOfWork = unitOfWork;
             _exhibitionFilterPipeline = exhibitionFilterPipeline;
             _imageService = imageService;
             _mapper = mapper;
-            
+            _loggedInPersonProvider = loggedInPersonProvider;
+
             _exhibitionRepository = unitOfWork.GetRepository<Exhibition>();
             _exhibitRepository = unitOfWork.GetRepository<Exhibit>();
+            _userRepository = unitOfWork.GetRepository<User>();
         }
 
         public async Task CreateAsync(CreateExhibitionDto createExhibitionDto)
         {
+            var userId = _loggedInPersonProvider.GetUserId();
+            var includes = new List<Expression<Func<User, object>>>
+            {
+                u => u.Museum
+            };
+            var user = await _userRepository.GetAsync(u => u.Id == userId, includes);
+            if (user?.Museum == null)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseumCode);
+            }
+
             var exhibition = _mapper.Map<Exhibition>(createExhibitionDto);
-            var exhibits = await _exhibitRepository.GetAllAsync(e => createExhibitionDto.ExhibitIds.Contains(e.Id));
+            var exhibits = await _exhibitRepository.GetAllAsync(e => createExhibitionDto.ExhibitIds.Contains(e.Id), TrackingState.Enabled);
             exhibition.Exhibits = exhibits;
+            exhibition.MuseumId = user.Museum.Id;
+
+            await CheckSameNameExistenceAsync(exhibition.Name, exhibition.Id, exhibition.MuseumId);
 
             var createdExhibition = _exhibitionRepository.Create(exhibition);
             await _unitOfWork.SaveChangesAsync();
@@ -68,7 +89,9 @@ namespace DigitalMuseums.Core.Services
             {
                 throw new BusinessLogicException(BusinessErrorCodes.MuseumNotFoundCode);
             }
-            
+
+            await CheckSameNameExistenceAsync(updateExhibitionDto.Name, exhibition.Id, exhibition.MuseumId);
+
             await UpdateExhibitionItemAsync(exhibition, updateExhibitionDto);
             
             await _unitOfWork.SaveChangesAsync();
@@ -140,6 +163,17 @@ namespace DigitalMuseums.Core.Services
             {
                 exhibition.Images = null;
                 _imageService.AddAndUpload(updateExhibitDto.ImagesData);
+            }
+        }
+
+        private async Task CheckSameNameExistenceAsync(string name, int exhibitionId, int museumId)
+        {
+            var isExisted = await _exhibitionRepository.IsExistAsync(x =>
+                x.Name == name && x.Id != exhibitionId && x.MuseumId == museumId);
+
+            if (isExisted)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.ExhibitionWithSameNameExistCode);
             }
         }
     }

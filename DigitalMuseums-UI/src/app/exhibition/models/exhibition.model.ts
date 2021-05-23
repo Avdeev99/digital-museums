@@ -20,8 +20,7 @@ export enum InfoScreenStepNames {
 }
 
 export interface ExhibitionInstructionalModel {
-    title: string;
-    description: string;
+    exhibition: Exhibition;
     primaryButtonText: string;
     type: string;
 }
@@ -33,6 +32,8 @@ export interface Exhibition {
     exhibits: ExhibitDetails[];
     museumId: number;
     tags: string[];
+    imagePaths: string[];
+    imagePath: string;
 }
 
 export interface StepsComponentModel<T extends ExhibitionStepBase> {

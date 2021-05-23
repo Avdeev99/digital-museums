@@ -29,6 +29,12 @@ export class MuseumService {
         return this.httpClient.put(`${api.museum}/${museum.id}`, formData);
     }
 
+    public delete(id: number): Observable<void> {
+        const requestUrl: string = `${api.museum}/${id}`
+
+        return this.httpClient.delete<void>(requestUrl);
+    }
+
     public get(id: number): Observable<MuseumDetails> {
         const requestUrl: string = `${api.museum}/${id}`
 

@@ -53,8 +53,7 @@ export class PrepareExhibitionService {
 
     private createInstructionalData(exhibition: Exhibition, screenTypePrefix: string): ExhibitionInstructionalModel {
         return {
-            title: exhibition.name,
-            description: exhibition.description,
+            exhibition: exhibition, 
             primaryButtonText: screenTypePrefix === InfoScreenType.Greeting
                 ? 'shared.buttons.start'
                 : 'shared.buttons.goToMuseum',

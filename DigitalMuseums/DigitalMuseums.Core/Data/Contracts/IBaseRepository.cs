@@ -91,6 +91,13 @@ namespace DigitalMuseums.Core.Data.Contracts
         void DeleteAsync(string id);
 
         /// <summary>
+        /// Counts entities based on filter expression.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns>The <see cref="TEntity"/>.</returns>
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> filter);
+        
+        /// <summary>
         /// The check entity existence.
         /// </summary>
         /// <param name="filter">The filter.</param>

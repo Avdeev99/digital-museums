@@ -1,21 +1,96 @@
-<app-submenu
-    [menuList]="menuList"
->
-</app-submenu>
+<section class="preview_slider">
+    <div class="slider" id="main-slider">
+        <div class="slider-wrapper">
+            <img *ngFor="let image of museumImages" alt="" class="slide" src="{{ image }}" />
+        </div>
 
-<br>
+        <div class="buttons">
+            <button id="prev"><i class="fas fa-arrow-left"></i></button>
+            <button id="next"><i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
 
-<div *ngIf="museum">
-    <div>
-        <label>{{ 'museum.name' | translate }}: {{ museum.name }}</label>
+    <div class="preview_count_image_holder">
+        <span class="preview_count_image_first">1</span>
+        <span> of </span>
+        <span class="preview_count_image_second">1</span>
     </div>
-    
-    <div>
-        <label>{{ 'museum.description' | translate }}: {{ museum.description }}</label>
-    </div>
-    
-    <div>
-        <img [src] ="museumImage" style="width: 600px;height: 400px;"> 
-    </div>
-</div>
+</section>
 
+<section class="preview_after_slider_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 preview_info_section">
+
+                <div class="row preview_info_charcteristic_line">
+                    <div class="col-lg-3 preview_info_charcteristic_type">{{ 'shared.controls.name' | translate }}</div>
+                    <div class="col-lg-9">
+                        <div class="preview_makemodel_line">
+                            <h1>
+                                <span class="preview_makemodel">
+                                {{museum.name}}
+                                </span>
+                                <span class="preview_year"></span>
+                            </h1>
+                        </div>
+
+                        <div class="preview_characteristics_line">
+                            <div class="preview_characteristics_line_first">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-cubes" title="Fuel consumption"></i><span>{{'museum.genre' | translate}}: {{museum.genre.name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="preview_characteristics_line_second">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-map-marker-alt" title="Country"></i><span>{{'location.country' | translate}}: {{museum.country.name}}</span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-map-marker-alt" title="Region"></i><span>{{'location.region' | translate}}: {{museum.region.name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="preview_characteristics_line_third">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-map-marker-alt" title="City"></i><span>{{'location.city' | translate}}: {{museum.city.name}}</span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-map-marker-alt" title="Address"></i><span>{{'location.address' | translate}}: {{museum.address}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row preview_info_charcteristic_line">
+                    <div class="col-lg-3 preview_info_charcteristic_type">{{ 'shared.controls.description' | translate }}</div>
+                    <div class="col-lg-9">
+                        <div class="preview_description_line">
+                            <div class="preview_description_holder" id="preview_description_holder">
+                                <div>
+                                   {{museum.description}}<br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 preview_form_section">
+                <div class="preview_form_section_price_holder">
+                    <div class="preview_form_section_price_currencyamount">
+                        <div class="preview_form_section_header">{{ 'museum.related' | translate }}</div>
+                    </div>
+                </div>
+                <div class="preview_form_section_form_holder">
+                    <div *ngFor="let relatedItem of relatedItems" class="preview_form_section_form_holder_link_holder"><a routerLink="{{relatedItem.href}}" class="preview_form_section_form_holder_link">{{ relatedItem.name | translate }}</a></div>
+                    <div class="preview_form_section_form_under_btn_alert"></div>
+                </div>
+                <div class="preview_form_section_cut"></div>
+            </div>
+        </div>
+    </div>
+</section>

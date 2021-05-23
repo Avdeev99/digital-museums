@@ -1,19 +1,23 @@
+<app-spinner *ngIf="isFetching"></app-spinner>
+
+<br>
+
 <form [formGroup]="formGroup">
-    <div>
+    <div class="form-group">
         <label>
             {{ 'museum.name' | translate }}
             <app-input [label]="'museum.name' | translate" [control]="formGroup.controls.name"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'museum.description' | translate }}
             <app-input [label]="'museum.description' | translate" [control]="formGroup.controls.description"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'location.country' | translate }}
             <app-select
@@ -24,7 +28,7 @@
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'location.region' | translate }}
             <app-select
@@ -35,7 +39,7 @@
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'location.city' | translate }}
             <app-select
@@ -46,14 +50,14 @@
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'location.address' | translate }}
             <app-input [label]="'location.address' | translate" [control]="formGroup.controls.address"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'museum.genre' | translate }}
             <app-select
@@ -64,15 +68,23 @@
           </label>
     </div>
 
+    <div class="form-group">
+        <div class="mb5">{{ 'museum.images' | translate }}</div>
+        <div>
+            <input
+                multiple
+                type='file'
+                value=""
+                [formControl]="formGroup.controls.images"
+                (change)="onSelectFile($event.target.files)">
+        </div>
+    </div>
+
+    <div *ngIf="isInfoChanged && !isModal" class="form-group">
+        <span class="text-success">{{ resultMessageKey | translate }}</span>
+    </div>
+    
     <br>
 
-    <input
-        multiple
-        type='file'
-        value=""
-        [formControl]="formGroup.controls.images"
-        (change)="onSelectFile($event.target.files)">
-
-    <br>
     <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
 </form>

@@ -19,7 +19,6 @@ namespace DigitalMuseums.Api.Contracts.Requests.Exhibit
         [Required(AllowEmptyStrings = false)]
         public DateTime Date { get; set; }
         
-        [Required(AllowEmptyStrings = false)]
         public List<string> Tags { get; set; }
 
         [Required(AllowEmptyStrings = false)]

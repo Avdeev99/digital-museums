@@ -1,0 +1,17 @@
+<app-spinner *ngIf="isFetching"></app-spinner>
+
+<form [formGroup]="formGroup">
+    <div class="form-group">
+        <label>
+            {{ 'shared.controls.name' | translate }}
+            <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
+          </label>
+    </div>
+
+    <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+
+    <div *ngIf="!!serverError" class="text-danger">
+        <br>
+        <div>{{ serverError | translate }}</div>
+    </div>
+</form>

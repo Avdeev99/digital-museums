@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
+import { RelatedItem } from 'src/app/core/shared/models/related-item.model';
 import { ExhibitDetails } from '../../models/exhibit-details.model';
 import { ExhibitService } from '../../services/exhibit.service';
+
+declare var carousel: any;
 
 @Component({
   selector: 'app-exhibit-details',
@@ -15,10 +18,17 @@ export class ExhibitDetailsComponent implements OnInit {
   public exhibit: ExhibitDetails;
 
   public menuList: Array<MenuItem>;
+  public relatedItems: Array<RelatedItem>;
+
+  @Input()
+  @Optional() 
+  public isPartOfExhibition: boolean = false;
 
   private backUrl: string;
   private exhibitId: number;
   private museumId: number;
+
+  private maxRelatedExhibitionsOnPage: number = 5;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,8 +42,8 @@ export class ExhibitDetailsComponent implements OnInit {
     this.fetchExhibit();
   }
 
-  public get exhibitImage(): string {
-    return this.exhibit && this.exhibit.imagePaths.length ? this.exhibit.imagePaths[0] : null;
+  public get exhibitImages(): string[] {
+    return this.exhibit && this.exhibit.imagePaths.length ? this.exhibit.imagePaths: null;
   }
 
   private setExhibitId(): void {
@@ -53,6 +63,7 @@ export class ExhibitDetailsComponent implements OnInit {
         this.museumId = data.museumId;
 
         this.checkNavigationState();
+        carousel();
       });
   }
 
@@ -64,6 +75,7 @@ export class ExhibitDetailsComponent implements OnInit {
     }
 
     this.initMenuList();
+    this.initRelatedItems();
   }
 
   private initMenuList(): void {
@@ -85,5 +97,11 @@ export class ExhibitDetailsComponent implements OnInit {
         state,
       },
     ];
+  }
+
+  private initRelatedItems(): void {
+    const itemsCount = Math.min(this.exhibit.exhibitions.length, this.maxRelatedExhibitionsOnPage);
+    const relatedItems: RelatedItem[] = this.exhibit.exhibitions.map(x => ({name: x.name, href: `/exhibition/${x.id}`})).slice(0, itemsCount);
+    this.relatedItems = relatedItems;
   }
 }

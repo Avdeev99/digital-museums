@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DigitalMuseums.Api.Contracts.Requests.Account;
 using DigitalMuseums.Api.Contracts.Requests.Exhibit;
 using DigitalMuseums.Api.Contracts.Requests.Exhibition;
 using DigitalMuseums.Api.Contracts.Requests.Genre;
@@ -12,12 +13,15 @@ using DigitalMuseums.Api.Contracts.Responses.Exhibit;
 using DigitalMuseums.Api.Contracts.Responses.Exhibition;
 using DigitalMuseums.Api.Contracts.Responses.Museum;
 using DigitalMuseums.Api.Contracts.Responses.Souvenir;
+using DigitalMuseums.Api.Contracts.Responses.Statistics;
 using DigitalMuseums.Api.Contracts.ViewModels;
+using DigitalMuseums.Core.Domain.DTO.Account;
 using DigitalMuseums.Core.Domain.DTO.Cart;
 using DigitalMuseums.Core.Domain.DTO.Exhibit;
 using DigitalMuseums.Core.Domain.DTO.Exhibition;
 using DigitalMuseums.Core.Domain.DTO.Museum;
 using DigitalMuseums.Core.Domain.DTO.Souvenir;
+using DigitalMuseums.Core.Domain.DTO.Statistics;
 using DigitalMuseums.Core.Domain.Models;
 using DigitalMuseums.Core.Domain.Models.Auth;
 using Google.Apis.Auth;
@@ -32,7 +36,8 @@ namespace DigitalMuseums.Api.Mappings
         {
             CreateMap<BasePredefinedEntity, BasePredefinedEntityResponse>().ReverseMap();
 
-            CreateMap<AddGenreRequest, Genre>();
+            CreateMap<CreateGenreRequest, Genre>();
+            CreateMap<UpdateGenreRequest, Genre>();
            
             CreateMap<LinkUserToMuseumRequest, LinkUserToMuseumDto>();
             CreateMap<FilterMuseumsRequest, FilterMuseumsDto>();
@@ -42,7 +47,13 @@ namespace DigitalMuseums.Api.Mappings
                 .ForMember(dest => dest.ImagesData, opt => opt.MapFrom(s => s.Images));
 
 
-            CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<User, UserViewModel>()
+                .AfterMap((src, dest) =>
+                {
+                    dest.Role = src.Role?.Name;
+                    dest.MuseumId = src.Museum?.Id;
+                })
+                .ReverseMap();
             CreateMap<Role, RoleViewModel>().ReverseMap();
             
             CreateMap<AuthDto, AuthResponse>().ReverseMap();
@@ -97,6 +108,11 @@ namespace DigitalMuseums.Api.Mappings
             CreateMap<CurrentCartDetail, Api.Contracts.Responses.Cart.CurrentCartDetail>();
             CreateMap<SouvenirItem, Api.Contracts.Responses.Cart.SouvenirItem>();
             CreateMap<CurrentCart, GetCurrentCartResponse>();
+
+            CreateMap<ChangePasswordRequest, ChangePasswordDto>().ReverseMap();
+            
+            // Statistics
+            CreateMap<StatisticsDetails, GetStatisticsResponse>();
         }
     }
 }

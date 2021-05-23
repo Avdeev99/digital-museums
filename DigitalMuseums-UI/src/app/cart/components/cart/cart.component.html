@@ -1,0 +1,164 @@
+<section class="container p-0 pt-4">
+    <div class="container-fluid cf-paddings">
+        <div class="d-flex justify-content-between" id="basket-holder">
+            <div class="cart-items-holder">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-lg-1 title">Cart</div>
+                    <div class="col-lg-3 tar fs18 d-flex align-items-center justify-content-end">
+                        {{ cartItemsCount }} {{ 'cart.items' | translate }}
+                    </div>
+                </div>
+                <div class="cart-title-block"></div>
+                <div class="row basket-item" data-basketItem="basket-item" *ngFor="let orderDetailsItem of orderDetails">
+                    <div class="col-lg-3 p0">
+                        <div class="basket-item-image">
+                            <img [src]="getSouvenirImage(orderDetailsItem.souvenir.id)" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-9 p0 basket-item-description" id="basket-item-description"
+                        data-basketItemDescription="">
+                        <div class="d-flex justify-content-between">
+                            <div class="fw600 fs18">{{ orderDetailsItem.souvenir.name }}</div>
+                            <div>
+                                <a class="underline-link fw600"
+                                    (click)="deleteItem(orderDetailsItem.souvenir.id)">
+                                    {{ 'cart.remove' | translate }}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="list_item_badges_holder">
+                            <div class="list_item_badge">{{ orderDetailsItem.souvenir.tags[0] }}</div>
+                        </div>
+                        <div class="basket-item-description-price" id="basket-item-description-price-text"
+                            data-basketItemDescriptionPriceText="">{{ orderDetailsItem.price }} ₴</div>
+                        <input asp-for="@item.Game.Price" type="hidden" name="OrderDetails.Game.Price"
+                            id="basket-item-description-price-value" data-basketItemDescriptionPriceValue="" />
+                        <input asp-for="@item.Price" type="hidden" name="OrderDetails.Price"
+                            id="basket-item-description-details-price-value"
+                            data-basketItemDescriptionDetailsPriceValue="" />
+                        <div class="d-flex justify-content-start" id="basket-item-content-quantity-holder">
+                            <div 
+                                class="basket-item-description-quantity-button"
+                                [ngClass]="{ 'basket-item-description-quantity-button-disabled': isDecreaseBtnDisabled(orderDetailsItem.souvenir.id) }"
+                                (click)="decreaseItemQuantity(orderDetailsItem.souvenir.id)"
+                            >
+                                <svg width="13px" height="3px" viewBox="0 0 13 3" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="#FF7E2A" fill-rule="evenodd">
+                                        <g id="Cart" transform="translate(-275.000000, -945.000000)" fill-rule="nonzero"
+                                            stroke="#FF7E2A" stroke-width="1.8" class="basket-quantity-adjust-icon">
+                                            <g id="Game-1" transform="translate(85.000000, 818.000000)">
+                                                <g id="Quantity-Controls" transform="translate(184.000000, 116.000000)">
+                                                    <g id="Minus">
+                                                        <g id="Remove-Icon" transform="translate(6.000000, 11.500000)">
+                                                            <path d="M6.5,-5 L6.5,7" id="Path-Copy"
+                                                                transform="translate(6.500000, 1.000000) rotate(90.000000) translate(-6.500000, -1.000000) "
+                                                                fill="#FF7E2A"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="basket-item-description-quantity" id="basketItemQuantity-number"
+                                data-basketItemQuantityNumber="">{{ orderDetailsItem.quantity }}</div>
+                            <div 
+                                class="basket-item-description-quantity-button"
+                                [ngClass]="{ 'basket-item-description-quantity-button-disabled': isIncreaseBtnDisabled(orderDetailsItem.souvenir.id) }"
+                                (click)="increaseItemQuantity(orderDetailsItem.souvenir.id)"
+                            >
+                                <svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    id="basket-item-content-quantity-btn-plus"
+                                    data-basketItemContentQuantityBtnSvg="plus"
+                                    data-basketItemContentQuantityBtnPlus="">
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="#FF7E2A" fill-rule="evenodd">
+                                        <g id="Cart" transform="translate(-341.000000, -940.000000)" fill-rule="nonzero"
+                                            stroke="#FF7E2A" stroke-width="1.8" class="basket-quantity-adjust-icon">
+                                            <g id="Game-1" transform="translate(85.000000, 818.000000)">
+                                                <g id="Quantity-Controls" transform="translate(184.000000, 116.000000)">
+                                                    <g id="Plus" transform="translate(66.000000, 0.000000)">
+                                                        <g id="Add-Icon" transform="translate(6.000000, 6.500000)">
+                                                            <path d="M6.5,8.8817842e-16 L6.5,12" id="Path"></path>
+                                                            <path d="M6.5,-4.26325641e-14 L6.5,12" id="Path-Copy"
+                                                                transform="translate(6.500000, 6.000000) rotate(90.000000) translate(-6.500000, -6.000000) ">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-summary-holder">
+                <div class="order">
+                    <div class="order-title">{{ 'cart.delivery' | translate }}</div>
+                    <div class="order-details">
+                        <div class="d-flex justify-content-between mb15">
+                            <div>
+                                {{ 'location.country' | translate }}
+                                <app-select 
+                                    class="delivery-input"
+                                    [label]="'location.country' | translate"
+                                    [options]="countries$ | async"
+                                    [control]="formGroup.controls.countryId"
+                                    [disabled]="isDeliveryControlDisabled"
+                                >
+                                </app-select>
+                            </div>
+                            <div>
+                                {{ 'location.region' | translate }}
+                                <app-select 
+                                    class="delivery-input" 
+                                    [label]="'location.region' | translate"
+                                    [options]="regions$ | async"
+                                    [control]="formGroup.controls.regionId"
+                                    [disabled]="isDeliveryControlDisabled"
+                                ></app-select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mb15">
+                            <div>
+                                {{ 'location.city' | translate }}
+                                <app-select
+                                    class="delivery-input"
+                                    [label]="'location.city' | translate"
+                                    [options]="cities$ | async"
+                                    [control]="formGroup.controls.cityId"
+                                    [disabled]="isDeliveryControlDisabled"
+                                >
+                                </app-select>
+                            </div>
+                            <div> 
+                                {{ 'location.address' | translate }}
+                                <app-input
+                                    class="delivery-input"
+                                    [label]="'location.address' | translate"
+                                    [control]="formGroup.controls.address"
+                                    [readonly]="isDeliveryControlDisabled"
+                                >
+                                </app-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mb20">
+                        <div class="fs20 fw600">{{ 'cart.totalValue' | translate }}</div>
+                        <div class="fs20 fw600 orange" id="basket-total-value">{{ totalOrderPrice$ | async }} ₴</div>
+                    </div>
+                    <app-button
+                        class="button basket-checkout"
+                        [label]="'cart.checkout' | translate"
+                        [isDisabled]="!isFormValid"
+                    ></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

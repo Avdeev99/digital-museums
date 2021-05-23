@@ -7,6 +7,7 @@ import { api, storage } from './constants/api.constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAuthResponse } from './models/auth-response.model';
 import { switchMap, tap } from 'rxjs/operators';
+import { CurrentUserService } from '../shared/services/current-user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,8 @@ export class AuthService {
     private httpClient: HttpClient,
     private socialAuthService: SocialAuthService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private currentUserService: CurrentUserService,
   ) {}
 
   public isAuthenticated(): boolean {
@@ -38,7 +40,7 @@ export class AuthService {
       }),
       tap((authResponse: IAuthResponse) => {
         localStorage.setItem(storage.token, JSON.stringify(authResponse.token));
-        localStorage.setItem(storage.currentUser, JSON.stringify(authResponse.user));
+        this.currentUserService.setUser(authResponse.user);
 
         this.router.navigate([this.returnUrl]);
       })
@@ -52,7 +54,7 @@ export class AuthService {
     return this.httpClient.post(requestUrl, authRequest).pipe(
       tap((authResponse: IAuthResponse) =>{
         localStorage.setItem(storage.token, JSON.stringify(authResponse.token));
-        localStorage.setItem(storage.currentUser, JSON.stringify(authResponse.user));
+        this.currentUserService.setUser(authResponse.user);
 
         this.router.navigate([this.returnUrl]);
       }),
@@ -60,7 +62,6 @@ export class AuthService {
   }
 
   public logout(): void {
-    localStorage.removeItem(storage.token);
-    localStorage.removeItem(storage.currentUser);
+    this.currentUserService.logoutUser();
   }
 }

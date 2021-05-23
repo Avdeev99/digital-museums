@@ -1,4 +1,34 @@
 {
+    "home": {
+        "mainBlock": {
+            "firstHeader": "Way better than offline visits",
+            "secondHeader": "Check unforgettable exhibitions around the world staying home",
+            "hint": "visit with pleasure"
+        },
+        "infoBlock": {
+            "header": "Discover the world's best digital museums platform",
+            "firstElementHeader": "Endless options",
+            "firstElementBody":"Look for hundreds of museums, exhibits and souvenirs you won't find anywhere else. Enjoy looking online or order and get it delivered where you want it.",
+            "secondElementHeader": "Join us",
+            "secondElementBody": "If you are a musuem owner or you would like to create your own museum you can easily join us, create your personalized pages and add items to make them available for visitors.",
+            "thirdElementHeader": "Safe and fast",
+            "thirdElementBody": "Check hundreds of items online staing at home without masks, temperature checks and social distancing and stay safe. Get your order delivered right next to your door.",
+            "fourthElementHeader": "As easy as it is",
+            "fourthElementBody": "To buy a souvenir you just enter your post office address and card details and that's it. It's never been so easy.",
+            "button": "Find your ideal digital museum"
+        },
+        "statistics": {
+            "users": "Users",
+            "exhibitsPlaced": "Exhibits placed",
+            "orders": "Orders"
+        },
+        "bottomBlock": {
+            "title": "digitalizing in couple of clicks",
+            "header": "Create your own digital museum and earn money",
+            "body": "Digitalizing has never been so easy. If you are already a museum owner you might suffer from quarantine limitations. It's enough for you just to follow several simple steps in order to create your digital museum and fill it with all your exhibits, exhibitions and souvenirs. And so you can start earning money from your happy visitors. We're proud that we can make your life easier!",
+            "button": "Place a museum"
+        }
+    },
     "account": {
         "login": {
             "email": "Email",
@@ -8,6 +38,20 @@
             "errors": {
                 "invalid-credentials": "Invalid credentials."
             }
+        },
+        "change-password": {
+            "title": "Change Password",
+            "old-password": "Old password",
+            "new-password": "New password",
+            "confirm-new-password": "Confirm new password",
+            "changed-successful": "Password changed successfuly."
+        },
+        "user-info": {
+            "title": "Personal Info",
+            "changed-successful": "Personal info changed successfuly."
+        },
+        "errors": {
+            "invalid-password": "Invalid password."
         }
     },
     "museum": {
@@ -18,15 +62,20 @@
         "sortingMethod": "Sorting Method",
         "entity": "Museum",
         "user": "User",
+        "changed-successful": "Museum info changed successfuly.",
         "errors": {
-            "not-found": "The museum not found."
+            "not-found": "The museum not found.",
+            "linked-to-user": "You can't delete museum which is related to user!"
         },
         "buttons": {
-            "details": "Details"
-        }
+            "details": "Details",
+            "linkToUser": "Link to user"
+        },
+        "related": "Related"
     },
     "user": {
         "entity": "User",
+        "profile": "Profile",
         "errors": {
             "not-found": "The user not found."
         }
@@ -39,20 +88,69 @@
     },
     "exhibit": {
         "author": "Author",
-        "date": "Date"
+        "date": "Date",
+        "errors": {
+            "same-name-exist": "Exhibit with the same name already exists in museum!",
+            "related-to-exhibition": "You can't delete exhibit which is used by exhibition!"
+        }
+    },
+    "exhibition": {
+        "view": "View",
+        "errors": {
+            "same-name-exist": "Exhibition with the same name already exists in museum!"
+        }
     },
     "souvenir": {
         "price": "Price",
-        "availableUnits": "Available units"
+        "availableUnits": "Available units",
+        "totalPrice": "Total price",
+        "addToCart": "Add to cart",
+        "youWontBeChargedYet": "You won’t be charged yet",
+        "errors": {
+            "same-name-exist": "Souvenir with the same name already exists in museum!"
+        }
     },
     "menu": {
+        "menu": "Menu",
         "home": "Home",
         "museums": "Museums",
         "exhibits": "Exhibits",
         "exhibitions": "Exhibitions",
         "login": "Login",
         "museum": "Museum",
-        "souvenirs": "Souvenirs"
+        "souvenirs": "Souvenirs",
+        "cart": "Cart",
+        "profile": {
+            "user-info": "Personal info",
+            "change-password": "Change password",
+            "logout": "Logout",
+            "museum": "Museum",
+            "admin-portal": "Admin portal",
+            "genres": "Genres"
+        }
+    },
+    "cart": {
+        "pay": "Pay",
+        "delivery": "Delivery",
+        "totalValue": "Total Value",
+        "checkout": "Checkout",
+        "remove": "Remove",
+        "items": "Items"
+    },
+    "confirm-dialog": {
+        "title": "Confirmation",
+        "message": "Are you sure you want to do this?",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "genre": {
+        "errors": {
+            "used-by-museum": "You can't delete genre which is used by museum!",
+            "same-name-exist": "Genre with the same name already exists!"
+        }
+    },
+    "footer": {
+        "warning": "All Liberty Mutual liability insurance in the UA is offered through Insurance Agency. Terms, conditions, and exclusions apply."
     },
     "shared": {
         "controls": {
@@ -69,6 +167,13 @@
             "start": "Start",
             "goToMuseum": "Go To Museum",
             "details": "Details"
+        },
+        "validation-errors": {
+            "required": "This field is required",
+            "passwordsNotMatched": "Password and password confirmation must be equal"
+        },
+        "actions": {
+            "add": "Add"
         }
     }
 }

@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
+import { RelatedItem } from 'src/app/core/shared/models/related-item.model';
 import { MuseumDetails } from '../../models/museum-details.model';
 import { MuseumService } from '../../services/museum.service';
+
+declare var carousel: any;
 
 @Component({
   selector: 'app-museum-details',
@@ -13,10 +15,9 @@ import { MuseumService } from '../../services/museum.service';
 })
 export class MuseumDetailsComponent implements OnInit {
   public museum: MuseumDetails;
-  public menuList: Array<MenuItem>;
+  public relatedItems: Array<RelatedItem>;
 
   private museumId: number;
-  private backUrl: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,15 +25,15 @@ export class MuseumDetailsComponent implements OnInit {
     private router: Router,
   ) { 
     this.setMuseumId();
-    this.checkNavigationState();
+    this.initRelatedItems();
   }
 
   ngOnInit(): void {
     this.fetchMuseum();
   }
 
-  public get museumImage(): string {
-    return this.museum && this.museum.imagePaths.length ? this.museum.imagePaths[0] : null;
+  public get museumImages(): string[] {
+    return this.museum && this.museum.imagePaths.length ? this.museum.imagePaths: null;
   }
 
   private setMuseumId(): void {
@@ -49,37 +50,24 @@ export class MuseumDetailsComponent implements OnInit {
       )
       .subscribe(data => {
         this.museum = data;
+        carousel();
       });
   }
 
-  private checkNavigationState(): void {
-    const currentNavigationState: any = this.router.getCurrentNavigation();
+  private initRelatedItems(): void {
 
-    if (currentNavigationState && currentNavigationState.extras && currentNavigationState.extras.state) {
-      this.backUrl = currentNavigationState.extras.state.backUrl;
-    }
-
-    this.initMenuList();
-  }
-
-  private initMenuList(): void {
-    let state: any = this.backUrl ? { backUrl: this.backUrl } : {};
-
-    this.menuList = [
+    this.relatedItems = [
       {
         name: 'menu.exhibits',
-        href: `/exhibit/${this.museumId}/search`,
-        state,
+        href: `/exhibit/${this.museumId}/search`
       },
       {
         name: 'menu.exhibitions',
-        href: `/exhibition/${this.museumId}/search`,
-        state,
+        href: `/exhibition/${this.museumId}/search`
       },
       {
         name: 'menu.souvenirs',
-        href: `/souvenir/${this.museumId}/search`,
-        state,
+        href: `/souvenir/${this.museumId}/search`
       },
     ];
   }

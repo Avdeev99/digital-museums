@@ -1,30 +1,20 @@
+<app-spinner *ngIf="isFetching"></app-spinner>
 <form [formGroup]="formGroup">
-    <div>
-        <label>
-            {{ 'museum.entity' | translate }}
-            <app-select
-                [label]="'museum.entity' | translate"
-                [control]="formGroup.controls.museumId"
-                [options]="museums$ | async"
-            ></app-select>
-          </label>
-    </div>
-
-    <div>
+    <div class="form-group">
         <label>
             {{ 'shared.controls.name' | translate }}
             <app-input [label]="'shared.controls.name' | translate" [control]="formGroup.controls.name"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'shared.controls.description' | translate }}
             <app-input [label]="'shared.controls.description' | translate" [control]="formGroup.controls.description"></app-input>
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>
             {{ 'shared.controls.tags' | translate }}
             <app-chips 
@@ -35,7 +25,7 @@
           </label>
     </div>
 
-    <div>
+    <div class="form-group">
         <app-checkbox-group
             [options]="exhibitOptions"
             [label]="'shared.controls.exhibits' | translate"
@@ -44,17 +34,23 @@
         ></app-checkbox-group>
     </div>
 
+    <div class="form-group">
+        <div class="mb5">{{ 'shared.controls.images' | translate }}</div>
+        <input
+            multiple
+            type='file'
+            value=""
+            [formControl]="formGroup.controls.images"
+            (change)="onSelectFile($event.target.files)">
+    </div>
+
     <br>
 
-    <input
-        multiple
-        type='file'
-        value=""
-        [formControl]="formGroup.controls.images"
-        (change)="onSelectFile($event.target.files)">
-
-    <br>
-    <br>
     <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+
+    <div *ngIf="!!serverError" class="text-danger">
+        <br>
+        <div>{{ serverError | translate }}</div>
+    </div>
 </form>
 

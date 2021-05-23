@@ -18,7 +18,6 @@ namespace DigitalMuseums.Api.Contracts.Requests.Souvenir
         [Required]
         public int AvailableUnits { get; set; }
 
-        [Required]
         public List<string> Tags { get; set; }
         
         public List<IFormFile> Images { get; set; }

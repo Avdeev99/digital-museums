@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Core.Data.Contracts;
@@ -60,7 +61,7 @@ namespace DigitalMuseums.Core.Services
                 x => x.UserId == request.UserId && x.Status == OrderStatus.New);
             if (order == null)
             {
-                order = await CreateOrder(request);
+                order = await CreateOrder(request.UserId);
             }
 
             var orderDetail =
@@ -68,7 +69,7 @@ namespace DigitalMuseums.Core.Services
                     .GetAsync(x => x.OrderId == order.Id && x.SouvenirId == request.SouvenirId, TrackingState.Enabled);
             if (orderDetail == null)
             {
-                await CreateOrderDetail(request, order, souvenir);
+                await CreateOrderDetail(request.SouvenirId, request.Quantity, order, souvenir);
                 return;
             }
 
@@ -89,14 +90,14 @@ namespace DigitalMuseums.Core.Services
                 includes);
             if (order == null)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.OrderNotFoundCode, StatusCodes.Status404NotFound);
+                return null;
             }
 
             var result = _mapper.Map<CurrentCart>(order);
             return result;
         }
 
-        public async Task ProcessCart(int userId)
+        public async Task ProcessCartAsync(int userId)
         {
             var includes = new List<Expression<Func<Order, object>>>
             {
@@ -121,25 +122,104 @@ namespace DigitalMuseums.Core.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        private async Task CreateOrderDetail(UpdateCartItemDto request, Order order, Souvenir souvenir)
+        public async Task AddCartItemAsync(int userId, int souvenirId)
+        {
+            var souvenir = await _souvenirRepository.GetAsync(x => x.Id == souvenirId);
+            if (souvenir == null)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.SouvenirNotFoundCode);
+            }
+
+            var includes = new List<Expression<Func<Order, object>>>
+            {
+                o => o.OrderDetails
+            };
+
+            var order = await _orderRepository.GetAsync(
+                x => x.UserId == userId && x.Status == OrderStatus.New,
+                includes,
+                TrackingState.Enabled);
+            if (order == null)
+            {
+                order = await CreateOrder(userId);
+            }
+
+            var orderDetail = await _orderDetailsRepository.GetAsync(
+                x => x.OrderId == order.Id && x.SouvenirId == souvenirId,
+                TrackingState.Enabled);
+            if (orderDetail == null)
+            {
+                await CreateOrderDetail(souvenirId, 1, order, souvenir);
+                return;
+            }
+
+            orderDetail.Quantity++;
+            orderDetail.Price = souvenir.Price * orderDetail.Quantity;
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task DeleteCartItemAsync(int userId, int souvenirId)
+        {
+            var souvenir = await _souvenirRepository.GetAsync(x => x.Id == souvenirId);
+            if (souvenir == null)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.SouvenirNotFoundCode);
+            }
+
+            var includes = new List<Expression<Func<Order, object>>>
+            {
+                o => o.OrderDetails
+            };
+
+            var order = await _orderRepository.GetAsync(
+                x => x.UserId == userId && x.Status == OrderStatus.New,
+                includes,
+                TrackingState.Enabled);
+            if (order == null)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.OrderNotFoundCode);
+            }
+
+            var orderDetail = order.OrderDetails.FirstOrDefault(od => od.SouvenirId == souvenirId);
+            if (orderDetail == null)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.SouvenirNotFoundCode);
+            }
+
+            order.OrderDetails.Remove(orderDetail);
+
+            if (!order.OrderDetails.Any())
+            {
+                _orderRepository.Delete(order);
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        private async Task CreateOrderDetail(
+            int souvenirId,
+            int quantity,
+            Order order,
+            Souvenir souvenir)
         {
             var newOrderDetail = new SouvenirOrderDetail
             {
-                SouvenirId = request.SouvenirId,
+                SouvenirId = souvenirId,
                 OrderId = order.Id,
-                Quantity = request.Quantity,
-                Price = souvenir.Price * request.Quantity
+                Quantity = quantity,
+                Price = souvenir.Price * quantity
             };
             _orderDetailsRepository.Create(newOrderDetail);
             
             await _unitOfWork.SaveChangesAsync();
         }
 
-        private async Task<Order> CreateOrder(UpdateCartItemDto request)
+        private async Task<Order> CreateOrder(int userId)
         {
             var newOrder = new Order
             {
-                UserId = request.UserId,
+                UserId = userId,
                 Status = OrderStatus.New,
                 Created = _clock.GetUtcNow()
             };

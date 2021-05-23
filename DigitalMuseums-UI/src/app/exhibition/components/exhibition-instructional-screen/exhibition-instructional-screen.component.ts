@@ -1,8 +1,10 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
 import { ExhibitionInstructionalModel, InfoScreenType } from '../../models/exhibition.model';
 import { ExhibitionStepBase } from '../exhibition-step-base/exhibition-step-base';
+
+declare var carousel: any;
 
 @Component({
     selector: 'app-exhibition-instructional-screen',
@@ -14,6 +16,11 @@ export class ExhibitionInstructionalScreenComponent extends ExhibitionStepBase {
     @Input()
     data: ExhibitionInstructionalModel;
 
+    public menuList: Array<MenuItem>;
+
+    private backUrl: string;
+    private museumId: number;
+
     constructor(
         injector: Injector,
         private router: Router,
@@ -22,6 +29,24 @@ export class ExhibitionInstructionalScreenComponent extends ExhibitionStepBase {
     }
 
     ngOnInit(): void {
+        this.museumId = this.data.exhibition.museumId;
+
+        this.checkNavigationState();
+        carousel();
+    }
+
+    private checkNavigationState(): void {
+        const currentNavigationState: any = this.router.getCurrentNavigation();
+
+        if (currentNavigationState && currentNavigationState.extras && currentNavigationState.extras.state) {
+            this.backUrl = currentNavigationState.extras.state.backUrl;
+        }
+
+        this.initMenuList();
+    }
+
+    public get exhibitionImages(): string[] {
+        return this.data.exhibition && this.data.exhibition.imagePaths.length ? this.data.exhibition.imagePaths: null;
     }
 
     get isFinalSceen(): boolean {
@@ -46,4 +71,24 @@ export class ExhibitionInstructionalScreenComponent extends ExhibitionStepBase {
         const museumId: number = this.exhibitionService.getExhibitionMuseumId();
         this.router.navigate([`museum/${museumId}`]);
     }
+
+    private initMenuList(): void {
+        const state: { backUrl?: string } = this.backUrl ? { backUrl: this.backUrl } : {};
+        this.menuList = [
+          {
+            name: 'menu.museum',
+            href: `/museum/${this.museumId}`,
+            state,
+          },
+          {
+            name: 'menu.exhibits',
+            href: `/exhibit/${this.museumId}/search`
+          },
+          {
+            name: 'menu.souvenirs',
+            href: `/souvenir/${this.museumId}/search`,
+            state,
+          },
+        ];
+      }
 }

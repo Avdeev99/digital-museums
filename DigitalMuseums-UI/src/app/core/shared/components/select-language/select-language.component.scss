@@ -1,0 +1,29 @@
+@import '../../../../../assets/styles/variables.scss';
+
+.language-select ::ng-deep mat-form-field {
+    display: block;
+    max-width: 25%;
+    color: $white;
+}
+
+.language-select ::ng-deep mat-select {
+    color: $white;
+}
+
+.language-select ::ng-deep .mat-select-value {
+    color: $white;
+    display: table-cell;
+    max-width: 0;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.language-select ::ng-deep .mat-select-arrow {
+    color: $white;
+}
+
+.language-select ::ng-deep .mat-form-field-underline {
+    background-color: $white;
+}

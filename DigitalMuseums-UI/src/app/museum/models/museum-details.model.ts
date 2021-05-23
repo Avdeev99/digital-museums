@@ -9,5 +9,6 @@ export interface MuseumDetails {
     city: IOption;
     address: string;
     genre: IOption;
+    imagePath: string;
     imagePaths: string[];
 }

@@ -13,6 +13,7 @@ using DigitalMuseums.Infrastructure.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stripe;
+using AccountService = DigitalMuseums.Core.Services.AccountService;
 
 namespace DigitalMuseums.Core.Extensions
 {
@@ -27,7 +28,7 @@ namespace DigitalMuseums.Core.Extensions
         /// </summary>
         /// <param name="services">Services collection.</param>
         /// <returns>An instance of <see cref="IServiceCollection" />.</returns>
-        public static IServiceCollection AddCore(this IServiceCollection services)
+        public static IServiceCollection AddCore(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IGenreService, GenreService>();
@@ -36,18 +37,24 @@ namespace DigitalMuseums.Core.Extensions
             services.AddScoped<IExhibitService, ExhibitService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISouvenirService, SouvenirService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IClock, Clock>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ChargeService>();
+            services.AddScoped<ILoggedInPersonProvider, LoggedInPersonProvider>();
+            services.AddScoped<IAccountService, AccountService>();
             
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IExhibitionService, ExhibitionService>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped(typeof(IBasePredefinedEntityService<>), typeof(BasePredefinedEntityService<>));
 
             services.AddScoped<IOrderedFilterPipeline<Museum, FilterMuseumsDto>, MuseumFilterPipeline>();
             services.AddScoped<IOrderedFilterPipeline<Souvenir, FilterSouvenirsDto>, SouvenirFilterPipeline>();
             services.AddScoped<IFilterPipeline<Exhibit, FilterExhibitsDto>, ExhibitFilterPipeline>();
             services.AddScoped<IFilterPipeline<Exhibition, FilterExhibitionsDto>, ExhibitionFilterPipeline>();
+
+            services.Configure<SmtpClientOptions>(configuration.GetSection(nameof(SmtpClientOptions)));
 
             return services;
         }

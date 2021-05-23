@@ -1,20 +1,104 @@
-<app-submenu
-    [menuList]="menuList"
->
-</app-submenu>
+<section class="preview_slider">
+    <div class="slider" id="main-slider">
+        <div class="slider-wrapper">
+            <img *ngFor="let image of souvenirImages" alt="" class="slide" src="{{ image }}" />
+        </div>
 
-<br>
-<div *ngIf="souvenir">
-    <div>
-        <label>{{ 'shared.controls.name' | translate }}: {{ souvenir.name }}</label>
+        <div class="buttons">
+            <button id="prev"><i class="fas fa-arrow-left"></i></button>
+            <button id="next"><i class="fas fa-arrow-right"></i></button>
+        </div>
     </div>
-    
-    <div>
-        <label>{{ 'shared.controls.description' | translate }}: {{ souvenir.description }}</label>
-    </div>
-    
-    <div>
-        <img [src] ="souvenirImage" style="width: 600px;height: 400px;"> 
-    </div>
-</div>
 
+    <div class="preview_count_image_holder">
+        <span class="preview_count_image_first">1</span>
+        <span> of </span>
+        <span class="preview_count_image_second">1</span>
+    </div>
+</section>
+
+<section class="preview_after_slider_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 preview_info_section">
+
+                <div class="row preview_info_charcteristic_line">
+                    <div class="col-lg-3  preview_info_charcteristic_type souvenir_menu_holder">
+                        <app-submenu [menuList]="menuList"></app-submenu>
+                    </div> 
+                    <div class="col-lg-9"></div>
+                    <div class="col-lg-3 preview_info_charcteristic_type">{{ 'shared.controls.name' | translate }}</div>
+                    <div class="col-lg-9">
+                        <div class="preview_makemodel_line">
+                            <h1>
+                                <span class="preview_makemodel">
+                                {{souvenir.name}}
+                                </span>
+                                <span class="preview_year"></span>
+                            </h1>
+                        </div>
+
+                        <div class="preview_characteristics_line">
+                            <div class="preview_characteristics_line_first">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-cubes" title="Fuel consumption"></i><span>{{'souvenir.availableUnits' | translate}}: {{souvenir.availableUnits}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="preview_characteristics_line_second">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <i class="fas fa-tags" title="Doors count"></i><span>{{'shared.controls.tags' | translate}}: </span> 
+                                        <div *ngFor="let tag of souvenir.tags" class="list_item_badge">{{ tag }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row preview_info_charcteristic_line">
+                    <div class="col-lg-3 preview_info_charcteristic_type">{{ 'shared.controls.description' | translate }}</div>
+                    <div class="col-lg-9">
+                        <div class="preview_description_line">
+                            <div class="preview_description_holder" id="preview_description_holder">
+                                <div>
+                                   {{souvenir.description}}<br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 preview_form_section">
+                <div class="preview_form_section_price_holder">
+                    <div class="preview_form_section_price_currencyamount">
+                        <div class="preview_form_section_price_amount">{{souvenir.price}}</div>
+                        <div class="preview_form_section_price_currency">₴</div>
+                    </div>
+                    <span class="preview_form_section_price_perday"></span>
+                </div>
+                <div class="preview_form_section_form_holder">
+                    <form action="#" method="post" id="preview_form">
+                        <div class="preview_form_section_form_total_price_holder">
+                            <div class="d-flex justify-content-between">
+                                <div class="preview_form_section_form_total_price_info">
+                                    <div class="preview_form_section_form_total_price_info_title">
+                                        {{'souvenir.totalPrice' | translate}}
+                                    </div>
+                                </div>
+                                <div class="preview_form_section_form_total_price_amount">₴{{souvenir.price}}</div>
+                            </div>
+                        </div>
+                        <button (click)="addToCart()" class="btn submit-btn-lower">{{'souvenir.addToCart' | translate}}</button>
+
+                        <div class="preview_form_section_form_under_btn_alert">{{'souvenir.youWontBeChargedYet' | translate}}</div>
+
+                    </form>
+                </div>
+                <div class="preview_form_section_cut"></div>
+            </div>
+        </div>
+    </div>
+</section>
