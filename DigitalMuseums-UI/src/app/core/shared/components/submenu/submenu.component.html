@@ -1,6 +1,6 @@
 <button mat-icon-button [matMenuTriggerFor]="afterMenu">
   <mat-icon>{{ matIconType }}</mat-icon>
-  {{ title }}
+  {{ title | translate }}
 </button>
 <!-- <button mat-button [matMenuTriggerFor]="afterMenu">{{ title }}</button> -->
 <mat-menu #afterMenu="matMenu" xPosition="after" ngbDropdownMenu>

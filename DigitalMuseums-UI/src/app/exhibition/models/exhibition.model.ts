@@ -33,6 +33,7 @@ export interface Exhibition {
     exhibits: ExhibitDetails[];
     museumId: number;
     tags: string[];
+    imagePaths: string[];
     imagePath: string;
 }
 

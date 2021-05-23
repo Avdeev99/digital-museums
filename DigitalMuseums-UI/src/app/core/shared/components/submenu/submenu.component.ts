@@ -14,7 +14,7 @@ export class SubmenuComponent implements OnInit {
 
   @Input()
   @Optional() 
-  public title: string = "Menu";
+  public title: string = "menu.menu";
 
   @Input()
   @Optional()
