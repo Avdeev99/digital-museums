@@ -31,8 +31,4 @@ export class CustomInputComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
-  // public hasError(errorKey: string): boolean {
-
-  // }
 }

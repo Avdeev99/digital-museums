@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IOption } from 'src/app/core/form/form.interface';
@@ -24,6 +25,7 @@ export class LinkingMuseumToUserComponent implements OnInit {
     private museumService: MuseumService,
     private userService: UserService,
     private router: Router,
+    private dialogRef: MatDialogRef<LinkingMuseumToUserComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +43,8 @@ export class LinkingMuseumToUserComponent implements OnInit {
     const linkingMuseumToUser: LinkingMuseumToUser = this.formGroup.getRawValue();
     this.museumService.linkMuseumToUser(linkingMuseumToUser)
       .subscribe(() => {
-        this.router.navigate(['/']);
         this.isFetching = false;
+        this.dialogRef.close(true);
       });
   }
 

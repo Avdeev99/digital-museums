@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using AutoMapper;
 using DigitalMuseums.Api.Contracts.Requests.Genre;
 using DigitalMuseums.Api.Contracts.Responses;
@@ -22,11 +23,28 @@ namespace DigitalMuseums.Api.Controllers.Predefined
         }
 
         [HttpPost]
-        public IActionResult Create(AddGenreRequest request)
+        public async Task<IActionResult> CreateAsync(CreateGenreRequest request)
         {
             var genre = mapper.Map<Genre>(request);
-            _genreService.Create(genre);
+            await _genreService.CreateAsync(genre);
             
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(UpdateGenreRequest request)
+        {
+            var genre = mapper.Map<Genre>(request);
+            await _genreService.UpdateAsync(genre);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _genreService.DeleteAsync(id);
+
             return Ok();
         }
     }

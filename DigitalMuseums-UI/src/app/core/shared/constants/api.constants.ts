@@ -7,5 +7,6 @@ export const api: Record<string, string> = {
     souvenir: '/api/souvenir',
     exhibition: '/api/exhibition',
     cart: '/api/cart',
-    account: '/api/account'
+    account: '/api/account',
+    genre: '/api/genre'
   };

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -55,11 +56,14 @@ namespace DigitalMuseums.Core.Services
             var user = await _userRepository.GetAsync(u => u.Id == userId, includes);
             if (user?.Museum == null)
             {
-                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseum);
+                throw new BusinessLogicException(BusinessErrorCodes.UserWithoutMuseumCode);
             }
 
             var exhibit = _mapper.Map<Exhibit>(createExhibitDto);
             exhibit.MuseumId = user.Museum.Id;
+
+            await CheckSameNameExistenceAsync(exhibit.Name, exhibit.Id, exhibit.MuseumId);
+
             var exhibitResult = _exhibitRepository.Create(exhibit);
             await _unitOfWork.SaveChangesAsync();
 
@@ -81,7 +85,9 @@ namespace DigitalMuseums.Core.Services
             {
                 throw new BusinessLogicException(BusinessErrorCodes.ExhibitNotFoundCode);
             }
-            
+
+            await CheckSameNameExistenceAsync(updateExhibitDto.Name, exhibit.Id, exhibit.MuseumId);
+
             UpdateExhibitItem(exhibit, updateExhibitDto);
             
             await _unitOfWork.SaveChangesAsync();
@@ -123,10 +129,20 @@ namespace DigitalMuseums.Core.Services
 
         public async Task DeleteAsync(int id)
         {
-            var exhibit = await _exhibitRepository.GetAsync(museum => museum.Id == id, TrackingState.Enabled);
+            var includes = new List<Expression<Func<Exhibit, object>>>
+            {
+                x => x.Exhibitions
+            };
+
+            var exhibit = await _exhibitRepository.GetAsync(museum => museum.Id == id, includes, TrackingState.Enabled);
             if (exhibit == null)
             {
                 throw new BusinessLogicException(BusinessErrorCodes.ExhibitNotFoundCode, StatusCodes.Status404NotFound);
+            }
+
+            if (exhibit.Exhibitions.Any())
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.ExhibitRelatedToExhibitionCode);
             }
 
             exhibit.IsDeleted = true;
@@ -146,6 +162,17 @@ namespace DigitalMuseums.Core.Services
             {
                 exhibit.Images = null;
                 _imageService.AddAndUpload(updateExhibitDto.ImagesData);
+            }
+        }
+
+        private async Task CheckSameNameExistenceAsync(string name, int exhibitId, int museumId)
+        {
+            var isExisted = await _exhibitRepository.IsExistAsync(x =>
+                x.Name == name && x.Id != exhibitId && x.MuseumId == museumId);
+
+            if (isExisted)
+            {
+                throw new BusinessLogicException(BusinessErrorCodes.ExhibitWithSameNameExistCode);
             }
         }
     }

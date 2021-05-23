@@ -8,6 +8,7 @@ import { SouvenirDetails } from 'src/app/souvenir/models/souvenir-details.model'
 import { Souvenir } from 'src/app/souvenir/models/souvenir.model';
 import { SouvenirService } from 'src/app/souvenir/services/souvenir.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-souvenir-editing',
@@ -19,6 +20,7 @@ export class SouvenirEditingComponent implements OnInit {
   public souvenir: SouvenirDetails;
   public museums$: Observable<Array<IOption>>;
   public isFetching: boolean = false;
+  public serverError: string;
 
   private souvenirId: number;
   private selectedImages: FileList;
@@ -62,7 +64,14 @@ export class SouvenirEditingComponent implements OnInit {
       ? this.souvenirService.update(souvenir)
       : this.souvenirService.create(souvenir);
 
-    souvenirRequest.subscribe(() => {
+    souvenirRequest.pipe(
+      catchError((errorResponse: HttpErrorResponse) => {
+        this.isFetching = false;
+        this.serverError = errorResponse.error.message;
+
+        throw(errorResponse);
+      })
+    ).subscribe(() => {
       this.dialogRef.close(true);
       this.isFetching = false;
     });
@@ -106,7 +115,7 @@ export class SouvenirEditingComponent implements OnInit {
       description: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
       availableUnits: new FormControl(null, [Validators.required]),
-      tags: new FormControl([], [Validators.required]),
+      tags: new FormControl([]),
       images: new FormControl(null, [Validators.required]),
     });
   }

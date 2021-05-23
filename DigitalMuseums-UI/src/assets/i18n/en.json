@@ -32,11 +32,15 @@
         "sortingMethod": "Sorting Method",
         "entity": "Museum",
         "user": "User",
+        "changed-successful": "Museum info changed successfuly.",
         "errors": {
-            "not-found": "The museum not found."
+            "not-found": "The museum not found.",
+            "linked-to-user": "You can't delete museum which is related to user!"
         },
         "buttons": {
-            "details": "Details"
+            "details": "Details",
+            "linkToUser": "Link to user"
+
         }
     },
     "user": {
@@ -54,11 +58,23 @@
     },
     "exhibit": {
         "author": "Author",
-        "date": "Date"
+        "date": "Date",
+        "errors": {
+            "same-name-exist": "Exhibit with the same name already exists in museum!",
+            "related-to-exhibition": "You can't delete exhibit which is used by exhibition!"
+        }
+    },
+    "exhibition": {
+        "errors": {
+            "same-name-exist": "Exhibition with the same name already exists in museum!"
+        }
     },
     "souvenir": {
         "price": "Price",
-        "availableUnits": "Available units"
+        "availableUnits": "Available units",
+        "errors": {
+            "same-name-exist": "Souvenir with the same name already exists in museum!"
+        }
     },
     "menu": {
         "home": "Home",
@@ -91,6 +107,12 @@
         "message": "Are you sure you want to do this?",
         "yes": "Yes",
         "no": "No"
+    },
+    "genre": {
+        "errors": {
+            "used-by-museum": "You can't delete genre which is used by museum!",
+            "same-name-exist": "Genre with the same name already exists!"
+        }
     },
     "shared": {
         "controls": {

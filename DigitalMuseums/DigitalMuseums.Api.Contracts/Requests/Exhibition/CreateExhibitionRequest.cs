@@ -12,7 +12,6 @@ namespace DigitalMuseums.Api.Contracts.Requests.Exhibition
         [Required(AllowEmptyStrings = false)]
         public string Description { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
         public List<string> Tags { get; set; }
 
         [Required(AllowEmptyStrings = false)]

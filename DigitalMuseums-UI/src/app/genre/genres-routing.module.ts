@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AuthGuard } from "../core/auth/guards/auth.guard";
 import { AuthRole } from "../core/auth/models/auth-role.enum";
-import { GenreListComponent } from "./genre-list/genre-list.component";
+import { GenreListComponent } from "./components/genre-list/genre-list.component";
 
 const routes: Routes = [
     {

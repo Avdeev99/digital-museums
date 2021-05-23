@@ -4,68 +4,54 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/app/core/form/confirm-dialog/confirm-dialog.component';
-import { MuseumDetails } from '../../models/museum-details.model';
-import { MuseumService } from '../../services/museum.service';
-import { AddMuseumComponent } from '../add-museum/add-museum.component';
-import { LinkingMuseumToUserComponent } from '../linking-museum-to-user/linking-museum-to-user.component';
+import { GenreService } from 'src/app/core/shared/services/genre.service';
+import { GenreDetails } from '../../models/genre-details.model';
+import { GenreEditingComponent } from '../genre-editing/genre-editing.component';
 
 @Component({
-  selector: 'app-museum-list',
-  templateUrl: './museum-list.component.html',
-  styleUrls: ['./museum-list.component.scss']
+  selector: 'app-genre-list',
+  templateUrl: './genre-list.component.html',
+  styleUrls: ['./genre-list.component.scss']
 })
-export class MuseumListComponent implements OnInit {
-  public museums$: Observable<Array<MuseumDetails>>;
+export class GenreListComponent implements OnInit {
+  public genres$: Observable<Array<GenreDetails>>;
   public isFetching: boolean = false;
   public serverError: string;
 
   constructor(
-    private museumService: MuseumService,
+    private genreService: GenreService,
     private dialog: MatDialog) { }
 
   public ngOnInit(): void {
-    this.setMuseums();
+    this.setGenres();
   }
 
   public onAdd(): void {
-    const dialogRef = this.dialog.open(AddMuseumComponent, {
-      maxHeight: '90vh'
-    }).afterClosed().subscribe((dialogResult: boolean) => {
-        if (!dialogResult) {
-          return;
-        };
-
-        this.setMuseums();
-      });
-  }
-
-  public onLinkToUser(): void {
-    const dialogRef = this.dialog.open(LinkingMuseumToUserComponent)
+    const dialogRef = this.dialog.open(GenreEditingComponent)
       .afterClosed().subscribe((dialogResult: boolean) => {
         if (!dialogResult) {
           return;
         };
 
-        this.setMuseums();
+        this.setGenres();
       });
   }
 
-  public onEdit(museumId: number): void {
-    const dialogRef = this.dialog.open(AddMuseumComponent, {
+  public onEdit(genreId: number): void {
+    const dialogRef = this.dialog.open(GenreEditingComponent, {
       data: {
-        museumId: museumId
-      },
-      maxHeight: '90vh'
+        genreId: genreId
+      }
     }).afterClosed().subscribe((dialogResult: boolean) => {
       if (!dialogResult) {
         return;
       };
 
-      this.setMuseums();
+      this.setGenres();
     });
   }
 
-  public onDelete(museumId: number): void {
+  public onDelete(genreId: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
@@ -75,26 +61,26 @@ export class MuseumListComponent implements OnInit {
 
       this.isFetching = true;
 
-      this.museumService.delete(museumId).pipe(
+      this.genreService.delete(genreId).pipe(
         catchError((errorResponse: HttpErrorResponse) => {
           this.isFetching = false;
           this.serverError = errorResponse.error.message;
-  
+
           throw(errorResponse);
         })
       ).subscribe(() => {
         this.isFetching = false;
-        this.setMuseums();
+        this.setGenres();
       });
     });
   }
 
-  private setMuseums(): void {
+  private setGenres(): void {
     this.isFetching = true;
 
-    this.museums$ = this.museumService.getAll();
+    this.genres$ = this.genreService.getAll();
 
-    this.museums$.subscribe(() => {
+    this.genres$.subscribe(() => {
       this.isFetching = false;
       this.serverError = null;
     });

@@ -47,5 +47,10 @@
     <br>
 
     <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
+
+    <div *ngIf="!!serverError" class="text-danger">
+        <br>
+        <div>{{ serverError | translate }}</div>
+    </div>
 </form>
 

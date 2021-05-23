@@ -27,6 +27,22 @@
 
         public const string InvalidPassword = "account.errors.invalid-password";
 
-        public const string UserWithoutMuseum = "user.errors.no-museum";
+        public const string UserWithoutMuseumCode = "user.errors.no-museum";
+
+        public const string GenreNotFoundCode = "genre.errors.not-found";
+
+        public const string GenreUsedByMuseumCode = "genre.errors.used-by-museum";
+
+        public const string MuseumLinkedToUserCode = "museum.errors.linked-to-user";
+
+        public const string ExhibitRelatedToExhibitionCode = "exhibit.errors.related-to-exhibition";
+
+        public const string GenreWithSameNameExistCode = "genre.errors.same-name-exist";
+
+        public const string ExhibitWithSameNameExistCode = "exhibit.errors.same-name-exist";
+
+        public const string ExhibitionWithSameNameExistCode = "exhibition.errors.same-name-exist";
+
+        public const string SouvenirWithSameNameExistCode = "souvenir.errors.same-name-exist";
     }
 }

@@ -79,10 +79,12 @@
                 (change)="onSelectFile($event.target.files)">
         </div>
     </div>
+
+    <div *ngIf="isInfoChanged && !isModal" class="form-group">
+        <span class="text-success">{{ resultMessageKey | translate }}</span>
+    </div>
     
     <br>
-    <br>
-
 
     <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
 </form>
