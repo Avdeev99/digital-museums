@@ -1,24 +1,3 @@
-<!-- <app-submenu
-    [menuList]="menuList"
->
-</app-submenu>
-
-<br>
-
-<div *ngIf="museum">
-    <div>
-        <label>{{ 'museum.name' | translate }}: {{ museum.name }}</label>
-    </div>
-    
-    <div>
-        <label>{{ 'museum.description' | translate }}: {{ museum.description }}</label>
-    </div>
-    
-    <div>
-        <img [src] ="museumImage" style="width: 600px;height: 400px;"> 
-    </div>
-</div> -->
-
 <section class="preview_slider">
     <div class="slider" id="main-slider">
         <div class="slider-wrapper">
@@ -44,10 +23,6 @@
             <div class="col-lg-8 preview_info_section">
 
                 <div class="row preview_info_charcteristic_line">
-                    <!-- <div class="col-lg-3  preview_info_charcteristic_type souvenir_menu_holder">
-                        <app-submenu [menuList]="menuList"></app-submenu>
-                    </div> 
-                    <div class="col-lg-9"></div> -->
                     <div class="col-lg-3 preview_info_charcteristic_type">{{ 'shared.controls.name' | translate }}</div>
                     <div class="col-lg-9">
                         <div class="preview_makemodel_line">
@@ -107,7 +82,7 @@
             <div class="col-lg-4 preview_form_section">
                 <div class="preview_form_section_price_holder">
                     <div class="preview_form_section_price_currencyamount">
-                        <div class="preview_form_section_price_amount">{{ 'museum.related' | translate }}</div>
+                        <div class="preview_form_section_header">{{ 'museum.related' | translate }}</div>
                     </div>
                 </div>
                 <div class="preview_form_section_form_holder">

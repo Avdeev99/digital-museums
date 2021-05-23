@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { MenuItem } from 'src/app/core/shared/models/menu-item.model';
+import { RelatedItem } from 'src/app/core/shared/models/related-item.model';
 import { MuseumDetails } from '../../models/museum-details.model';
 import { MuseumService } from '../../services/museum.service';
 
@@ -15,10 +15,9 @@ declare var carousel: any;
 })
 export class MuseumDetailsComponent implements OnInit {
   public museum: MuseumDetails;
-  public relatedItems: Array<MenuItem>;
+  public relatedItems: Array<RelatedItem>;
 
   private museumId: number;
-  private backUrl: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +25,7 @@ export class MuseumDetailsComponent implements OnInit {
     private router: Router,
   ) { 
     this.setMuseumId();
-    this.checkNavigationState();
+    this.initRelatedItems();
   }
 
   ngOnInit(): void {
@@ -51,38 +50,24 @@ export class MuseumDetailsComponent implements OnInit {
       )
       .subscribe(data => {
         this.museum = data;
+        carousel();
       });
-      carousel();
-  }
-
-  private checkNavigationState(): void {
-    const currentNavigationState: any = this.router.getCurrentNavigation();
-
-    if (currentNavigationState && currentNavigationState.extras && currentNavigationState.extras.state) {
-      this.backUrl = currentNavigationState.extras.state.backUrl;
-    }
-
-    this.initRelatedItems();
   }
 
   private initRelatedItems(): void {
-    let state: any = this.backUrl ? { backUrl: this.backUrl } : {};
 
     this.relatedItems = [
       {
         name: 'menu.exhibits',
-        href: `/exhibit/${this.museumId}/search`,
-        state,
+        href: `/exhibit/${this.museumId}/search`
       },
       {
         name: 'menu.exhibitions',
-        href: `/exhibition/${this.museumId}/search`,
-        state,
+        href: `/exhibition/${this.museumId}/search`
       },
       {
         name: 'menu.souvenirs',
-        href: `/souvenir/${this.museumId}/search`,
-        state,
+        href: `/souvenir/${this.museumId}/search`
       },
     ];
   }

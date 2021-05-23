@@ -1790,13 +1790,17 @@ h2.index_search_holder_h2 {
     margin: 23px 0 0 5px;
 }
 
-.preview_form_section_price_amount {
+.preview_form_section_price_amount, .preview_form_section_header {
     font-size: 62px;
     font-weight: 400;
     line-height: 1;
     margin: 0 0 0 5px;
     text-align: center;
     color: #231f20;
+}
+
+.preview_form_section_header {
+    font-size: 45px;
 }
 
 .preview_form_section_price_perday {

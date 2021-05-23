@@ -1,3 +1,5 @@
+import { IOption } from "src/app/core/form/form.interface";
+
 export interface ExhibitDetails {
     id?: number;
     museumId: number;
@@ -8,4 +10,5 @@ export interface ExhibitDetails {
     tags: string[];
     imagePaths: string[];
     imagePath: string;
+    exhibitions: IOption[];
 }
