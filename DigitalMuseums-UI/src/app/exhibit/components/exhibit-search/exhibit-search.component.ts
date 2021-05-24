@@ -16,6 +16,7 @@ export class ExhibitSearchComponent implements OnInit {
   public formGroup: FormGroup;
   public exhibits$: Observable<Array<ExhibitDetails>>
   public menuList: Array<MenuItem>;
+  public isFetching: boolean = false;
 
   private backUrl: string;
   private museumId: number;
@@ -32,7 +33,8 @@ export class ExhibitSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.exhibits$ = this.exhibitService.getFiltered({
+
+    this.setFilteredExhibits({
       museumId: this.museumId,
     });
   }
@@ -44,6 +46,8 @@ export class ExhibitSearchComponent implements OnInit {
     };
     
     this.exhibits$ = this.exhibitService.getFiltered(filter);
+
+    this.setFilteredExhibits(filter);
   }
 
   public onDetails(exhibitId: number): void {
@@ -96,5 +100,13 @@ export class ExhibitSearchComponent implements OnInit {
         state,
       },
     ];
+  }
+
+  private setFilteredExhibits(filter: ExhibitFilter): void {
+    this.isFetching = true;
+
+    this.exhibits$ = this.exhibitService.getFiltered(filter);
+
+    this.exhibits$.subscribe(() => this.isFetching = false);
   }
 }

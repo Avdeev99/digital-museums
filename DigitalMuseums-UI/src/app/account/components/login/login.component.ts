@@ -15,6 +15,8 @@ import { AuthService } from '../../../core/auth/auth.service';
 export class LoginComponent implements OnInit, OnDestroy {
   public formGroup: FormGroup;
 
+  public isFetching: boolean = false;
+
   public constructor(
     private fb: FormBuilder,
     private authService: AuthService) {}
@@ -35,10 +37,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public externalAuth(providerId: string): void {
-    this.authService.externalAuth(providerId).subscribe();
+    this.isFetching = true;
+
+    this.authService.externalAuth(providerId).subscribe(() => {
+      this.isFetching = false;
+    });
   }
 
   public authenticate(): void {
+    this.isFetching = true;
+
     const authRequest: AuthRequest = this.formGroup.getRawValue();
 
     this.authService.authenticate(authRequest)
@@ -46,7 +54,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         catchError((error: HttpErrorResponse) => {
           return throwError(error);
         }),
-      ).subscribe();
+      ).subscribe(() => {
+        this.isFetching = false;
+      });
   }
 
   private initForm(): void {

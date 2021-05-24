@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
@@ -13,6 +14,8 @@ import { StatisticsService } from '../../statistics/services/statistics.service'
 export class HomeComponent implements OnInit {
   public statistics: StatisticsDetails;
 
+  public isFetching: boolean = false;
+
   constructor(
     private statisticsService: StatisticsService,
     private router: Router,
@@ -23,15 +26,20 @@ export class HomeComponent implements OnInit {
   }
 
   private fetchStatistics(): void {
+    this.isFetching = true;
+
     this.statisticsService.get()
       .pipe(
         catchError(err => {
           this.router.navigate(['/']);
+          this.isFetching = false;
+
           return throwError(err);
         }),
       )
       .subscribe(data => {
         this.statistics = data;
+        this.isFetching = false;
       });
   }
 
