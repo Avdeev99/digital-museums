@@ -17,6 +17,8 @@ export class MuseumDetailsComponent implements OnInit {
   public museum: MuseumDetails;
   public relatedItems: Array<RelatedItem>;
 
+  public isFetching: boolean = false;
+
   private museumId: number;
 
   constructor(
@@ -41,15 +43,20 @@ export class MuseumDetailsComponent implements OnInit {
   }
 
   private fetchMuseum(): void {
+    this.isFetching = true;
+
     this.museumService.get(this.museumId)
       .pipe(
         catchError(err => {
           this.router.navigate(['museum']);
+          this.isFetching = false;
+
           return throwError(err);
         }),
       )
       .subscribe(data => {
         this.museum = data;
+        this.isFetching = false;
         carousel();
       });
   }

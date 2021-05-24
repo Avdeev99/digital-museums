@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GenreService } from 'src/app/core/shared/services/genre.service';
@@ -18,6 +18,8 @@ export class MuseumsComponent extends MuseumBase implements OnInit {
   public formGroup: FormGroup;
   public museums$: Observable<Array<MuseumDetails>>
 
+  public isFetching: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private museumService: MuseumService,
@@ -29,9 +31,15 @@ export class MuseumsComponent extends MuseumBase implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isFetching = true;
+
     this.initForm();
     this.initSubscriptions();
     this.museums$ = this.museumService.getAll();
+
+    this.museums$.subscribe(() => {
+      this.isFetching = false;
+    });
   }
 
   public getMuseumImage(museum: MuseumDetails): string {
@@ -40,7 +48,14 @@ export class MuseumsComponent extends MuseumBase implements OnInit {
 
   public onSubmit(): void {
     const filter: MuseumFilter = this.formGroup.getRawValue();
+
+    this.isFetching = true;
+
     this.museums$ = this.museumService.getFiltered(filter);
+
+    this.museums$.subscribe(() => {
+      this.isFetching = false;
+    });
   }
 
   public onDetails(museumId: number): void {

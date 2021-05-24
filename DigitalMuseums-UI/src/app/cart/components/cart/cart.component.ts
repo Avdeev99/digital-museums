@@ -22,7 +22,10 @@ export class CartComponent extends LocationBase implements OnInit {
     public totalOrderPrice$: Observable<number>;
 
     public orderDetails: Array<CartItem>;
+    public totalOrderPrice: number;
     public formGroup: FormGroup;
+
+    public isFetching: boolean = false;
 
     constructor(
         private translateService: TranslateService,
@@ -49,6 +52,8 @@ export class CartComponent extends LocationBase implements OnInit {
     }
 
     ngOnInit(): void {
+        this.isFetching = true;
+
         this.initForm();
         this.initSubscriptions();
 
@@ -57,6 +62,12 @@ export class CartComponent extends LocationBase implements OnInit {
 
         this.cartDetails$.subscribe(data => {
             this.orderDetails = data?.orderDetails;
+
+            this.isFetching = false;
+        });
+
+        this.totalOrderPrice$.subscribe(value => {
+            this.totalOrderPrice = value;
         });
     }
 
@@ -82,8 +93,12 @@ export class CartComponent extends LocationBase implements OnInit {
     }
 
     checkout(): void {
-        this.openCheckout(10000, (token: any) => {
-            this.cartService.pay(token.id).subscribe();
+        const totalPrice = this.totalOrderPrice * 100;
+        this.openCheckout(totalPrice, (token: any) => {
+            this.cartService.pay(token.id).subscribe(() => {
+                this.cartStateService.loadCartDetails();
+                this.formGroup.reset();
+            });
         });
     }
 

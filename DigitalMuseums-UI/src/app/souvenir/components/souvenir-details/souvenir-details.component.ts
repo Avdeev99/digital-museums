@@ -19,6 +19,8 @@ export class SouvenirDetailsComponent implements OnInit {
   
   public menuList: Array<MenuItem>;
 
+  public isFetching: boolean = false;
+
   private backUrl: string;
   private souvenirId: number;
   private museumId: number;
@@ -36,8 +38,6 @@ export class SouvenirDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.fetchSouvenir();
   }
-
-
 
   public get souvenirImages(): string[] {
     return this.souvenir && this.souvenir.imagePaths.length ? this.souvenir.imagePaths: null;
@@ -58,10 +58,14 @@ export class SouvenirDetailsComponent implements OnInit {
   }
 
   private fetchSouvenir(): void {
+    this.isFetching = true;
+
     this.souvenirService.get(this.souvenirId)
       .pipe(
         catchError(err => {
           this.router.navigate(['/']);
+          this.isFetching = false;
+
           return throwError(err);
         }),
       )
@@ -69,6 +73,7 @@ export class SouvenirDetailsComponent implements OnInit {
         this.souvenir = data;
         this.museumId = data.museumId;
 
+        this.isFetching = false;
         this.checkNavigationState();
         carousel();
       });

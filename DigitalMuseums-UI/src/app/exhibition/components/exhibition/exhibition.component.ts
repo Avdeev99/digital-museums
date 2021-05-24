@@ -16,6 +16,7 @@ import { PrepareExhibitionService } from '../../services/prepare-exhibition.serv
 export class ExhibitionComponent implements OnInit {
     exhibition: Exhibition;
     exhibitionId: number;
+    isFetching: boolean = false;
 
     @ViewChild(ExhibitionStepContainerDirective, { static: true }) content: ExhibitionStepContainerDirective;
 
@@ -38,6 +39,7 @@ export class ExhibitionComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.isFetching = true;
         this.prepareExhibitionService.getExhibition(this.exhibitionId).subscribe(exhibition => {
             this.exhibition = exhibition;
 
@@ -45,6 +47,8 @@ export class ExhibitionComponent implements OnInit {
             this.getSteps();
             this.getActiveStep();
             this.startWatchingRouteChanges();
+
+            this.isFetching = false;
         });
     }
 

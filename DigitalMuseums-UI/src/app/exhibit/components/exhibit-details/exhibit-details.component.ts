@@ -19,6 +19,7 @@ export class ExhibitDetailsComponent implements OnInit {
 
   public menuList: Array<MenuItem>;
   public relatedItems: Array<RelatedItem>;
+  public isFetching: boolean = false;
 
   @Input()
   @Optional() 
@@ -51,10 +52,13 @@ export class ExhibitDetailsComponent implements OnInit {
   }
 
   private fetchExhibit(): void {
+    this.isFetching = true;
     this.exhibitService.get(this.exhibitId)
       .pipe(
         catchError(err => {
           this.router.navigate(['/']);
+          this.isFetching = false;
+
           return throwError(err);
         }),
       )
@@ -62,6 +66,7 @@ export class ExhibitDetailsComponent implements OnInit {
         this.exhibit = data;
         this.museumId = data.museumId;
 
+        this.isFetching = false;
         this.checkNavigationState();
         carousel();
       });
