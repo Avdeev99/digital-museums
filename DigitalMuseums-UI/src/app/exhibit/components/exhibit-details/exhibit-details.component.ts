@@ -25,8 +25,11 @@ export class ExhibitDetailsComponent implements OnInit {
   @Optional() 
   public isPartOfExhibition: boolean = false;
 
+  @Input()
+  @Optional() 
+  public exhibitId: number;
+
   private backUrl: string;
-  private exhibitId: number;
   private museumId: number;
 
   private maxRelatedExhibitionsOnPage: number = 5;
@@ -48,7 +51,9 @@ export class ExhibitDetailsComponent implements OnInit {
   }
 
   private setExhibitId(): void {
-    this.exhibitId = this.route.snapshot.params.id;
+    if(!this.exhibitId) {
+      this.exhibitId = this.route.snapshot.params.id;
+    }
   }
 
   private fetchExhibit(): void {

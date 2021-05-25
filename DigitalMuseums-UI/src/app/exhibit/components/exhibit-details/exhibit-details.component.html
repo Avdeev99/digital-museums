@@ -35,7 +35,7 @@
                         <div class="preview_makemodel_line">
                             <h1>
                                 <span class="preview_makemodel">
-                                {{exhibit.name}}
+                                {{exhibit?.name}}
                                 </span>
                                 <span class="preview_year"></span>
                             </h1>
@@ -45,7 +45,7 @@
                             <div class="preview_characteristics_line_first">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <i class="fas fa-male" title="Author"></i><span>{{'exhibit.author' | translate}}: {{exhibit.author}}</span>
+                                        <i class="fas fa-male" title="Author"></i><span>{{'exhibit.author' | translate}}: {{exhibit?.author}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -53,14 +53,14 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <i class="fas fa-tags" title="Tags"></i><span>{{'shared.controls.tags' | translate}}: </span> 
-                                        <div *ngFor="let tag of exhibit.tags" class="list_item_badge">{{ tag }}</div>
+                                        <div *ngFor="let tag of exhibit?.tags" class="list_item_badge">{{ tag }}</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="preview_characteristics_line_third">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <i class="fas fa-calendar-alt" title="Date"></i><span>{{'exhibit.date' | translate}}: {{exhibit.date}}</span>
+                                        <i class="fas fa-calendar-alt" title="Date"></i><span>{{'exhibit.date' | translate}}: {{exhibit?.date}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                         <div class="preview_description_line">
                             <div class="preview_description_holder" id="preview_description_holder">
                                 <div>
-                                   {{exhibit.description}}<br />
+                                   {{exhibit?.description}}<br />
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="preview_form_section_form_holder">
-                    <div *ngFor="let relatedItem of relatedItems" class="preview_form_section_form_holder_link_holder"><a routerLink="{{relatedItem.href}}" class="preview_form_section_form_holder_link">{{relatedItem.name}}</a></div>
+                    <div *ngFor="let relatedItem of relatedItems" class="preview_form_section_form_holder_link_holder"><a routerLink="{{relatedItem.href}}" class="preview_form_section_form_holder_link">{{relatedItem?.name}}</a></div>
                     <div class="preview_form_section_form_under_btn_alert"></div>
                 </div>
                 <div class="preview_form_section_cut"></div>
