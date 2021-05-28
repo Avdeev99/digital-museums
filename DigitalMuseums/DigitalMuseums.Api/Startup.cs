@@ -142,7 +142,12 @@ namespace DigitalMuseums.Api
             }
             else
             {
-                app.UseCors();
+                app.UseCors(corsPolicy =>
+                {
+                    corsPolicy.AllowAnyHeader();
+                    corsPolicy.AllowAnyMethod();
+                    corsPolicy.AllowAnyOrigin();
+                });
                 app.UseHsts();
             }
 

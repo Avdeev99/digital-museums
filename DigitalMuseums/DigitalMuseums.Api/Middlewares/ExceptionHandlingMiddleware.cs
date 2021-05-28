@@ -8,21 +8,8 @@ using Newtonsoft.Json;
 
 namespace DigitalMuseums.Api.Middlewares
 {
-    /// <summary>
-    /// The exception handling middleware.
-    /// </summary>
     public class ExceptionHandlingMiddleware : IMiddleware
     {
-        public ExceptionHandlingMiddleware()
-        {
-        }
-        
-        /// <summary>
-        /// The invoke async.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="next">The next.</param>
-        /// <returns>The <see cref="Task"/>.</returns>
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -59,7 +46,6 @@ namespace DigitalMuseums.Api.Middlewares
         
         private static string GetExceptionMessage(Exception ex)
         {
-
             return $"{ ex.Message}{(ex.InnerException == null ? "" : "\n" + GetExceptionMessage(ex.InnerException))}";
         }
     }

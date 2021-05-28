@@ -7,6 +7,7 @@ using DigitalMuseums.Core.Domain.Models.Domain;
 using DigitalMuseums.Core.Domain.Models.Location;
 using DigitalMuseums.Core.Domain.Models.Order;
 using DigitalMuseums.Core.Domain.Models.Secondary;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalMuseums.Data.DbContext
@@ -16,13 +17,16 @@ namespace DigitalMuseums.Data.DbContext
     /// </summary>
     public class DigitalMuseumsContext : Microsoft.EntityFrameworkCore.DbContext
     {
+        private readonly IHostingEnvironment _environment;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DigitalMuseumsContext"/> class.
         /// </summary>
         /// <param name="options">The options.</param>
-        public DigitalMuseumsContext(DbContextOptions options)
+        public DigitalMuseumsContext(DbContextOptions options, IHostingEnvironment environment)
             : base(options)
         {
+            _environment = environment;
             Database.EnsureCreated();
             SeedData();
         }
@@ -107,27 +111,21 @@ namespace DigitalMuseums.Data.DbContext
         {
             if (!Countries.Any())
             {
-                var insertCountriesFilePath = Path.Combine(Directory.GetParent(
-                        Directory.GetCurrentDirectory()).FullName,
-                    @"DigitalMuseums.Api\wwwroot\Scripts\InsertCountries.sql");
+                var insertCountriesFilePath = Path.Combine(_environment.WebRootPath, @"Scripts\InsertCountries.sql");
                 var insertCountriesQuery = File.ReadAllText(insertCountriesFilePath);
                 Database.ExecuteSqlRaw(insertCountriesQuery);
             }
 
             if (!Regions.Any())
             {
-                var insertRegionsFilePath = Path.Combine(Directory.GetParent(
-                        Directory.GetCurrentDirectory()).FullName,
-                    @"DigitalMuseums.Api\wwwroot\Scripts\InsertRegions.sql");
+                var insertRegionsFilePath = Path.Combine(_environment.WebRootPath, @"Scripts\InsertRegions.sql");
                 var insertRegionsQuery = File.ReadAllText(insertRegionsFilePath);
                 Database.ExecuteSqlRaw(insertRegionsQuery);
             }
 
             if (!Cities.Any())
             {
-                var insertCitiesFilePath = Path.Combine(Directory.GetParent(
-                        Directory.GetCurrentDirectory()).FullName,
-                    @"DigitalMuseums.Api\wwwroot\Scripts\InsertCities.sql");
+                var insertCitiesFilePath = Path.Combine(_environment.WebRootPath, @"Scripts\InsertCities.sql");
                 var insertCitiesQuery = File.ReadAllText(insertCitiesFilePath);
                 Database.ExecuteSqlRaw(insertCitiesQuery);
             }
