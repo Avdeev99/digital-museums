@@ -9,21 +9,31 @@
                   <h1 class="sans-serif">{{ 'account.login.login-btn' | translate }}</h1>
 
                   <form [formGroup]="formGroup">
-                    <div class="label">
-                        <div class="label-inside">
-                            <label for="email">{{ 'account.login.email' | translate }}</label>
+                    <div class="form-group">
+                        <div class="label">
+                            <div class="label-inside">
+                                <label for="email">{{ 'account.login.email' | translate }}</label>
+                            </div>
                         </div>
+                        <app-input class="login-input" [label]="'account.login.email' | translate" [control]="formGroup.controls.email" [inputType]="'email'"></app-input>
                     </div>
-                    <app-input class="login-input" [label]="'account.login.email' | translate" [control]="formGroup.controls.email"></app-input>
-                  
-                    <div class="label">
-                        <div class="label-inside">
-                            <label for="password">{{ 'account.login.password' | translate }}</label>
+                    
+                    <div class="form-group">
+                        <div class="label">
+                            <div class="label-inside">
+                                <label for="password">{{ 'account.login.password' | translate }}</label>
+                            </div>
                         </div>
+                        <app-input class="login-input" [label]="'account.login.password' | translate" [control]="formGroup.controls.password" [inputType]="'password'"></app-input>
                     </div>
-                    <app-input class="login-input" [label]="'account.login.password' | translate" [control]="formGroup.controls.password"></app-input>
+                    
                     <button class="btn submit-btn-lower" (click)="authenticate()">{{ 'account.login.login-btn' | translate }}</button>
                     <button class="btn submit-btn-lower submit-btn-lower-google-auth" (click)="externalAuth(googleProviderId)">{{ 'account.login.google-login-btn' | translate }}</button>
+
+                    <div *ngIf="isLoginFailed" class="form-group">
+                        <br>
+                        <span class="text-danger">{{ resultMessageKey | translate }}</span>
+                    </div>
                   </form>
               </div>
           </div>

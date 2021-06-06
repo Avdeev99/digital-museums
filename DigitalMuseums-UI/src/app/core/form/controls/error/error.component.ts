@@ -33,6 +33,10 @@ export class CustomErrorComponent implements OnInit {
                 this.errorMessage = this.translateService.instant('shared.validation-errors.passwordsNotMatched');
                 break;
             }
+            case 'email': {
+                this.errorMessage = this.translateService.instant('shared.validation-errors.invalidEmail');
+                break;
+            }
         }
 
         return true;

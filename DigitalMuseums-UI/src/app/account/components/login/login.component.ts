@@ -2,67 +2,85 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { AuthRequest } from '../../../core/auth/models/auth-request.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { Subject, throwError } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  public formGroup: FormGroup;
+    public formGroup: FormGroup;
 
-  public isFetching: boolean = false;
+    public isFetching: boolean = false;
+    public resultMessageKey: string = 'account.login.errors.invalid-credentials';
+    public isLoginFailed: boolean = null;
 
-  public constructor(
-    private fb: FormBuilder,
-    private authService: AuthService) {}
+    public constructor(
+        private fb: FormBuilder,
+        private authService: AuthService) { }
 
-  private unsubscribe$: Subject<void> = new Subject();
+    private unsubscribe$: Subject<void> = new Subject();
 
-  public get googleProviderId(): string {
-    return GoogleLoginProvider.PROVIDER_ID;
-  }
+    public get googleProviderId(): string {
+        return GoogleLoginProvider.PROVIDER_ID;
+    }
 
-  public ngOnInit(): void {
-    this.initForm();
-  }
+    public ngOnInit(): void {
+        this.initForm();
+    }
 
-  public ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
+    public ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
 
-  public externalAuth(providerId: string): void {
-    this.isFetching = true;
+    public externalAuth(providerId: string): void {
+        this.isFetching = true;
 
-    this.authService.externalAuth(providerId).subscribe(() => {
-      this.isFetching = false;
-    });
-  }
+        this.authService.externalAuth(providerId).pipe(
+            catchError((error: HttpErrorResponse) => {
+                this.isFetching = false;
+                this.isLoginFailed = true;
 
-  public authenticate(): void {
-    this.isFetching = true;
+                return throwError(error);
+            }),
+        ).subscribe(() => {
+            this.isFetching = false;
+            this.isLoginFailed = false;
+        });
+    }
 
-    const authRequest: AuthRequest = this.formGroup.getRawValue();
+    public authenticate(): void {
+        if (this.formGroup.invalid) {
+            return;
+        }
 
-    this.authService.authenticate(authRequest)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          return throwError(error);
-        }),
-      ).subscribe(() => {
-        this.isFetching = false;
-      });
-  }
+        this.isFetching = true;
 
-  private initForm(): void {
-    this.formGroup = this.fb.group({
-      email: new FormControl(''),
-      password: new FormControl(''),
-    });
-  }
+        const authRequest: AuthRequest = this.formGroup.getRawValue();
+
+        this.authService.authenticate(authRequest)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    this.isFetching = false;
+                    this.isLoginFailed = true;
+
+                    return throwError(error);
+                }),
+            ).subscribe(() => {
+                this.isFetching = false;
+                this.isLoginFailed = false;
+            });
+    }
+
+    private initForm(): void {
+        this.formGroup = this.fb.group({
+            email: [null, [Validators.required, Validators.email]],
+            password: [null, [Validators.required]],
+        });
+    }
 }
