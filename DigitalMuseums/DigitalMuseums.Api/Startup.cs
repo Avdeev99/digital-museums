@@ -58,8 +58,9 @@ namespace DigitalMuseums.Api
                 cfg.AddProfile<CartMappingProfile>();
             });
             services.AddApi();
-            
             services.AddHttpContextAccessor();
+            
+            services.ConfigureMaxFormDataSize();
 
             AuthConfiguratorExtensions.Configure(services, configuration);
             services.AddCloudinary(configuration);
