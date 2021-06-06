@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -26,6 +26,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { FileUploadComponent } from './controls/file-upload/file-upload.component';
+import { MatFileUploadModule } from 'mat-file-upload';
 
 @NgModule({
   declarations: [
@@ -39,13 +41,13 @@ import { SharedModule } from '../shared/shared.module';
     CheckboxGroupComponent,
     ListComponent,
     ConfirmDialogComponent,
+    FileUploadComponent,
   ],
   imports: [
     CommonModule,
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
     MatAutocompleteModule,
     MatChipsModule,
     MatIconModule,
@@ -56,6 +58,9 @@ import { SharedModule } from '../shared/shared.module';
     MatButtonModule,
     MatDialogModule,
     TranslateModule,
+    MatFileUploadModule,
+    MatFormFieldModule, 
+    MatInputModule,
   ],
   exports: [
     CustomSelectComponent,
@@ -71,6 +76,9 @@ import { SharedModule } from '../shared/shared.module';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    FileUploadComponent,
+    MatFormFieldModule, 
+    MatInputModule
   ],
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'never' } }],
 })

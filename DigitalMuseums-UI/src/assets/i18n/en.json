@@ -96,6 +96,7 @@
     },
     "exhibition": {
         "view": "View",
+        "thanksForWatching": "Thanks for watching!",
         "errors": {
             "same-name-exist": "Exhibition with the same name already exists in museum!"
         }
@@ -158,7 +159,8 @@
             "description": "Description",
             "images": "Images",
             "tags": "Tags",
-            "exhibits": "Exhibits"
+            "exhibits": "Exhibits",
+            "choose-files": "Choose File(s)"
         },
         "buttons": {
             "submit": "Submit",

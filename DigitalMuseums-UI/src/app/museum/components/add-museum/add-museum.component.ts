@@ -25,7 +25,7 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
     public isInfoChanged: boolean = null;
 
     public get isModal(): boolean {
-        return !!this.dialogData && !!this.dialogData.museumId;
+        return !!this.dialogData;
     }
 
     private museumId: number;

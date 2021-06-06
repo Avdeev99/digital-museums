@@ -32,6 +32,7 @@
     "angularx-social-login": "^2.2.1",
     "bootstrap": "^4.6.0",
     "jquery": "^3.5.1",
+    "mat-file-upload": "^11.1.2",
     "object-to-formdata": "^4.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

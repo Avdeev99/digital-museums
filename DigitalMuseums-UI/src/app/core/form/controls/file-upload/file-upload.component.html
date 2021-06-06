@@ -1,0 +1,20 @@
+<mat-form-field class="file-upload">
+    <input [formControl]="control" matInput [type]="'text'" style="display: none;"/>
+
+    <mat-file-upload
+        [labelText]="labelText"
+        [selectButtonText]="selectButtonText | translate"
+        [selectFilesButtonType]="selectFilesButtonType"
+        [allowMultipleFiles]="allowMultipleFiles"
+        [showUploadButton]="showUploadButton"
+        [customSvgIcon]="'close_custom'"
+        [acceptedTypes]="acceptedTypes"
+        (uploadClicked)="onUploadClicked($event)"
+        (selectedFilesChanged)="onSelectedFilesChanged($event)"
+    >
+    </mat-file-upload>
+
+    <mat-error>
+      <app-field-error [control]="control"></app-field-error>
+    </mat-error>
+</mat-form-field>

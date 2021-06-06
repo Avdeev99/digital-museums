@@ -69,22 +69,17 @@
     </div>
 
     <div class="form-group">
-        <div class="mb5">{{ 'museum.images' | translate }}</div>
-        <div>
-            <input
-                multiple
-                type='file'
-                value=""
-                [formControl]="formGroup.controls.images"
-                (change)="onSelectFile($event.target.files)">
-        </div>
+        <div>{{ 'museum.images' | translate }}</div>
+
+        <app-file-upload
+            [control]="formGroup.controls.images"
+            (selectedFilesChanged)="onSelectFile($event)"
+        ></app-file-upload>
     </div>
 
     <div *ngIf="isInfoChanged && !isModal" class="form-group">
         <span class="text-success">{{ resultMessageKey | translate }}</span>
     </div>
-    
-    <br>
 
     <app-button (click)="onSubmit()" [label]="'shared.buttons.submit' | translate"></app-button>
 </form>

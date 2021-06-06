@@ -71,17 +71,27 @@
                     </div>
                 </div>
                 <div class="preview_form_section_form_holder">
-                    <app-button
-                        class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
-                        *ngIf="isFinalSceen"
-                        (click)="handleBack()"
-                        [label]="'shared.buttons.previous' | translate"
-                    ></app-button>
-                    <app-button
-                        class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
-                        (click)="handlePrimaryButtonClick()"
-                        [label]="data.primaryButtonText | translate"
-                    ></app-button>
+                    <div *ngIf="isFinalSceen" class="preview_form_section_form_total_price_holder">
+                        {{ 'exhibition.thanksForWatching' | translate }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <app-button
+                            class="btn btn--primary btn--big exhibition-instructional-screen__next-btn"
+                            *ngIf="isFinalSceen"
+                            (click)="handleBack()"
+                            [label]="'shared.buttons.previous' | translate"
+                        ></app-button>
+                    </div>
+
+                    <div class="form-group">
+                        <app-button
+                            class="btn btn--primary btn--big exhibition-instructional-screen__next-btn form-group"
+                            (click)="handlePrimaryButtonClick()"
+                            [label]="data.primaryButtonText | translate"
+                        ></app-button>
+                    </div>
+                    
                     <div class="preview_form_section_form_under_btn_alert"></div>
                 </div>
                 <div class="preview_form_section_cut"></div>
