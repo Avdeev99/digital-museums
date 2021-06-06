@@ -23,8 +23,8 @@ namespace DigitalMuseums.Api.Controllers
         [HttpGet("base/list")]
         public async Task<IActionResult> GetBaseListAsync()
         {
-            var museums = await _userService.GetBaseListAsync();
-            var result = _mapper.Map<List<BasePredefinedEntityResponse>>(museums);
+            var users = await _userService.GetBaseListAsync();
+            var result = _mapper.Map<List<BasePredefinedEntityResponse>>(users);
 
             return Ok(result);
         }

@@ -28,7 +28,7 @@ namespace DigitalMuseums.Api.Middlewares
             }
             catch (Exception exception)
             {
-                int statusCode = (int)HttpStatusCode.InternalServerError;
+                var statusCode = (int)HttpStatusCode.InternalServerError;
                 var errorMessage = GetExceptionMessage(exception);
 
                 var errorResponse = new ErrorResponse(errorMessage, statusCode);

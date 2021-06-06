@@ -11,25 +11,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DigitalMuseums.Data.Repositories
 {
-    /// <inheritdoc />
     public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         where TEntity : class
     {
-        private readonly DbSet<TEntity> databaseSet;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseRepository{TEntity}"/> class.
-        /// </summary>
-        /// <param name="context">The <see cref="DbContext"/> reference.</param>
+        private readonly DbSet<TEntity> _databaseSet;
+        
         public BaseRepository(DigitalMuseumsContext context)
         {
-            databaseSet = context.Set<TEntity>();
+            _databaseSet = context.Set<TEntity>();
         }
 
-        /// <inheritdoc />
         public async Task<List<TEntity>> GetAllAsync(TrackingState trackingState = TrackingState.Disabled)
         {
-            var query = databaseSet.AsQueryable();
+            var query = _databaseSet.AsQueryable();
 
             if (trackingState == TrackingState.Disabled)
             {
@@ -39,12 +33,11 @@ namespace DigitalMuseums.Data.Repositories
             return await query.ToListAsync();
         }
 
-        /// <inheritdoc />
         public async Task<List<TEntity>> GetAllAsync(
             Expression<Func<TEntity, bool>> filter,
             TrackingState trackingState = TrackingState.Disabled)
         {
-            var query = databaseSet.AsQueryable();
+            var query = _databaseSet.AsQueryable();
 
             if (trackingState == TrackingState.Disabled)
             {
@@ -56,13 +49,12 @@ namespace DigitalMuseums.Data.Repositories
             return await query.ToListAsync();
         }
 
-        /// <inheritdoc />
         public async Task<List<TEntity>> GetAllAsync(
             Expression<Func<TEntity, bool>> filter,
             List<Expression<Func<TEntity, object>>> includes,
             TrackingState trackingState = TrackingState.Disabled)
         {
-            IQueryable<TEntity> query = databaseSet.AsQueryable();
+            IQueryable<TEntity> query = _databaseSet.AsQueryable();
 
             if (trackingState == TrackingState.Disabled)
             {
@@ -79,12 +71,11 @@ namespace DigitalMuseums.Data.Repositories
             return await query.ToListAsync();
         }
 
-        /// <inheritdoc />
         public async Task<TEntity> GetAsync(
             Expression<Func<TEntity, bool>> filter,
             TrackingState trackingState = TrackingState.Disabled)
         {
-            var query = databaseSet.AsQueryable();
+            var query = _databaseSet.AsQueryable();
 
             if (trackingState == TrackingState.Disabled)
             {
@@ -96,13 +87,12 @@ namespace DigitalMuseums.Data.Repositories
             return await query.FirstOrDefaultAsync();
         }
 
-        /// <inheritdoc />
         public async Task<TEntity> GetAsync(
             Expression<Func<TEntity, bool>> filter,
             List<Expression<Func<TEntity, object>>> includes,
             TrackingState trackingState = TrackingState.Disabled)
         {
-            var query = databaseSet.AsQueryable();
+            var query = _databaseSet.AsQueryable();
 
             if (trackingState == TrackingState.Disabled)
             {
@@ -119,45 +109,40 @@ namespace DigitalMuseums.Data.Repositories
             return await query.FirstOrDefaultAsync();
         }
 
-        /// <inheritdoc />
         public TEntity Create(TEntity entity)
         {
-            var createdEntity = databaseSet.Add(entity).Entity;
+            var createdEntity = _databaseSet.Add(entity).Entity;
             return createdEntity;
         }
 
-        /// <inheritdoc />
         public TEntity Update(TEntity entity)
         {
-            var updatedEntity = databaseSet.Update(entity).Entity;
+            var updatedEntity = _databaseSet.Update(entity).Entity;
             return updatedEntity;
         }
 
-        /// <inheritdoc />
         public void Delete(TEntity entity)
         {
-            databaseSet.Remove(entity);
+            _databaseSet.Remove(entity);
         }
 
-        /// <inheritdoc />
         public async void DeleteAsync(string id)
         {
-            var entity = await databaseSet.FindAsync(id);
+            var entity = await _databaseSet.FindAsync(id);
             if (entity != null)
             {
-                databaseSet.Remove(entity);
+                _databaseSet.Remove(entity);
             }
         }
 
         public async Task<int> CountAsync(Expression<Func<TEntity, bool>> filter)
         {
-            return await databaseSet.CountAsync(filter);
+            return await _databaseSet.CountAsync(filter);
         }
 
-        /// <inheritdoc />
         public async Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> condition)
         {
-            return await databaseSet.AnyAsync(condition);
+            return await _databaseSet.AnyAsync(condition);
         }
     }
 }
