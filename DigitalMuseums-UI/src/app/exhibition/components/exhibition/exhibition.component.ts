@@ -89,7 +89,11 @@ export class ExhibitionComponent implements OnInit {
     }
 
     private processActiveStep(activeStep: number): void {
-        const { component, id, data } = !!this.steps ? this.steps[activeStep] : null;
+        if (!this.steps) {
+            return;
+        }
+
+        const { component, id, data } = this.steps[activeStep];
         let componentRef;
 
         if (!!component) {
