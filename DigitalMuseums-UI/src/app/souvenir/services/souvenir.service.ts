@@ -56,9 +56,12 @@ export class SouvenirService {
 
     private getFormData(souvenir: Souvenir): FormData {
         const formData: FormData = serialize(souvenir);
-        Array.from(souvenir.images).forEach(image => {
-            formData.append('images', image, image.name);
-        });
+
+        if (!!souvenir.images) {
+            Array.from(souvenir.images).forEach(image => {
+                formData.append('images', image, image.name);
+            });
+        }
 
         return formData;
     }

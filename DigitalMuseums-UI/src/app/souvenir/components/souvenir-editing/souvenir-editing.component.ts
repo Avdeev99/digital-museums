@@ -116,7 +116,11 @@ export class SouvenirEditingComponent implements OnInit {
       price: new FormControl(null, [Validators.required]),
       availableUnits: new FormControl(null, [Validators.required]),
       tags: new FormControl([]),
-      images: new FormControl(null, [Validators.required]),
+      images: new FormControl(null),
     });
+
+    if (!this.souvenirId) {
+      this.formGroup.controls.images.setValidators(Validators.required);
+    }
   }
 }

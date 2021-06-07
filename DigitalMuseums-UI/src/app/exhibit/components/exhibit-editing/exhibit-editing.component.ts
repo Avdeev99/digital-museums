@@ -114,7 +114,11 @@ export class ExhibitEditingComponent implements OnInit, OnDestroy {
       author: new FormControl(null, [Validators.required]),
       date: new FormControl(null, [Validators.required]),
       tags: new FormControl([]),
-      images: new FormControl(null, [Validators.required]),
+      images: new FormControl(null),
     });
+
+    if (!this.exhibitId) {
+      this.formGroup.controls.images.setValidators(Validators.required);
+    }
   }
 }

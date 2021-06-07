@@ -30,8 +30,9 @@ export class ExhibitionListComponent implements OnInit {
   }
 
   public onAdd(): void {
-    const dialogRef = this.dialog.open(ExhibitionEditingComponent)
-      .afterClosed().subscribe((dialogResult: boolean) => {
+    const dialogRef = this.dialog.open(ExhibitionEditingComponent, {
+      minWidth: '50vw',
+    }).afterClosed().subscribe((dialogResult: boolean) => {
         if (!dialogResult) {
           return;
         };
@@ -44,7 +45,8 @@ export class ExhibitionListComponent implements OnInit {
     const dialogRef = this.dialog.open(ExhibitionEditingComponent, {
       data: {
         exhibitionId: exhibitionId
-      }
+      },
+      minWidth: '50vw',
     }).afterClosed().subscribe((dialogResult: boolean) => {
       if (!dialogResult) {
         return;

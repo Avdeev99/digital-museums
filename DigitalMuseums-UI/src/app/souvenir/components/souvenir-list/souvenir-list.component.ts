@@ -28,8 +28,9 @@ export class SouvenirListComponent implements OnInit {
   }
 
   public onAdd(): void {
-    const dialogRef = this.dialog.open(SouvenirEditingComponent)
-      .afterClosed().subscribe((dialogResult: boolean) => {
+    const dialogRef = this.dialog.open(SouvenirEditingComponent, {
+      minWidth: '50vw',
+    }).afterClosed().subscribe((dialogResult: boolean) => {
         if (!dialogResult) {
           return;
         };
@@ -42,7 +43,8 @@ export class SouvenirListComponent implements OnInit {
     const dialogRef = this.dialog.open(SouvenirEditingComponent, {
       data: {
         souvenirId: souvenirId
-      }
+      },
+      minWidth: '50vw',
     }).afterClosed().subscribe((dialogResult: boolean) => {
       debugger;
       if (!dialogResult) {

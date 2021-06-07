@@ -76,9 +76,12 @@ export class MuseumService {
 
     private getFormData(museum: Museum): FormData {
         const formData: FormData = serialize(museum);
-        Array.from(museum.images).forEach(image => {
-            formData.append('images', image, image.name);
-        });
+
+        if (!!museum.images) {
+            Array.from(museum.images).forEach(image => {
+                formData.append('images', image, image.name);
+            });
+        }
 
         return formData;
     }

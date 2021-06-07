@@ -30,6 +30,7 @@ export class MuseumListComponent implements OnInit {
   public onAdd(): void {
     const dialogRef = this.dialog.open(AddMuseumComponent, {
       maxHeight: '90vh',
+      minWidth: '50vw',
       data: {
         museumId: null
       },
@@ -58,7 +59,8 @@ export class MuseumListComponent implements OnInit {
       data: {
         museumId: museumId
       },
-      maxHeight: '90vh'
+      maxHeight: '90vh',
+      minWidth: '50vw',
     }).afterClosed().subscribe((dialogResult: boolean) => {
       if (!dialogResult) {
         return;

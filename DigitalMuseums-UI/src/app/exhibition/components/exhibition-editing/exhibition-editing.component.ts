@@ -122,8 +122,12 @@ export class ExhibitionEditingComponent implements OnInit {
       description: new FormControl(null, [Validators.required]),
       tags: new FormControl([]),
       exhibitIds: new FormControl(null, [Validators.required]),
-      images: new FormControl(null, [Validators.required]),
+      images: new FormControl(null),
     });
+
+    if (!this.exhibitionId) {
+      this.formGroup.controls.images.setValidators(Validators.required);
+    }
   }
 
   private initExhibits(): void {

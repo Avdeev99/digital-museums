@@ -58,7 +58,6 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
     }
 
     public onSubmit(): void {
-        debugger;
         if (this.formGroup.invalid) {
             return;
         }
@@ -137,8 +136,12 @@ export class AddMuseumComponent extends MuseumBase implements OnInit, OnDestroy 
             cityId: new FormControl(null, [Validators.required]),
             address: new FormControl(null, [Validators.required]),
             genreId: new FormControl(null, [Validators.required]),
-            images: new FormControl(null, [Validators.required]),
+            images: new FormControl(null),
         });
+
+        if (!this.museumId) {
+            this.formGroup.controls.images.setValidators(Validators.required);
+        }
     }
 
     private initSubscriptions(): void {

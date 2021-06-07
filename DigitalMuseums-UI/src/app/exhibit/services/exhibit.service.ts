@@ -56,9 +56,12 @@ export class ExhibitService {
 
     private getFormData(exhibit: Exhibit): FormData {
         const formData: FormData = serialize(exhibit);
-        Array.from(exhibit.images).forEach(image => {
-            formData.append('images', image, image.name);
-        });
+
+        if (!!exhibit.images) {
+            Array.from(exhibit.images).forEach(image => {
+                formData.append('images', image, image.name);
+            });
+        }
 
         return formData;
     }
