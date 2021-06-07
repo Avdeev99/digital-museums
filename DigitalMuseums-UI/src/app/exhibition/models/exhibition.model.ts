@@ -37,7 +37,7 @@ export interface Exhibition {
 }
 
 export interface StepsComponentModel<T extends ExhibitionStepBase> {
-    id: number;
+    id: number | string;
     type: StepType;
     component: Type<T>;
     data: ExhibitionInstructionalModel | ExhibitDetails;

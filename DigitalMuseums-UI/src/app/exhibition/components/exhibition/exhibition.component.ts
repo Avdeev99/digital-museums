@@ -82,38 +82,36 @@ export class ExhibitionComponent implements OnInit {
                 const activeStep = this.steps[this.activeStepIndex];
                 const { step } = this.activeRoute.snapshot.queryParams;
 
-                if (!!step && activeStep.id !== step) {
-                    this.goToStep(Number(step));
+                if (!!step && activeStep?.id !== step) {
+                    this.goToStep(step);
                 }
             });
     }
 
     private processActiveStep(activeStep: number): void {
-        if (!this.steps) {
-            return;
-        }
-
-        const { component, id, data } = this.steps[activeStep];
-        let componentRef;
-
-        if (!!component) {
-            const componentFactory = this.resolver.resolveComponentFactory<ExhibitionStepComponentsType>(component);
-
-            // createComponent method is async and blocks JS stream. We should wait while current component
-            // will be built to start building a new one.
-            if (this.isWorking) {
-                setTimeout(() => {
-                    this.processActiveStep(activeStep);
-                }, 100);
-                return;
+        if (!!this.steps && !!this.steps[activeStep]) {
+            const { component, id, data } = this.steps[activeStep];
+            let componentRef;
+    
+            if (!!component) {
+                const componentFactory = this.resolver.resolveComponentFactory<ExhibitionStepComponentsType>(component);
+    
+                // createComponent method is async and blocks JS stream. We should wait while current component
+                // will be built to start building a new one.
+                if (this.isWorking) {
+                    setTimeout(() => {
+                        this.processActiveStep(activeStep);
+                    }, 100);
+                    return;
+                }
+    
+                this.isWorking = true;
+                this.content.containerRef.clear();
+                componentRef = this.content.containerRef.createComponent(componentFactory);
+                componentRef.instance.data = data;
+                this.updateStepUrlTitle(id.toString());
+                this.isWorking = false;
             }
-
-            this.isWorking = true;
-            this.content.containerRef.clear();
-            componentRef = this.content.containerRef.createComponent(componentFactory);
-            componentRef.instance.data = data;
-            this.updateStepUrlTitle(id.toString());
-            this.isWorking = false;
         }
     }
 
@@ -126,10 +124,10 @@ export class ExhibitionComponent implements OnInit {
         this.navigationService.addQueryParameters(prepareParams);
     }
 
-    private goToStep(stepId: number): void {
+    private goToStep(stepId: string): void {
         const stepIndex = this.steps
-            .findIndex((s: StepsComponentModel<ExhibitionStepComponentsType>) => s.id === stepId);
-        const questionIndex = this.exhibitionService.getCurrentStepsTrackerNumberByExhibitId(stepId);
+            .findIndex((s: StepsComponentModel<ExhibitionStepComponentsType>) => s.id.toString() === stepId);
+        const questionIndex = this.exhibitionService.getCurrentStepsTrackerNumberByExhibitId(Number(stepId));
 
         this.exhibitionService.setCurrentStepIndex(stepIndex);
         this.exhibitionService.setCurrentStepsTrackerNumber(questionIndex);
