@@ -41,6 +41,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     public externalAuth(providerId: string): void {
         this.isFetching = true;
 
+        this.formGroup.controls.email.setErrors(null);
+        this.formGroup.controls.password.setErrors(null);
+        this.formGroup.markAsUntouched();
+
         this.authService.externalAuth(providerId).pipe(
             catchError((error: HttpErrorResponse) => {
                 this.isFetching = false;
