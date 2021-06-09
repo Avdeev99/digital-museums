@@ -160,6 +160,10 @@
                         [isDisabled]="!isFormValid"
                         (click)="checkout()"
                     ></app-button>
+
+                    <div *ngIf="!isOrderPayed" class="form-group">
+                        <span class="text-success">{{ resultMessageKey | translate }}</span>
+                    </div>
                 </div>
             </div>
         </div>

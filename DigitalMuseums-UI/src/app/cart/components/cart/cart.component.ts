@@ -1,3 +1,4 @@
+import { catchError } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,6 +21,9 @@ import { CartService } from '../../services/cart.service';
 export class CartComponent extends LocationBase implements OnInit {
     public cartDetails$: Observable<CartDetails>;
     public totalOrderPrice$: Observable<number>;
+
+    public resultMessageKey: string;
+    public isOrderPayed: boolean = null;
 
     public orderDetails: Array<CartItem>;
     public totalOrderPrice: number;
@@ -95,9 +99,17 @@ export class CartComponent extends LocationBase implements OnInit {
     checkout(): void {
         const totalPrice = this.totalOrderPrice * 100;
         this.openCheckout(totalPrice, (token: any) => {
-            this.cartService.pay(token.id).subscribe(() => {
+            this.cartService.pay(token.id).pipe(
+                catchError(result => {
+                    this.resultMessageKey = 'cart.errors.payment-failed';
+                    this.isOrderPayed = false;
+
+                    throw(result);
+                })
+            ).subscribe(() => {
                 this.cartStateService.loadCartDetails();
                 this.formGroup.reset();
+                this.isOrderPayed = true;
             });
         });
     }

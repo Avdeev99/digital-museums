@@ -37,6 +37,10 @@ export class CustomErrorComponent implements OnInit {
                 this.errorMessage = this.translateService.instant('shared.validation-errors.invalidEmail');
                 break;
             }
+            case 'min': {
+                this.errorMessage = this.translateService.instant('shared.validation-errors.min-value');
+                break;
+            }
         }
 
         return true;

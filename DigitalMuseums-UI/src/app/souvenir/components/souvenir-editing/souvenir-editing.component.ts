@@ -113,8 +113,8 @@ export class SouvenirEditingComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
-      price: new FormControl(null, [Validators.required]),
-      availableUnits: new FormControl(null, [Validators.required]),
+      price: new FormControl(null, [Validators.required, Validators.min(1)]),
+      availableUnits: new FormControl(null, [Validators.required, Validators.min(1)]),
       tags: new FormControl([]),
       images: new FormControl(null),
     });

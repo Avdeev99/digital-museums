@@ -136,7 +136,10 @@
         "totalValue": "Total Value",
         "checkout": "Checkout",
         "remove": "Remove",
-        "items": "Items"
+        "items": "Items",
+        "errors": {
+            "payment-failed": "Payment failed!"
+        }
     },
     "confirm-dialog": {
         "title": "Confirmation",
@@ -173,7 +176,8 @@
         "validation-errors": {
             "required": "This field is required",
             "passwordsNotMatched": "Password and password confirmation must be equal",
-            "invalidEmail": "Invalid email format"
+            "invalidEmail": "Invalid email format",
+            "min-value": "The field value must be 1 or more"
         },
         "actions": {
             "add": "Add"
