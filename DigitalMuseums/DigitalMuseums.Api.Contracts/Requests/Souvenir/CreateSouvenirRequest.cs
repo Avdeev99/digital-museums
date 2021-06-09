@@ -15,6 +15,8 @@ namespace DigitalMuseums.Api.Contracts.Requests.Souvenir
         [Required]
         public decimal Price { get; set; }
         
+        [Required]
+        [Range(1, int.MaxValue)]
         public int AvailableUnits { get; set; }
 
         public List<string> Tags { get; set; }

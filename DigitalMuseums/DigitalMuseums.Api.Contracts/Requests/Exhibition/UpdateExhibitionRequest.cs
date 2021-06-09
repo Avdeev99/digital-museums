@@ -22,7 +22,6 @@ namespace DigitalMuseums.Api.Contracts.Requests.Exhibition
         [Required]
         public List<int> ExhibitIds { get; set; }
 
-        [Required]
         public List<IFormFile> Images { get; set; }
     }
 }
