@@ -43,6 +43,10 @@ export class SouvenirDetailsComponent implements OnInit {
     return this.souvenir && this.souvenir.imagePaths.length ? this.souvenir.imagePaths: null;
   }
 
+  public get isAddDisabled(): boolean {
+    return !!this.souvenir && this.souvenir.availableUnits < 1;
+  }
+
   private setSouvenirId(): void {
     this.souvenirId = this.route.snapshot.params.id;
   }

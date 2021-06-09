@@ -155,7 +155,7 @@
                         <div class="fs20 fw600 orange" id="basket-total-value">{{ totalOrderPrice$ | async }} ₴</div>
                     </div>
                     <app-button
-                        class="button basket-checkout"
+                        class="button basket-checkout mb10"
                         [label]="'cart.checkout' | translate"
                         [isDisabled]="!isFormValid"
                         (click)="checkout()"

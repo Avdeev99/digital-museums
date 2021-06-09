@@ -93,7 +93,7 @@
                                 <div class="preview_form_section_form_total_price_amount">₴{{souvenir.price}}</div>
                             </div>
                         </div>
-                        <button (click)="addToCart()" class="btn submit-btn-lower">{{'souvenir.addToCart' | translate}}</button>
+                        <button (click)="addToCart()" class="btn submit-btn-lower" [disabled]="isAddDisabled">{{'souvenir.addToCart' | translate}}</button>
 
                         <div class="preview_form_section_form_under_btn_alert">{{'souvenir.youWontBeChargedYet' | translate}}</div>
 
